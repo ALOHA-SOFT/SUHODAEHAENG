@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-FormApplication<form>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.aloha.form.FormApplication",
+      "projectName": "form",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

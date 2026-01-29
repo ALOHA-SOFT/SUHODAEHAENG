@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aloha.form.mapper.FormsMapper">
+
+    <!-- 결과 매핑 -->
+    <resultMap id="FormsResultMap" type="Forms">
+        <id property="no" column="no" />
+        <result property="id" column="id" />
+        
+        <!-- 서비스 선택 -->
+        <result property="firstService" column="first_service" />
+        <result property="secondService" column="second_service" />
+        <result property="terms" column="terms" />
+        
+        <!-- 공통 양식 -->
+        <result property="stdDate" column="std_date" />
+        <result property="endDate" column="end_date" />
+        <result property="noiseDate" column="noise_date" />
+        <result property="address" column="address" />
+        <result property="detailAddress" column="detail_address" />
+        <result property="name" column="name" />
+        <result property="tel" column="tel" />
+        <result property="email" column="email" />
+        <result property="request" column="request" />
+        
+        <!-- (1) 입주민동의서 개별양식 -->
+        <result property="bizName" column="biz_name" />
+        <result property="managerName" column="manager_name" />
+        <result property="managerTel" column="manager_tel" />
+        <result property="residentName" column="resident_name" />
+        <result property="residentTel" column="resident_tel" />
+        <result property="residentSame" column="resident_same" />
+        <result property="residentCheck" column="resident_check" />
+        <result property="agreementTerms" column="agreement_terms" />
+        <result property="agreementConditionCheck" column="agreement_condition_check" />
+        <result property="content" column="content" />
+        
+        <!-- (2) 승강기 및 기타보양 개별양식 -->
+        <result property="protectionTypes" column="protection_types" />
+        <result property="protectionDescription" column="protection_description" />
+        <result property="elevatorProtection" column="elevator_protection" />
+        <result property="elevatorFloors" column="elevator_floors" />
+        <result property="entrancePassword" column="entrance_password" />
+        
+        <!-- (3) 행위허가 신청서 개별양식 -->
+        <result property="propertyStatus" column="property_status" />
+        <result property="constructionScope" column="construction_scope" />
+        <result property="constructionScopeDescription" column="construction_scope_description" />
+        
+        <!-- Base 클래스 필드 -->
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
+    </resultMap>
+
+    <!-- 설문 목록 조회 -->
+    <select id="selectFormsList" resultMap="FormsResultMap">
+        SELECT 
+            no, id, first_service, second_service, terms,
+            std_date, end_date, noise_date, address, detail_address,
+            name, tel, email, request,
+            biz_name, manager_name, manager_tel,
+            resident_name, resident_tel, resident_same, resident_check,
+            agreement_terms, agreement_condition_check, content,
+            protection_types, protection_description, elevator_protection, elevator_floors, entrance_password,
+            property_status, construction_scope, construction_scope_description,
+            created_at, updated_at
+        FROM forms
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 설문 상세 조회 -->
+    <select id="selectFormsById" parameterType="String" resultMap="FormsResultMap">
+        SELECT 
+            no, id, first_service, second_service, terms,
+            std_date, end_date, noise_date, address, detail_address,
+            name, tel, email, request,
+            biz_name, manager_name, manager_tel,
+            resident_name, resident_tel, resident_same, resident_check,
+            agreement_terms, agreement_condition_check, content,
+            protection_types, protection_description, elevator_protection, elevator_floors, entrance_password,
+            property_status, construction_scope, construction_scope_description,
+            created_at, updated_at
+        FROM forms
+        WHERE id = #{id}
+    </select>
+
+
+    <select id="listWithParams" parameterType="map" resultMap="FormsResultMap">
+        SELECT *
+        FROM forms
+        <where>
+            <if test="queryParams.search != null and queryParams.search != ''">
+                AND name LIKE CONCAT('%', #{queryParams.search}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+
+
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aloha.form.mapper.SchedulesMapper">
+
+    <!-- 결과 매핑 -->
+    <resultMap id="SchedulesResultMap" type="Schedules">
+        <id property="no" column="no" />
+        <result property="id" column="id" />
+        <result property="formNo" column="form_no" />
+        <result property="title" column="title" />
+        <result property="note" column="note" />
+        <result property="start" column="start" />
+        <result property="end" column="end" />
+        <result property="color" column="color" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
+        <association property="form" column="form_no" javaType="Forms" select="selectFormsByNo"></association>
+    </resultMap>
+
+    <!-- 일정 목록 조회 -->
+    <select id="selectSchedulesList" resultMap="SchedulesResultMap">
+        SELECT 
+            no, id, form_no, title, note, start, end, color,
+            created_at, updated_at
+        FROM schedules
+        ORDER BY start ASC
+    </select>
+
+    <!-- 특정 기간 일정 조회 -->
+    <select id="selectSchedulesByDateRange" resultMap="SchedulesResultMap">
+        SELECT *
+        FROM schedules
+        -- 시작일이 기준
+        WHERE start &gt;= #{startDate} AND start &lt;= #{endDate}
+        ORDER BY start ASC
+    </select>
+
+    <!-- 설문 기반 일정 조회 -->
+    <select id="selectSchedulesByFormNo" parameterType="Long" resultMap="SchedulesResultMap">
+        SELECT 
+            no, id, form_no, title, note, start, end, color,
+            created_at, updated_at
+        FROM schedules
+        WHERE form_no = #{formNo}
+        ORDER BY start ASC
+    </select>
+
+    <!-- 설문 기반 일정 자동 생성 -->
+    <insert id="insertSchedulesFromForm" parameterType="Long">
+        INSERT INTO schedules (id, form_no, title, note, start, end, color)
+        SELECT 
+            UUID(),
+            f.no,
+            -- CONCAT(f.name, ' - ', f.address, ' ', f.detail_address),
+            f.name,
+            f.content,
+            f.std_date,
+            f.end_date,
+            '#007bff'
+        FROM forms f
+        WHERE f.no = #{formNo}
+    </insert>
+
+
+    <select id="listWithParams" parameterType="map" resultMap="SchedulesResultMap">
+        SELECT *
+        FROM schedules
+        <where>
+            <if test="queryParams.search != null and queryParams.search != ''">
+                AND 
+                    ( title LIKE CONCAT('%', #{queryParams.search}, '%')
+                    OR note LIKE CONCAT('%', #{queryParams.search}, '%')
+                    )
+            </if>
+        </where>
+        ORDER BY start ASC
+    </select>
+
+    <select id="selectFormsByNo" resultType="Forms">
+        SELECT *
+        FROM forms
+        WHERE no = #{form_no}
+    </select>
+
+
+
+
+</mapper>

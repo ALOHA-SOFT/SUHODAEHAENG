@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설문 작성 완료</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .email-header {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .email-header p {
+            margin: 10px 0 0 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .email-body {
+            padding: 40px 30px;
+        }
+        
+        .success-message {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .success-icon {
+            font-size: 48px;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        
+        .success-text {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .success-subtext {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .form-details {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .form-details h3 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 18px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+        
+        .detail-label {
+            width: 120px;
+            font-weight: bold;
+            color: #555;
+            flex-shrink: 0;
+        }
+        
+        .detail-value {
+            flex: 1;
+            color: #333;
+        }
+        
+        .section-divider {
+            border-top: 1px solid #e9ecef;
+            margin: 20px 0;
+            padding-top: 20px;
+        }
+        
+        .info-box {
+            background-color: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .info-box h4 {
+            margin: 0 0 10px 0;
+            color: #007bff;
+            font-size: 16px;
+        }
+        
+        .info-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .contact-info {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .contact-info h4 {
+            margin: 0 0 15px 0;
+            color: #333;
+        }
+        
+        .contact-details {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .email-footer {
+            background-color: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .footer-logo {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .email-container {
+                margin: 10px;
+                border-radius: 5px;
+            }
+            
+            .email-header {
+                padding: 20px;
+            }
+            
+            .email-body {
+                padding: 30px 20px;
+            }
+            
+            .detail-row {
+                flex-direction: column;
+            }
+            
+            .detail-label {
+                width: auto;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- 헤더 -->
+        <div class="email-header">
+            <h1>📋 설문 작성 완료</h1>
+            <p>수호대행</p>
+        </div>
+        
+        <!-- 본문 -->
+        <div class="email-body">
+            <!-- 성공 메시지 -->
+            <div class="success-message">
+                <div class="success-icon">✅</div>
+                <div class="success-text">설문 작성이 완료되었습니다!</div>
+                <div class="success-subtext">접수해 주셔서 감사합니다.</div>
+            </div>
+            
+            <!-- 설문 상세 정보 -->
+            <div class="form-details">
+                <h3>📝 접수 정보</h3>
+                
+                <div class="detail-row">
+                    <div class="detail-label">접수 일시:</div>
+                    <div class="detail-value" th:text="${formattedDate}">2024-01-01 14:30</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">신청인명:</div>
+                    <div class="detail-value" th:text="${forms.name}">홍길동</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">연락처:</div>
+                    <div class="detail-value" th:text="${forms.tel}">010-1234-5678</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">주소:</div>
+                    <div class="detail-value">
+                        <span th:text="${forms.address}">서울시 강남구 테헤란로 123</span><br>
+                        <span th:text="${forms.detailAddress}">101동 101호</span>
+                    </div>
+                </div>
+                
+                <div class="section-divider"></div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">서비스 1:</div>
+                    <div class="detail-value" th:text="${firstServiceText}">입주민 동의서</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">서비스 2:</div>
+                    <div class="detail-value" th:text="${secondServiceText}">방충망 시공</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">공사 기간:</div>
+                    <div class="detail-value">
+                        <span th:text="${#dates.format(forms.stdDate, 'yyyy-MM-dd')}">2024-01-15</span> ~ 
+                        <span th:text="${#dates.format(forms.endDate, 'yyyy-MM-dd')}">2024-01-20</span>
+                    </div>
+                </div>
+                
+                <div class="detail-row" th:if="${forms.noiseStdDate != null and forms.noiseEndDate != null}">
+                    <div class="detail-label">소음 발생:</div>
+                    <div class="detail-value">
+                        <span th:text="${#dates.format(forms.noiseStdDate, 'yyyy-MM-dd')}">2024-01-16</span> ~ 
+                        <span th:text="${#dates.format(forms.noiseEndDate, 'yyyy-MM-dd')}">2024-01-19</span>
+                    </div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">결제 방법:</div>
+                    <div class="detail-value" th:text="${payMethodText}">네이버</div>
+                </div>
+                
+                <div class="detail-row" th:if="${forms.content != null and forms.content != ''}">
+                    <div class="detail-label">공사 내용:</div>
+                    <div class="detail-value" th:text="${forms.content}">바닥재 교체 및 벽지 도배</div>
+                </div>
+            </div>
+            
+            <!-- 안내 정보 -->
+            <div class="info-box">
+                <h4>📌 처리 안내</h4>
+                <ul>
+                    <li>담당자가 접수 내용을 검토한 후 연락드릴 예정입니다.</li>
+                    <li>승인 완료 후 공사 일정을 확정해 드리겠습니다.</li>
+                    <li>문의사항이 있으시면 아래 연락처로 문의해 주세요.</li>
+                </ul>
+            </div>
+            
+            <!-- 연락처 정보 -->
+            <div class="contact-info">
+                <h4>📞 문의처</h4>
+                <div class="contact-details">
+                    <strong>고객센터:</strong> 1588-0000<br>
+                    <strong>운영시간:</strong> 평일 09:00 ~ 18:00<br>
+                    <strong>이메일:</strong> support@수호대행.com
+                </div>
+            </div>
+        </div>
+        
+        <!-- 푸터 -->
+        <div class="email-footer">
+            <div class="footer-logo">수호대행</div>
+            <div>본 메일은 발신전용입니다. 문의사항은 고객센터를 이용해 주세요.</div>
+        </div>
+    </div>
+</body>
+</html>

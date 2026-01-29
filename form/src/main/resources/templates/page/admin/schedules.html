@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layouts/admin/admin_layout}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>스케줄 관리 - 수호대행</title>
+  <style>
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #f8f9fa;
+    }
+    
+    .page-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    
+    .btn-success {
+      background-color: #28a745;
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background-color: #218838;
+    }
+    
+    .schedules-table-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    
+    .schedules-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .schedules-table th {
+      background-color: #f8f9fa;
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+      color: #555;
+      border-bottom: 2px solid #e9ecef;
+    }
+    
+    .schedules-table td {
+      padding: 15px;
+      border-bottom: 1px solid #f8f9fa;
+      vertical-align: middle;
+    }
+    
+    .schedules-table tr:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .schedule-title {
+      font-weight: 600;
+      color: #333;
+      font-size: 16px;
+    }
+    
+    .schedule-note {
+      font-size: 14px;
+      color: #666;
+      margin-top: 5px;
+    }
+    
+    .date-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .date-range {
+      font-size: 14px;
+      color: #333;
+      font-weight: 500;
+    }
+    
+    .date-created {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .color-badge {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      border: 2px solid #e9ecef;
+    }
+    
+    .form-link {
+      padding: 6px 12px;
+      background-color: #e7f3ff;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #007bff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .form-link:hover {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .action-btn {
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    
+    .action-btn.view {
+      background-color: #17a2b8;
+      color: white;
+    }
+    
+    .action-btn.view:hover {
+      background-color: #138496;
+    }
+    
+    .action-btn.edit {
+      background-color: #ffc107;
+      color: #212529;
+    }
+    
+    .action-btn.edit:hover {
+      background-color: #e0a800;
+    }
+    
+    .action-btn.delete {
+      background-color: #dc3545;
+      color: white;
+    }
+    
+    .action-btn.delete:hover {
+      background-color: #c82333;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+    
+    .empty-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+    
+    .empty-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .empty-description {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    
+    .search-bar {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .search-input {
+      flex: 1;
+      min-width: 300px;
+      padding: 10px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+    
+    @media (max-width: 768px) {
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+      
+      .header-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      
+      .schedules-table-container {
+        overflow-x: auto;
+      }
+      
+      .schedules-table {
+        min-width: 800px;
+      }
+      
+      .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .search-input {
+        width: 100%;
+        min-width: auto;
+      }
+    }
+    
+    .filter-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .form-control {
+      padding: 10px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+    
+    .table-container {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .table-header {
+      background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+      color: white;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .table-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    .table-meta {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    
+    .data-table th {
+      background: #f8f9fa;
+      padding: 15px 20px;
+      text-align: left;
+      font-weight: 600;
+      color: #333;
+      border-bottom: 2px solid #dee2e6;
+    }
+    
+    .data-table td {
+      padding: 15px 20px;
+      border-bottom: 1px solid #dee2e6;
+      vertical-align: middle;
+    }
+    
+    .data-table tbody tr:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .schedule-title {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .schedule-subtitle {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .date-range {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .start-date {
+      font-weight: 600;
+      color: #28a745;
+    }
+    
+    .end-date {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .status-upcoming {
+      background-color: #e7f3ff;
+      color: #007bff;
+    }
+    
+    .status-ongoing {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-completed {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .status-cancelled {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 12px;
+      min-width: auto;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+    
+    .empty-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.3;
+    }
+    
+    
+    @media (max-width: 768px) {
+      .filter-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+      
+      .header-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      
+      .table-container {
+        overflow-x: auto;
+      }
+      
+      .data-table {
+        min-width: 800px;
+      }
+      
+      .table-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+    
+    /* 모달 스타일 */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .modal.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-content {
+      background-color: white;
+      border-radius: 12px;
+      padding: 0;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .modal-header {
+      padding: 20px 30px;
+      border-bottom: 2px solid #f8f9fa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .modal-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: #999;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+      transition: color 0.3s ease;
+    }
+    
+    .modal-close:hover {
+      color: #333;
+    }
+    
+    .modal-body {
+      padding: 30px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #555;
+    }
+    
+    .form-control.textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    .modal-footer {
+      padding: 20px 30px;
+      border-top: 2px solid #f8f9fa;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    
+    .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+    
+    /* 색상 프리셋 버튼 스타일 */
+    .color-preset-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 3px solid #e9ecef;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .color-preset-btn:hover {
+      transform: scale(1.15);
+      border-color: #333;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .color-preset-btn:active {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body layout:fragment="content">
+  <div class="container-fluid">
+    <!-- 페이지 헤더 -->
+    <div class="page-header">
+      <h2 class="page-title">📅 일정 관리</h2>
+      <div class="header-actions">
+        <a href="/admin" class="btn btn-primary">
+          <i class="fas fa-arrow-left"></i> 대시보드
+        </a>
+        <a href="/admin/calendar" class="btn btn-success">
+          <i class="fas fa-calendar"></i> 캘린더
+        </a>
+      </div>
+    </div>
+    
+    <!-- 검색 바 -->
+    <div class="search-bar d-flex justify-content-between align-items-center">
+      <form action="" method="get" class="w-100">
+        <input type="text" class="search-input" name="search" placeholder="일정 제목 또는 내용으로 검색..." id="searchInput" th:value="${queryParams.search}">
+          <button class="btn btn-success btn-lg" style="margin-left: 10px;">
+            <i class="fas fa-search"></i> 검색
+          </button>
+      </form>
+    </div>
+    
+    <!-- 스케줄 목록 테이블 -->
+    <div class="schedules-table-container">
+      <table class="schedules-table" th:if="${pageInfo.list != null and !pageInfo.list.isEmpty()}">
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>일정 정보</th>
+            <th>기간</th>
+            <th>색상</th>
+            <th>관련 설문</th>
+            <th>등록일</th>
+            <th>관리</th>
+          </tr>
+        </thead>
+        <tbody id="schedulesTableBody">
+          <tr th:each="schedule, iterStat : ${pageInfo.list}">
+            <td th:text="${schedule.no}">1</td>
+            <td>
+              <div class="schedule-title" th:text="${schedule.title}">방충망 시공</div>
+              <div class="schedule-note" th:if="${schedule.note != null and !schedule.note.isEmpty()}" 
+                   th:text="${schedule.note}">상세 내용</div>
+            </td>
+            <td>
+              <div class="date-info">
+                <div class="date-range" th:text="${#temporals.format(schedule.start, 'yyyy-MM-dd')} + ' ~ ' + ${#temporals.format(schedule.end, 'yyyy-MM-dd')}">2024-01-15 ~ 2024-01-20</div>
+                <div class="date-created" th:text="'등록: ' + ${#dates.format(schedule.createdAt, 'MM-dd HH:mm')}">등록: 01-14 14:30</div>
+              </div>
+            </td>
+            <td>
+              <span class="color-badge" th:style="'background-color: ' + ${schedule.color != null ? schedule.color : '#007bff'}"></span>
+            </td>
+            <td>
+              <a th:if="${schedule.formNo != null}" 
+                 th:href="@{/admin/forms/{id}(id=${schedule.form.id})}" 
+                 class="form-link">
+                설문 #<span th:text="${schedule.formNo}">123</span>
+              </a>
+              <span th:if="${schedule.formNo == null}" class="text-muted" style="font-size: 12px;">-</span>
+            </td>
+            <td>
+              <div class="date-created" th:text="${#dates.format(schedule.createdAt, 'yyyy-MM-dd HH:mm')}">2024-01-14 14:30</div>
+            </td>
+            <td>
+              <div class="actions">
+                <button class="action-btn edit" th:data-schedule-id="${schedule.id}" onclick="openEditModal(this.dataset.scheduleId)">수정</button>
+                <button class="action-btn delete" th:data-schedule-id="${schedule.id}" onclick="deleteSchedule(this.dataset.scheduleId)">삭제</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- 빈 상태 -->
+      <div class="empty-state" th:if="${pageInfo.list == null or pageInfo.list.isEmpty()}">
+        <div class="empty-icon">📅</div>
+        <div class="empty-title">등록된 스케줄이 없습니다</div>
+        <div class="empty-description">아직 등록된 스케줄이 없습니다. 새로운 스케줄을 추가해보세요.</div>
+        <a href="/schedules" class="btn btn-primary">캘린더로 일정 추가하기</a>
+      </div>
+    </div>
+
+    <!-- 페이지 -->
+    <th:block th:replace="~{UI/fragments/common/page::page}"></th:block>
+
+  </div>
+
+  <!-- 수정 모달 -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">📝 일정 수정</h3>
+        <button class="modal-close" onclick="closeEditModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="editForm">
+          <input type="hidden" id="editScheduleId">
+          
+          <div class="form-group">
+            <label class="form-label">일정 제목 *</label>
+            <input type="text" class="form-control" id="editTitle" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">시작일 *</label>
+            <input type="date" class="form-control" id="editStart" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">종료일 *</label>
+            <input type="date" class="form-control" id="editEnd" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">색상</label>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+              <input type="color" class="form-control" id="editColor" value="#007bff" style="width: 80px; height: 40px; cursor: pointer;">
+              <div style="display: flex; gap: 8px;">
+                <button type="button" class="color-preset-btn" data-color="#007bff" title="파란색" 
+                        style="background-color: #007bff;" onclick="selectPresetColor('#007bff')"></button>
+                <button type="button" class="color-preset-btn" data-color="#28a745" title="초록색" 
+                        style="background-color: #28a745;" onclick="selectPresetColor('#28a745')"></button>
+                <button type="button" class="color-preset-btn" data-color="#ffc107" title="노란색" 
+                        style="background-color: #ffc107;" onclick="selectPresetColor('#ffc107')"></button>
+                <button type="button" class="color-preset-btn" data-color="#dc3545" title="빨간색" 
+                        style="background-color: #dc3545;" onclick="selectPresetColor('#dc3545')"></button>
+                <button type="button" class="color-preset-btn" data-color="#343a40" title="검은색" 
+                        style="background-color: #343a40;" onclick="selectPresetColor('#343a40')"></button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">메모</label>
+            <textarea class="form-control textarea" id="editNote" placeholder="일정에 대한 메모를 입력하세요"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">취소</button>
+        <button type="button" class="btn btn-success" onclick="saveSchedule()">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <script th:src="@{/js/common/ajax.js}"></script>
+  <script>
+    // 검색 기능
+    // document.getElementById('searchInput').addEventListener('input', function() {
+    //   const searchTerm = this.value.toLowerCase();
+    //   const tableBody = document.getElementById('schedulesTableBody');
+    //   const rows = tableBody.querySelectorAll('tr');
+      
+    //   rows.forEach(row => {
+    //     const title = row.querySelector('.schedule-title').textContent.toLowerCase();
+    //     const note = row.querySelector('.schedule-note')?.textContent.toLowerCase() || '';
+        
+    //     if (title.includes(searchTerm) || note.includes(searchTerm)) {
+    //       row.style.display = '';
+    //     } else {
+    //       row.style.display = 'none';
+    //     }
+    //   });
+    // });
+    
+    // 모달 열기
+    async function openEditModal(scheduleId) {
+      try {
+        console.log('📅 일정 상세 조회:', scheduleId);
+        
+        // API 호출하여 일정 정보 가져오기
+        const schedule = await schedulesAjax(`/${scheduleId}`, 'GET');
+        
+        if (schedule && schedule !== 'FAIL') {
+          // 모달 폼에 데이터 채우기
+          document.getElementById('editScheduleId').value = schedule.id;
+          document.getElementById('editTitle').value = schedule.title || '';
+          document.getElementById('editStart').value = formatDateForInput(schedule.start);
+          document.getElementById('editEnd').value = formatDateForInput(schedule.end);
+          document.getElementById('editColor').value = schedule.color || '#007bff';
+          document.getElementById('editNote').value = schedule.note || '';
+          
+          // 모달 표시
+          document.getElementById('editModal').classList.add('show');
+        } else {
+          alert('일정 정보를 불러올 수 없습니다.');
+        }
+      } catch (error) {
+        console.error('일정 조회 오류:', error);
+        alert('일정 정보를 불러오는 중 오류가 발생했습니다.');
+      }
+    }
+    
+    // 색상 프리셋 버튼 클릭
+    function selectPresetColor(color) {
+      document.getElementById('editColor').value = color;
+    }
+    
+    // 모달 닫기
+    function closeEditModal() {
+      document.getElementById('editModal').classList.remove('show');
+      document.getElementById('editForm').reset();
+    }
+    
+    // 모달 외부 클릭 시 닫기
+    window.onclick = function(event) {
+      const modal = document.getElementById('editModal');
+      if (event.target === modal) {
+        closeEditModal();
+      }
+    }
+    
+    // 일정 저장
+    async function saveSchedule() {
+      const scheduleId = document.getElementById('editScheduleId').value;
+      const title = document.getElementById('editTitle').value.trim();
+      const start = document.getElementById('editStart').value;
+      const end = document.getElementById('editEnd').value;
+      const color = document.getElementById('editColor').value;
+      const note = document.getElementById('editNote').value.trim();
+      
+      // 유효성 검사
+      if (!title) {
+        alert('일정 제목을 입력해주세요.');
+        return;
+      }
+      
+      if (!start || !end) {
+        alert('시작일과 종료일을 선택해주세요.');
+        return;
+      }
+      
+      if (new Date(start) > new Date(end)) {
+        alert('종료일은 시작일보다 늦어야 합니다.');
+        return;
+      }
+      
+      try {
+        console.log('📅 일정 수정 요청:', {
+          id: scheduleId,
+          title,
+          start,
+          end,
+          color,
+          note
+        });
+        
+        // API 호출
+        const result = await schedulesAjax('', 'PUT', {
+          id: scheduleId,
+          title: title,
+          start: start,
+          end: end,
+          color: color,
+          note: note
+        });
+        
+        console.log('✅ 수정 응답:', result);
+        
+        if (result && result !== 'FAIL' && result.success) {
+          alert(result.message || '일정이 수정되었습니다.');
+          closeEditModal();
+          location.reload();
+        } else {
+          alert(result.message || '일정 수정에 실패했습니다.');
+        }
+      } catch (error) {
+        console.error('일정 수정 오류:', error);
+        alert('일정 수정 중 오류가 발생했습니다.');
+      }
+    }
+    
+    // 날짜 포맷 변환 (yyyy-MM-dd 형식으로)
+    function formatDateForInput(dateString) {
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    
+    // 스케줄 삭제
+    async function deleteSchedule(scheduleId) {
+      if (!confirm('정말로 이 스케줄을 삭제하시겠습니까?')) {
+        return;
+      }
+      
+      // ajax.js 공통 함수 사용
+      const result = await schedulesAjax(`/${scheduleId}`, 'DELETE');
+      
+      if (result !== 'FAIL' && result.success) {
+        alert(result.message || '스케줄이 삭제되었습니다.');
+        location.reload();
+      } else {
+        alert(result.message || '삭제에 실패했습니다.');
+      }
+    }
+  </script>
+</body>
+</html>
+   

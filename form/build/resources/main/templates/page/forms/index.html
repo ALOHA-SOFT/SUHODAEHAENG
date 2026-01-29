@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layouts/user/main_layout}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>수호대행</title>
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <style>
+    .container {
+      max-width: 768px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .banner-slider {
+      height: 300px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .swiper {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+    }
+    
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .swiper-pagination-bullet {
+      background: #fff;
+      opacity: 0.7;
+    }
+    
+    .swiper-pagination-bullet-active {
+      background: #007bff;
+      opacity: 1;
+    }
+    
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #fff;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+    }
+    
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+      font-size: 16px;
+    }
+    
+    .service-section {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    
+    /* 탭 UI 스타일 */
+    .tab-container {
+      margin-bottom: 30px;
+    }
+    
+    .tab-nav {
+      display: flex;
+      border-bottom: 2px solid #e9ecef;
+      margin-bottom: 25px;
+    }
+    
+    .tab-btn {
+      flex: 1;
+      padding: 15px 20px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: #6c757d;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .tab-btn.active {
+      color: #007bff;
+    }
+    
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: #007bff;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .service-notice {
+      background: #e7f3ff;
+      border-left: 4px solid #007bff;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .service-notice .notice-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #007bff;
+      margin-bottom: 5px;
+    }
+    
+    .service-notice .notice-text {
+      font-size: 13px;
+      color: #495057;
+      line-height: 1.4;
+    }
+    
+    .service-group {
+      margin-bottom: 25px;
+    }
+    
+    .service-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .service-option {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .service-option input[type="checkbox"],
+    .service-option input[type="radio"] {
+      display: none;
+    }
+    
+    .service-option label {
+      display: block;
+      padding: 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      font-weight: 500;
+      position: relative;
+    }
+    
+    .service-option input[type="checkbox"]:checked + label,
+    .service-option input[type="radio"]:checked + label {
+      border-color: #007bff;
+      background-color: #f8f9ff;
+      color: #007bff;
+    }
+    
+    .service-option label::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #dee2e6;
+      border-radius: 3px;
+      background: white;
+    }
+    
+    .service-option input[type="radio"] + label::before {
+      border-radius: 50%;
+    }
+    
+    .service-option input[type="checkbox"]:checked + label::before {
+      background: #007bff;
+      border-color: #007bff;
+    }
+    
+    .service-option input[type="radio"]:checked + label::before {
+      background: #007bff;
+      border-color: #007bff;
+    }
+    
+    .service-option input[type="checkbox"]:checked + label::after {
+      content: '✓';
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    
+    .service-option input[type="radio"]:checked + label::after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+    }
+    
+    .terms-section {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .terms-all {
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .terms-all input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+    
+    .terms-item {
+      padding: 15px 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+    
+    .terms-item:last-child {
+      border-bottom: none;
+    }
+    
+    .terms-item input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.1);
+    }
+    
+    .terms-item .required {
+      color: #dc3545;
+      font-weight: bold;
+    }
+    
+    .terms-item .optional {
+      color: #6c757d;
+    }
+    
+    .btn-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+    
+    .btn {
+      padding: 15px 40px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      display: inline-block;
+      margin: 0 10px;
+    }
+    
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    
+    .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+    
+    .btn:disabled {
+      background-color: #dee2e6;
+      color: #6c757d;
+      cursor: not-allowed;
+    }
+    
+    @media (max-width: 576px) {
+      .container {
+        padding: 15px;
+      }
+      
+      .tab-btn {
+        font-size: 14px;
+        padding: 12px 15px;
+      }
+      
+      .service-options {
+        flex-direction: column;
+      }
+      
+      .service-option {
+        min-width: auto;
+      }
+      
+      .service-option label {
+        padding: 12px;
+        font-size: 14px;
+      }
+      
+      .service-notice {
+        padding: 12px 15px;
+        margin-bottom: 15px;
+      }
+      
+      .service-notice .notice-title {
+        font-size: 13px;
+      }
+      
+      .service-notice .notice-text {
+        font-size: 12px;
+      }
+      
+      .btn {
+        width: 100%;
+        margin: 5px 0;
+      }
+      
+      .banner-slider {
+        height: auto !important;
+      }
+      
+      .swiper-button-next,
+      .swiper-button-prev {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .swiper-button-next:after,
+      .swiper-button-prev:after {
+        font-size: 12px;
+      }
+      
+      .service-section {
+        padding: 20px;
+      }
+      
+      .terms-section {
+        padding: 20px;
+      }
+    }
+    
+    /* 카운터 스타일 */
+    .counter {
+      display: flex;
+      justify-content: space-between;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      gap: 20px;
+    }
+    
+    .count {
+      flex: 1;
+      text-align: center;
+      padding: 20px;
+      border-radius: 8px;
+      background: #f8f9fa;
+      transition: transform 0.3s ease;
+    }
+    
+    .count:hover {
+      transform: translateY(-5px);
+    }
+    
+    .count .number {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+    
+    .count p {
+      margin: 0;
+      font-size: 14px;
+      color: #666;
+      font-weight: 500;
+    }
+    
+    .number.gray {
+      color: #6c757d;
+    }
+    
+    .number.pink {
+      color: #e91e63;
+    }
+    
+    .number.indigo {
+      color: #3f51b5;
+    }
+    
+    @media (max-width: 768px) {
+      .counter {
+        /* flex-wrap: wrap; */
+        gap: 15px;
+      }
+      
+      .count {
+        flex: 1 1 calc(50% - 7.5px);
+        padding: 15px;
+      }
+      
+      .count .number {
+        font-size: 22px;
+      }
+      
+      .count p {
+        font-size: 12px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .count {
+        flex: 1 1 100%;
+      }
+      
+      .counter {
+        padding: 0px;
+        background-color: transparent;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body layout:fragment="content">
+  <div class="container mb-5">
+    <!-- 로고 -->
+    <div class="text-center">
+      <img src="/img/logo.png" alt="로고">
+    </div>
+    <!-- 배너 슬라이더 -->
+    <div class="banner-slider">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="/img/banner1.png" alt="배너 1">
+          </div>
+          <div class="swiper-slide">
+            <img src="/img/banner2.png" alt="배너 2">
+          </div>
+          <div class="swiper-slide">
+            <img src="/img/banner3.png" alt="배너 3">
+          </div>
+        </div>
+        <!-- 페이지네이션 -->
+        <div class="swiper-pagination"></div>
+        <!-- 네비게이션 버튼 -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </div>
+
+    <!-- 설문 통계 -->
+    <!-- <div class="counter">
+      <div class="count count0">
+        <div class="number gray" data-count="843">0</div>
+        <p>지난달 의뢰건</p>
+      </div>
+      <div class="count count1">
+        <div class="number gray" data-count="117">0</div>
+        <p>지난주 의뢰건</p>
+      </div>
+      <div class="count count2">
+        <div class="number pink" data-count="36">0</div>
+        <p>어제 의뢰건</p>
+      </div>
+      <div class="count count3">
+        <div class="number indigo" data-count="39">0</div>
+        <p>오늘 의뢰건</p>
+      </div>
+    </div> -->
+    
+    <!-- 서비스 종류 선택 -->
+    <div class="service-section">
+      <h3 class="section-title">서비스 종류 선택</h3>
+      
+      <div class="tab-container">
+        <!-- 탭 네비게이션 -->
+        <div class="tab-nav">
+          <button class="tab-btn active" onclick="switchTab('service1')">
+            <span>서비스 1</span>
+          </button>
+          <button class="tab-btn" onclick="switchTab('service2')">
+            <span>서비스 2</span>
+          </button>
+        </div>
+        
+        <!-- 탭 콘텐츠 1: 서비스 1 (다중선택) -->
+        <div id="service1" class="tab-content active">
+          <div class="service-notice">
+            <div class="notice-title">📋 서비스 1 안내</div>
+            <div class="notice-text">
+              • 입주 관련 필수 서비스입니다<br>
+              • 여러 항목을 동시에 선택할 수 있습니다<br>
+              • 최소 1개 이상 선택해주세요
+            </div>
+          </div>
+          
+          <div class="service-group">
+            <div class="service-options">
+              <div class="service-option">
+                <input type="checkbox" id="first_service_1" name="firstService" value="1">
+                <label for="first_service_1">
+                  입주민 동의서
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">입주민 동의서 작성 및 수집</div>
+                </label>
+              </div>
+              <div class="service-option">
+                <input type="checkbox" id="first_service_2" name="firstService" value="2">
+                <label for="first_service_2">
+                  승강기 기타 보양
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">승강기 및 공용부 보호</div>
+                </label>
+              </div>
+              <div class="service-option">
+                <input type="checkbox" id="first_service_3" name="firstService" value="3">
+                <label for="first_service_3">
+                  행위허가
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">관리사무소 행위허가 신청</div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 탭 콘텐츠 2: 서비스 2 (단일선택) -->
+        <div id="service2" class="tab-content">
+          <div class="service-notice">
+            <div class="notice-title">🛠️ 서비스 2 안내</div>
+            <div class="notice-text">
+              • 공사 관련 부가 서비스입니다<br>
+              • 하나의 서비스만 선택 가능합니다<br>
+              • 필수 선택 항목입니다
+            </div>
+          </div>
+          
+          <div class="service-group">
+            <div class="service-options">
+              <div class="service-option">
+                <input type="radio" id="second_service_1" name="secondService" value="1">
+                <label for="second_service_1">
+                  방충망 시공
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">창문 방충망 설치 서비스</div>
+                </label>
+              </div>
+              <div class="service-option">
+                <input type="radio" id="second_service_2" name="secondService" value="2">
+                <label for="second_service_2">
+                  종합 청소
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">공사 완료 후 청소 서비스</div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- 이용 정보 동의 -->
+    <div class="terms-section">
+      <h3 class="section-title">이용 정보 동의</h3>
+      
+      <div class="terms-all">
+        <label>
+          <input type="checkbox" id="termsAll">
+          <strong>모두 선택</strong>
+        </label>
+      </div>
+      
+      <div class="terms-item">
+        <label>
+          <input type="checkbox" name="terms" value="1" class="required-term">
+          개인정보 수집 및 이용동의 <span class="required">(필수)</span>
+        </label>
+      </div>
+      
+      <div class="terms-item">
+        <label>
+          <input type="checkbox" name="terms" value="2" class="required-term">
+          개인정보 제3자 제공 동의 <span class="required">(필수)</span>
+        </label>
+      </div>
+      
+      <div class="terms-item">
+        <label>
+          <input type="checkbox" name="terms" value="3" class="optional-term">
+          마케팅 활용정보 동의 <span class="optional">(선택)</span>
+        </label>
+      </div>
+    </div>
+    
+    <!-- 버튼 -->
+    <div class="btn-container">
+      <!-- <button type="button" class="btn btn-secondary" onclick="location.href='/'">취소</button> -->
+      <button type="button" class="btn btn-primary w-100 m-0" id="nextBtn" onclick="goToDetail()" disabled>다음 단계</button>
+    </div>
+  </div>
+
+  <script>
+    // 카운터 애니메이션 함수
+    // function animateCounter(element, target, duration = 2000) {
+    //   const start = 0;
+    //   const increment = target / (duration / 16); // 60fps 기준
+    //   let current = start;
+      
+    //   const timer = setInterval(() => {
+    //     current += increment;
+    //     if (current >= target) {
+    //       current = target;
+    //       clearInterval(timer);
+    //     }
+    //     element.textContent = Math.floor(current).toLocaleString();
+    //   }, 16);
+    // }
+    
+    // Intersection Observer로 뷰포트에 들어올 때 애니메이션 실행
+    // function initCounterAnimation() {
+    //   const counters = document.querySelectorAll('.number[data-count]');
+      
+    //   const observer = new IntersectionObserver((entries) => {
+    //     entries.forEach(entry => {
+    //       if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+    //         const target = parseInt(entry.target.getAttribute('data-count'));
+    //         entry.target.classList.add('animated');
+    //         animateCounter(entry.target, target);
+    //       }
+    //     });
+    //   }, {
+    //     threshold: 0.5
+    //   });
+      
+    //   counters.forEach(counter => {
+    //     observer.observe(counter);
+    //   });
+    // }
+    
+    // 탭 전환 함수
+    function switchTab(tabId) {
+      // 모든 탭 버튼 비활성화
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // 모든 탭 콘텐츠 숨김
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+      });
+      
+      // 선택된 탭 활성화
+      event.target.closest('.tab-btn').classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+      
+      // 탭 전환 후 유효성 검사 다시 실행
+      setTimeout(() => {
+        if (window.checkValidationFunc) {
+          window.checkValidationFunc();
+        }
+      }, 100);
+    }
+    
+    // 체크박스 상태 관리
+    document.addEventListener('DOMContentLoaded', function() {
+      // 카운터 애니메이션 초기화
+      // initCounterAnimation();
+      
+      const termsAll = document.getElementById('termsAll');
+      const requiredTerms = document.querySelectorAll('.required-term');
+      const optionalTerms = document.querySelectorAll('.optional-term');
+      const allTerms = document.querySelectorAll('input[name="terms"]');
+      const nextBtn = document.getElementById('nextBtn');
+      
+      // 🐛 디버깅: 요소들이 제대로 선택되었는지 확인
+      console.log('📋 초기화 확인:');
+      console.log('termsAll:', termsAll);
+      console.log('requiredTerms 개수:', requiredTerms.length);
+      console.log('allTerms 개수:', allTerms.length);
+      console.log('nextBtn:', nextBtn);
+      
+      // 전체 선택 체크박스
+      if (termsAll) {
+        termsAll.addEventListener('change', function() {
+          allTerms.forEach(term => {
+            term.checked = this.checked;
+          });
+          checkValidation();
+        });
+      }
+      
+      // 개별 약관 체크박스
+      allTerms.forEach(term => {
+        term.addEventListener('change', function() {
+          const allChecked = Array.from(allTerms).every(t => t.checked);
+          if (termsAll) {
+            termsAll.checked = allChecked;
+          }
+          checkValidation();
+        });
+      });
+      
+      // 서비스 1 선택 (다중 선택 - 체크박스)
+      const firstServiceInputs = document.querySelectorAll('input[name="firstService"]');
+      console.log('firstServiceInputs 개수:', firstServiceInputs.length);
+      firstServiceInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          console.log('서비스1 변경:', this.value, this.checked);
+          checkValidation();
+        });
+      });
+      
+      // 서비스 2 선택 (단일 선택 - 라디오 버튼)
+      const secondServiceInputs = document.querySelectorAll('input[name="secondService"]');
+      console.log('secondServiceInputs 개수:', secondServiceInputs.length);
+      secondServiceInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          console.log('서비스2 변경:', this.value, this.checked);
+          checkValidation();
+        });
+      });
+      
+      // 유효성 검사
+      function checkValidation() {
+        const firstServiceSelected = Array.from(firstServiceInputs).some(input => input.checked);
+        const secondServiceSelected = Array.from(secondServiceInputs).some(input => input.checked);
+        const requiredTermsChecked = Array.from(requiredTerms).every(term => term.checked);
+        
+        // 현재 활성화된 탭 확인
+        const currentActiveTab = document.querySelector('.tab-content.active').id;
+        
+        console.log('🔍 유효성 검사 상태:');
+        console.log('현재 활성 탭:', currentActiveTab);
+        console.log('서비스1 선택됨:', firstServiceSelected);
+        console.log('서비스2 선택됨:', secondServiceSelected);
+        console.log('필수 약관 체크됨:', requiredTermsChecked);
+        
+        let isValid = false;
+        
+        // 현재 탭에 따른 검증 로직
+        if (currentActiveTab === 'service1') {
+          // 서비스1 탭: 서비스1 선택 + 필수 약관 체크
+          isValid = firstServiceSelected && requiredTermsChecked;
+          console.log('서비스1 탭 검증:', isValid);
+        } else if (currentActiveTab === 'service2') {
+          // 서비스2 탭: 서비스2 선택 + 필수 약관 체크
+          isValid = secondServiceSelected && requiredTermsChecked;
+          console.log('서비스2 탭 검증:', isValid);
+        }
+        
+        if (isValid) {
+          nextBtn.disabled = false;
+          nextBtn.style.opacity = '1';
+          console.log('✅ 다음 단계 버튼 활성화');
+        } else {
+          nextBtn.disabled = true;
+          nextBtn.style.opacity = '0.5';
+          console.log('❌ 다음 단계 버튼 비활성화');
+        }
+      }
+      
+      // 전역에서 접근할 수 있도록 함수 등록
+      window.checkValidationFunc = checkValidation;
+      
+      // 초기 유효성 검사
+      console.log('🚀 초기 유효성 검사 실행');
+      checkValidation();
+    });
+    
+    // 다음 단계로 이동
+    function goToDetail() {
+      const firstServices = Array.from(document.querySelectorAll('input[name="firstService"]:checked')).map(input => input.value);
+      const secondService = document.querySelector('input[name="secondService"]:checked');
+      const terms = Array.from(document.querySelectorAll('input[name="terms"]:checked')).map(t => t.value);
+      
+      // 현재 활성화된 탭 확인
+      const currentActiveTab = document.querySelector('.tab-content.active').id;
+      
+      // 필수 약관 확인
+      if (terms.length < 2) {
+        alert('필수 약관에 모두 동의해주세요.');
+        return;
+      }
+      
+      // 현재 탭에 따른 서비스 선택 검증
+      if (currentActiveTab === 'service1') {
+        if (firstServices.length === 0) {
+          alert('서비스 1을 최소 1개 이상 선택해주세요.');
+          return;
+        }
+        // 방법 1 : 세션 스토리지 사용
+        // 서비스1 탭에서는 서비스2를 선택하지 않아도 됨
+        // sessionStorage.setItem('firstServices', firstServices.join(','));
+        // sessionStorage.setItem('secondService', ''); // 빈 값으로 설정
+        // sessionStorage.setItem('terms', terms.join(','));
+
+        // 방법 2 : 쿼리 파라미터 사용
+        const params = new URLSearchParams();
+        params.set('firstServices', firstServices.join(','));
+        params.set('secondService', ''); // 빈 값으로 설정
+        params.set('terms', terms.join(','));
+        location.href = '/forms/detail?' + params.toString();
+        
+      } else if (currentActiveTab === 'service2') {
+        if (!secondService) {
+          alert('서비스 2를 선택해주세요.');
+          return;
+        }
+        // 방법1 : 세션 스토리지 사용
+        // 서비스2 탭에서는 서비스1을 선택하지 않아도 됨
+        // sessionStorage.setItem('firstServices', ''); // 빈 값으로 설정
+        // sessionStorage.setItem('secondService', secondService.value);
+        // sessionStorage.setItem('terms', terms.join(','));
+        // 방법 2 : 쿼리 파라미터 사용
+        const params = new URLSearchParams();
+        params.set('firstServices', ''); // 빈 값으로 설정
+        params.set('secondService', secondService.value);
+        params.set('terms', terms.join(','));
+
+        // TODO: 서비스이는 준비중
+        $alert('준비 중', '[서비스 2] 는 현재 준비 중입니다.', 'info', '확인');
+        return;
+        // location.href = '/forms/detail?' + params.toString();
+      }
+      
+      // location.href = '/forms/detail';
+      
+      
+      // 방법 2: 쿼리 파라미터 사용 (주석 해제하여 사용)
+      /*
+      const params = new URLSearchParams();
+      params.set('firstServices', firstServices.join(','));
+      params.set('secondService', secondService.value);
+      params.set('terms', terms.join(','));
+      location.href = '/forms/detail?' + params.toString();
+      */
+    }
+  </script>
+  
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+    // Swiper 초기화
+    const swiper = new Swiper('.swiper', {
+      // 자동 재생
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      // 무한 루프
+      loop: true,
+      // 페이지네이션
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      // 네비게이션 버튼
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      // 터치/스와이프 효과
+      effect: 'slide',
+      speed: 500,
+      // 반응형 설정
+      breakpoints: {
+        768: {
+          slidesPerView: 1,
+        }
+      }
+    });
+  </script>
+</body>
+</html>

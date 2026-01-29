@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layouts/user/main_layout}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>설문 작성 완료 - 수호대행</title>
+  <style>
+    .container {
+      max-width: 768px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .complete-section {
+      background: white;
+      border-radius: 12px;
+      padding: 50px 30px;
+      margin: 50px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .success-icon {
+      width: 40px;
+      height: 40px;
+      background: #28a745;
+      border-radius: 50%;
+      margin: 0 auto 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: checkmark 0.6s ease-in-out;
+    }
+    
+    .success-icon::after {
+      content: "✓";
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    @keyframes checkmark {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .complete-title {
+      font-size: 44px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    
+    .complete-message {
+      font-size: 24px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+    
+    .info-box {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 30px 0;
+      text-align: left;
+    }
+    
+    .info-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .info-list li {
+      padding: 5px 0;
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .info-list li::before {
+      content: "•";
+      color: #007bff;
+      margin-right: 8px;
+    }
+    
+    .btn-container {
+      margin-top: 40px;
+    }
+    
+    .btn {
+      padding: 15px 40px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      display: inline-block;
+      margin: 0 10px;
+    }
+    
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+    
+    .btn-outline {
+      background-color: white;
+      color: #007bff;
+      border: 2px solid #007bff;
+    }
+    
+    .btn-outline:hover {
+      background-color: #007bff;
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    .progress-steps {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+      padding: 0 20px;
+    }
+    
+    .step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+    
+    .step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 15px;
+      right: -50%;
+      width: 100%;
+      height: 2px;
+      background: #28a745;
+      z-index: 1;
+    }
+    
+    .step-icon {
+      width: 30px;
+      height: 30px;
+      background: #28a745;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .step-label {
+      font-size: 12px;
+      color: #666;
+      font-weight: 500;
+    }
+    
+    @media (max-width: 576px) {
+      .container {
+        padding: 15px;
+      }
+      
+      .complete-section {
+        padding: 30px 20px;
+        margin: 20px 0;
+      }
+      
+      .complete-title {
+        font-size: 30px;
+      }
+      
+      .complete-message {
+        font-size: 20px;
+      }
+      
+      .btn {
+        width: 100%;
+        margin: 5px 0;
+      }
+      
+      .progress-steps {
+        padding: 0 10px;
+      }
+      
+      .step-label {
+        font-size: 10px;
+      }
+    }
+
+    .point-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 20px;
+      text-align: center;
+      animation: blink 1.5s infinite;
+      background: linear-gradient(45deg, #ff6b6b, #ce1b75, #d15545, #96ceb4, #feca57);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @keyframes blink {
+      0%, 50% {
+      opacity: 1;
+      background-position: 0% 50%;
+      }
+      25% {
+      opacity: 0.7;
+      background-position: 100% 50%;
+      }
+      75% {
+      opacity: 0.3;
+      background-position: 50% 100%;
+      }
+      100% {
+      opacity: 1;
+      background-position: 0% 50%;
+      }
+    }
+
+  </style>
+</head>
+<body layout:fragment="content">
+  <div class="container">
+    
+    
+    <!-- 완료 메시지 -->
+    <div class="complete-section">
+      <h3 class="d-flex gap-2 align-items-center justify-content-center">
+        <i class="success-icon m-0"></i>
+        <b class="font-bold">신청 완료</b>
+      </h3>
+
+      <!-- 진행 단계 -->
+      
+      <div style="margin: 30px 0;">
+        <img src="/img/kakao-ok.png" alt="카카오 채팅창 안내" style="max-width: 100%; height: auto; border: 1px solid #ccc;">
+      </div>
+      
+      <div class="complete-message">
+        (신청인 성함 미입력시 미확인 건으로<br> 진행이 불가능할 수 있습니다.)<br>
+      </div>
+
+      <!-- 카카오 채널 -->
+      <div class="info-box">
+        <a href="http://pf.kakao.com/_qbqbn/chat" target="_blank">
+          <img src="/img/banner4.png" alt="배너 1" class="w-100">
+        </a>
+        <p class="point-title">
+          카카오톡으로 신청인 성함 말씀해주시면<br>
+          빠른 상담 도와드리겠습니다.
+        </p>
+      </div>
+      
+      <!-- 안내 정보 -->
+      <div class="info-box">
+        <ul class="info-list">
+          <li>담당자가 접수 내용을 검토합니다</li>
+          <li>승인 완료 후 별도 연락을 드릴 예정입니다</li>
+          <li>문의사항이 있으시면 고객센터로 연락해주세요</li>
+        </ul>
+      </div>
+      
+      
+      <!-- 버튼 -->
+      <div class="btn-container">
+        <a href="/" class="btn btn-primary w-100 m-0">이어서 작성하기</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 애니메이션 효과
+      const completeSection = document.querySelector('.complete-section');
+      completeSection.style.opacity = '0';
+      completeSection.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        completeSection.style.transition = 'all 0.6s ease';
+        completeSection.style.opacity = '1';
+        completeSection.style.transform = 'translateY(0)';
+      }, 100);
+      
+      // 세션 스토리지 정리 (혹시 남아있는 데이터 제거)
+      sessionStorage.removeItem('firstService');
+      sessionStorage.removeItem('secondService');
+      sessionStorage.removeItem('terms');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layouts/user/main_layout}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>설문 상세정보 작성 - 수호대행</title>
+  <!-- Flatpickr CSS for multi-date selection -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <style>
+    .container {
+      max-width: 768px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .form-section {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #555;
+    }
+    
+    .required::after {
+      content: " *";
+      color: #dc3545;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .form-col {
+      flex: 1;
+    }
+    
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .radio-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .radio-item input[type="radio"] {
+      transform: scale(1.2);
+    }
+    
+    .address-search {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      white-space: nowrap;
+    }
+    
+    .btn-search {
+      background-color: #28a745;
+      color: white;
+    }
+    
+    .btn-search:hover {
+      background-color: #218838;
+    }
+    
+    .btn-container {
+      text-align: center;
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      justify-content: center;
+    }
+    
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+      flex: 1;
+      max-width: 100%;
+    }
+    
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    
+    .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+      flex: 1;
+      max-width: 100%;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+    
+    .textarea-control {
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .pay-methods {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .pay-method {
+      flex: 1;
+      min-width: 150px;
+    }
+    
+    .pay-method input[type="radio"] {
+      display: none;
+    }
+    
+    .pay-method label {
+      display: block;
+      padding: 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .pay-method input[type="radio"]:checked + label {
+      border-color: #007bff;
+      background-color: #f8f9ff;
+      color: #007bff;
+    }
+    
+    /* 서비스 옵션 스타일 (index.html과 동일) */
+    .service-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .service-option {
+      flex: 1;
+      min-width: 220px;
+    }
+    
+    .service-option input[type="checkbox"],
+    .service-option input[type="radio"] {
+      display: none;
+    }
+    
+    .service-option label {
+      display: block;
+      padding: 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      font-weight: 500;
+      position: relative;
+    }
+    
+    .service-option input[type="checkbox"]:checked + label,
+    .service-option input[type="radio"]:checked + label {
+      border-color: #007bff;
+      background-color: #f8f9ff;
+      color: #007bff;
+    }
+    
+    .service-option label::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #dee2e6;
+      border-radius: 3px;
+      background: white;
+    }
+    
+    .service-option input[type="radio"] + label::before {
+      border-radius: 50%;
+    }
+    
+    .service-option input[type="checkbox"]:checked + label::before {
+      background: #007bff;
+      border-color: #007bff;
+    }
+    
+    .service-option input[type="radio"]:checked + label::before {
+      background: #007bff;
+      border-color: #007bff;
+    }
+    
+    .service-option input[type="checkbox"]:checked + label::after {
+      content: '✓';
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    
+    .service-option input[type="radio"]:checked + label::after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+    }
+    
+    @media (max-width: 576px) {
+      .container {
+        padding: 15px;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      .radio-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .address-search {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .btn-container {
+        flex-direction: column;
+      }
+      
+      .pay-methods {
+        flex-direction: column;
+      }
+      
+      .service-options {
+        flex-direction: column;
+      }
+      
+      .service-option {
+        min-width: auto;
+      }
+    }
+
+    /* Flatpickr 다중선택 날짜 스타일 */
+    .flatpickr-calendar {
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    
+    .flatpickr-day.selected {
+      background: #007bff;
+      border-color: #007bff;
+      color: white;
+    }
+    
+    .flatpickr-day.selected:hover {
+      background: #0056b3;
+      border-color: #0056b3;
+    }
+    
+    #noiseDatePicker {
+      cursor: pointer;
+      background-color: white;
+    }
+
+    .service-notice {
+      background: white;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+    
+    .service-notice .notice-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #007bff;
+      margin-bottom: 5px;
+    }
+    
+    .service-notice .notice-text {
+      padding: 20px;
+      font-size: 18px;
+      color: #495057;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body layout:fragment="content">
+  <div class="container">
+    <form id="detailForm">
+
+      <!-- ===================== 공통 양식 ===================== -->
+      <!-- 공사 기간 -->
+      <div class="form-section">
+        <h3 class="section-title">공사 기간</h3>
+        
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label required">공사 시작일</label>
+              <input type="date" class="form-control" name="stdDate" required>
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label required">공사 종료일</label>
+              <input type="date" class="form-control" name="endDate" required>
+            </div>
+          </div>
+        </div>
+        
+        <th:block th:if="${ ( formParams.firstServices != null && #strings.contains( formParams.firstServices, '1') ) || ( formParams.secondService != null && formParams.secondService != '' ) }">
+          <div class="form-group">
+            <label class="form-label required">소음 발생일 (다중선택)</label>
+            <input type="text" class="form-control" id="noiseDatePicker" name="noiseDate" placeholder="소음이 발생할 날짜를 선택해주세요" readonly required>
+            <p style="font-size: 14px; color: #6c757d; margin-top: 8px;">
+              여러 날짜를 선택할 수 있습니다. 선택된 날짜들은 쉼표로 구분됩니다.
+            </p>
+          </div>
+        </th:block>
+
+
+      </div>
+      
+      <!-- 공사 위치 -->
+      <div class="form-section">
+        <h3 class="section-title">공사 위치</h3>
+        
+        <div class="form-group">
+          <label class="form-label required">주소</label>
+          <div class="address-search">
+            <input type="text" class="form-control" name="address" placeholder="주소를 검색해주세요" readonly required>
+            <button type="button" class="btn btn-search" onclick="openAddressSearch()">주소 검색</button>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label required">상세주소</label>
+          <input type="text" class="form-control" name="detailAddress" placeholder="예) 101동 101호" required>
+        </div>
+      </div>
+      
+      <!-- 신청인 정보 -->
+      <div class="form-section">
+        <h3 class="section-title">신청인 정보</h3>
+        
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label required">신청인명</label>
+              <input type="text" class="form-control" name="name" required placeholder="연락받으실 분">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label required">신청인 전화번호</label>
+              <input type="tel" class="form-control" name="tel" placeholder="연락받으실 전화번호 예) 01012345678" required>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== (1) 입주민동의서 개별양식 ===================== -->
+      <th:block th:if="${ formParams.firstServices != null && #strings.contains( formParams.firstServices, '1') }">
+        <!-- 세대주 정보 -->
+        <div class="form-section">
+          <h3 class="section-title">세대주 정보</h3>
+          
+          <div class="form-group">
+            <label class="form-label required">신청인과 동일 여부</label>
+            <div class="radio-group">
+              <div class="radio-item">
+                <input type="radio" id="resident_same_y" name="residentSame" value="Y" required>
+                <label for="resident_same_y">예</label>
+              </div>
+              <div class="radio-item">
+                <input type="radio" id="resident_same_n" name="residentSame" value="N" required>
+                <label for="resident_same_n">아니오</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-row" id="residentInfoGroup">
+            <div class="form-col">
+              <div class="form-group">
+                <label class="form-label required">세대주명</label>
+                <input type="text" class="form-control" name="residentName" required>
+              </div>
+            </div>
+            <div class="form-col">
+              <div class="form-group">
+                <label class="form-label required">세대주 전화번호</label>
+                <input type="tel" class="form-control" name="residentTel" placeholder="예) 01012345678" required>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 업체 정보 -->
+        <div class="form-section">
+          <h3 class="section-title">업체 정보</h3>
+          
+          <div class="form-group" id="bizInfoGroup">
+            <label class="form-label">업체명</label>
+            <input type="text" class="form-control" name="bizName" placeholder="업체명을 입력하세요">
+          </div>
+          
+          <div class="form-row">
+            <div class="form-col">
+              <div class="form-group">
+                <label class="form-label">대표자명</label>
+                <input type="text" class="form-control" name="managerName">
+              </div>
+            </div>
+            <div class="form-col">
+              <div class="form-group">
+                <label class="form-label">업체 전화번호</label>
+                <input type="tel" class="form-control" name="managerTel" placeholder="예) 01012345678">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 동의서 조건 -->
+        <div class="form-section">
+          <h3 class="section-title">동의서 조건</h3>
+          
+          <div class="form-group">
+            <label class="form-label required">관리사무소 조건 확인해주세요</label>
+            <div class="radio-group" style="margin-bottom: 10px;">
+              <div class="radio-item">
+                <input type="radio" id="agreement_condition_y" name="agreementConditionCheck" value="Y" required>
+                <label for="agreement_condition_y">확인완료</label>
+              </div>
+              <div class="radio-item">
+                <input type="radio" id="agreement_condition_n" name="agreementConditionCheck" value="N" required>
+                <label for="agreement_condition_n">미확인</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label required" id="agreementTermsLabel">동의서 조건</label>
+            <p style="font-size: 14px; color: #6c757d; margin-bottom: 10px;">예) 100세대 중 50% 50세대 동의 필요 구체적으로 작성 부탁드립니다.</p>
+            <textarea class="form-control textarea-control" rows="5" name="agreementTerms" placeholder="관리사무소에서 요구하는 동의서 조건을 상세히 입력해주세요" required></textarea>
+          </div>
+        </div>
+
+        <!-- 공사 내용 -->
+        <div class="form-section">
+          <h3 class="section-title">공사 내용</h3>
+          
+          <div class="form-group">
+            <label class="form-label">공사 내용</label>
+            <textarea class="form-control textarea-control" rows="10" name="content" placeholder="공사 내용을 상세히 입력해주세요"></textarea>
+          </div>
+        </div>
+
+        <!-- 안내 메시지 -->
+        <div class="service-notice">
+            <div class="notice-title">📋 안내 메시지</div>
+            <div class="notice-text">
+              <h5>관리사무소 양식서를 미리 받으신 경우</h5>
+              <p>1. 사진 or 스캔본 부탁드립니다.<p>
+              <p>2. 해당층 소화전 or 우편함에 부탁드립니다.</p>
+              
+              
+          </div>
+        </div>
+            
+      </th:block>
+      <!-- ===================== (1) 입주민동의서 개별양식 ===================== -->
+
+
+      <!-- ===================== (2) 승강기 및 기타보양 개별양식 ===================== -->
+      <th:block th:if="${ formParams.firstServices != null && #strings.contains( formParams.firstServices, '2') }">
+        <!-- 필요한 보양 -->
+        <div class="form-section">
+          <h3 class="section-title">필요한 보양</h3>
+          
+          <div class="form-group">
+            <label class="form-label required">필요한 보양 (다중선택)</label>
+            <div class="service-options">
+              <div class="service-option">
+                <input type="checkbox" id="protection_all" name="protectionTypes" value="올보양">
+                <label for="protection_all">
+                  올보양
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">전체 보양 서비스</div>
+                </label>
+              </div>
+              <div class="service-option">
+                <input type="checkbox" id="protection_semi" name="protectionTypes" value="준보양">
+                <label for="protection_semi">
+                  준보양
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">부분적 보양 서비스</div>
+                </label>
+              </div>
+              <div class="service-option">
+                <input type="checkbox" id="protection_half" name="protectionTypes" value="하프보양">
+                <label for="protection_half">
+                  하프보양
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">절반 보양 서비스</div>
+                </label>
+              </div>
+              <div class="service-option">
+                <input type="checkbox" id="protection_other" name="protectionTypes" value="기타보양(바닥,벽)">
+                <label for="protection_other">
+                  기타보양(바닥,벽)
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">바닥 및 벽면 보양</div>
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">필요한 보양 설명</label>
+            <textarea class="form-control textarea-control" rows="5" name="protectionDescription" placeholder="필요한 보양에 대한 상세 설명을 입력해주세요"></textarea>
+          </div>
+        </div>
+
+        <!-- 승강기 외부 보양 -->
+        <div class="form-section">
+          <h3 class="section-title">승강기 외부 보양</h3>
+          
+          <div class="form-group">
+            <label class="form-label">승강기 외부 보양여부(잠보양/동선보양 필요여부)</label>
+            <div class="radio-group">
+              <div class="radio-item">
+                <input type="radio" id="elevator_protection_y" name="elevatorProtection" value="Y">
+                <label for="elevator_protection_y">예</label>
+              </div>
+              <div class="radio-item">
+                <input type="radio" id="elevator_protection_n" name="elevatorProtection" value="N" checked>
+                <label for="elevator_protection_n">아니오</label>
+              </div>
+              <div class="radio-item">
+                <input type="radio" id="elevator_protection_a" name="elevatorProtection" value="A">
+                <label for="elevator_protection_a">관리사무소 조건대로 진행해주세요</label>
+              </div>
+            </div>
+            <p style="font-size: 14px; color: #6c757d; margin-top: 8px;">
+              (추가금액 발생되며 필요하신 경우만 시공 층수 작성해 주시면 되십니다.)
+            </p>
+          </div>
+          
+          <div class="form-group" id="elevatorFloorsGroup" style="display: none;">
+            <label class="form-label">시공 층수</label>
+            <input type="text" class="form-control" name="elevatorFloors" placeholder="시공할 층수를 입력해주세요">
+          </div>
+        </div>
+
+        <!-- 현관 정보 -->
+        <div class="form-section">
+          <h3 class="section-title">현관 정보</h3>
+          
+          <div class="form-group">
+            <label class="form-label">현관 비밀번호</label>
+            <input type="text" class="form-control" name="entrancePassword" placeholder="현관 출입을 위한 비밀번호를 입력해주세요">
+          </div>
+        </div>
+
+        <!-- 안내 메시지 -->
+        <div class="service-notice">
+          <div class="notice-title">🛠️ 안내 메시지</div>
+          <div class="notice-text">
+            <h5>승강기 및 기타보양 서비스 안내</h5>
+            <p>1. 올보양: 전체 공간 보양 작업</p>
+            <p>2. 준보양: 주요 부분 보양 작업</p>
+            <p>3. 하프보양: 부분적 보양 작업</p>
+            <p>4. 기타보양: 바닥, 벽면 등 특정 부위 보양</p>
+            <br>
+            <p><strong>⚠️ 승강기 외부 보양 시 추가 비용이 발생됩니다.</strong></p>
+          </div>
+        </div>
+      </th:block>
+      <!-- ===================== (2) 승강기 및 기타보양 개별양식 ===================== -->
+
+
+      <!-- ===================== (3) 행위허가 신청서 개별양식 ===================== -->
+      <th:block th:if="${ formParams.firstServices != null && #strings.contains( formParams.firstServices, '3') }">
+        <!-- 매물상태 -->
+        <div class="form-section">
+          <h3 class="section-title">매물상태</h3>
+          
+          <div class="form-group">
+            <label class="form-label required">매물상태 선택</label>
+            <div class="service-options" style="flex-direction: column;">
+              <div class="service-option">
+                <input type="radio" id="property_owner" name="propertyStatus" value="소유자">
+                <label for="property_owner">
+                  소유자
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">본인 소유 부동산</div>
+                </label>
+              </div>
+              <div class="service-option">
+                <input type="radio" id="property_trading" name="propertyStatus" value="매매중">
+                <label for="property_trading">
+                  매매중
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">매매 진행중인 부동산</div>
+                </label>
+              </div>
+              <div class="service-option">
+                <input type="radio" id="property_presale" name="propertyStatus" value="분양중">
+                <label for="property_presale">
+                  분양중
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">분양 진행중인 부동산</div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 공사범위 -->
+        <div class="form-section">
+          <h3 class="section-title">공사범위</h3>
+          
+          <div class="form-group">
+            <label class="form-label required">공사범위 선택 (다중선택)</label>
+            <div class="service-options">
+              <div class="service-option">
+                <input type="checkbox" id="construction_expansion" name="constructionScope" value="확장">
+                <label for="construction_expansion">
+                  확장
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">기존 공간 확장 공사</div>
+                </label>
+              </div>
+              <div class="service-option">
+                <input type="checkbox" id="construction_wall_removal" name="constructionScope" value="비내력벽 철거및신설">
+                <label for="construction_wall_removal">
+                  비내력벽 철거및신설
+                  <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">비내력벽 제거 및 새로 설치</div>
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">공사범위 상세 설명</label>
+            <textarea class="form-control textarea-control" rows="5" name="constructionScopeDescription" placeholder="공사범위에 대한 상세 설명을 입력해주세요"></textarea>
+          </div>
+        </div>
+
+
+        <!-- 안내 메시지 -->
+        <div class="service-notice">
+          <div class="notice-title">📌 안내 메시지</div>
+          <div class="notice-text">
+            <h5>행위허가 신청서 처리 안내</h5>
+            <p><strong>📌 서류완비후 작업2일, 허가처리는 평균 7일 소요 됩니다 📌</strong></p>
+            <br>
+            <p><strong>▶ 사용승인은 1년안에 신청 시 무료</strong></p>
+            <br>
+            <p>• 정확한 도면과 서류가 준비되어야 빠른 처리가 가능합니다.</p>
+            <p>• 허가 조건에 따라 추가 서류가 필요할 수 있습니다.</p>
+          </div>
+        </div>
+      </th:block>
+      <!-- ===================== (3) 행위허가 신청서 개별양식 ===================== -->
+      
+
+      <!-- ===================== 공통 양식 ===================== -->
+      <!-- 요청 사항 -->
+      <div class="form-section">
+        <h3 class="section-title">요청 사항</h3>
+        
+        <div class="form-group">
+          <label class="form-label">추가 요청사항</label>
+          <textarea class="form-control textarea-control" rows="5" name="request" placeholder="추가로 요청하실 사항이 있으시면 상세히 입력해주세요"></textarea>
+        </div>
+      </div>
+      <!-- ===================== 공통 양식 ===================== -->
+      
+      
+      
+      
+      
+      <!-- 결제 정보 -->
+      <!-- ===================== 보류 ===================== -->
+      <!-- <div class="form-section">
+        <h3 class="section-title">결제 정보</h3>
+        
+        <div class="form-group">
+          <label class="form-label required">결제 방법</label>
+          <div class="pay-methods">
+            <div class="pay-method">
+              <input type="radio" id="pay_method_1" name="payMethod" value="1">
+              <label for="pay_method_1">네이버</label>
+            </div>
+            <div class="pay-method">
+              <input type="radio" id="pay_method_2" name="payMethod" value="2">
+              <label for="pay_method_2">계좌이체</label>
+            </div>
+            <div class="pay-method">
+              <input type="radio" id="pay_method_3" name="payMethod" value="3">
+              <label for="pay_method_3">결제완료</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label required">이메일</label>
+          <input type="email" class="form-control" name="email" placeholder="작성 기록을 받을 이메일 주소" required>
+        </div>
+      </div> -->
+      <!-- ===================== 보류 ===================== -->
+      
+      <!-- 버튼 -->
+      <div class="btn-container">
+        <button type="button" class="btn btn-secondary" onclick="history.back()">이전</button>
+        <button type="button" class="btn btn-primary" onclick="submitForm()">접수하기</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <!-- Flatpickr JS for multi-date selection -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 데이터 가져오기 - 두 가지 방식 지원
+      let firstServices, secondService, terms;
+      
+      // 방법 1: 쿼리 파라미터에서 읽기
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryFirstServices = urlParams.get('firstServices');
+      const querySecondService = urlParams.get('secondService');
+      const queryTerms = urlParams.get('terms');
+      
+      // 방법 2: sessionStorage에서 읽기
+      const sessionFirstServices = sessionStorage.getItem('firstServices');
+      const sessionSecondService = sessionStorage.getItem('secondService');
+      const sessionTerms = sessionStorage.getItem('terms');
+      
+      // 쿼리 파라미터 우선, 없으면 sessionStorage 사용
+      firstServices = queryFirstServices || sessionFirstServices;
+      secondService = querySecondService || sessionSecondService;
+      terms = queryTerms || sessionTerms;
+      
+      if (!firstServices && !secondService && !terms) {
+        $alert({
+          title: '⚠️ 서비스 선택 누락',
+          text: '서비스 선택 정보가 없습니다.\n처음부터 다시 선택해주세요.',
+          icon: 'warning'
+        }).then(() => {
+          location.href = '/forms';
+        });
+        return;
+      }
+      
+      // 선택된 서비스 정보 표시
+      console.log('📋 선택된 서비스 정보:');
+      console.log('서비스1 (다중선택):', firstServices);
+      console.log('서비스2 (단일선택):', secondService);
+      console.log('동의한 약관:', terms.split(','));
+      console.log('데이터 소스:', queryFirstServices ? '쿼리파라미터' : 'sessionStorage');
+      
+      // 셀프 직영 공사 여부 체크
+      const selfWorkInputs = document.querySelectorAll('input[name="selfWork"]');
+      selfWorkInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          const bizInfoGroup = document.getElementById('bizInfoGroup');
+          if (this.value === 'N') {
+            bizInfoGroup.style.display = 'block';
+          } else {
+            bizInfoGroup.style.display = 'none';
+            document.querySelector('input[name="bizName"]').value = '';
+          }
+        });
+      });
+      
+      // 신청인과 동일 여부 체크
+      const residentSameInputs = document.querySelectorAll('input[name="residentSame"]');
+      residentSameInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          const residentInfoGroup = document.getElementById('residentInfoGroup');
+          const residentNameInput = document.querySelector('input[name="residentName"]');
+          const residentTelInput = document.querySelector('input[name="residentTel"]');
+          
+          if (this.value === 'Y') {
+            const applicantName = document.querySelector('input[name="name"]').value;
+            const applicantTel = document.querySelector('input[name="tel"]').value;
+            
+            residentNameInput.value = applicantName;
+            residentTelInput.value = applicantTel;
+            residentNameInput.disabled = true;
+            residentTelInput.disabled = true;
+          } else {
+            residentNameInput.disabled = false;
+            residentTelInput.disabled = false;
+          }
+        });
+      });
+      
+      // 신청인 정보 변경 시 세대주 정보 동기화
+      const applicantNameInput = document.querySelector('input[name="name"]');
+      const applicantTelInput = document.querySelector('input[name="tel"]');
+      
+      [applicantNameInput, applicantTelInput].forEach(input => {
+        input.addEventListener('input', function() {
+          const residentSameChecked = document.querySelector('input[name="residentSame"]:checked');
+          if (residentSameChecked && residentSameChecked.value === 'Y') {
+            if (this.name === 'name') {
+              document.querySelector('input[name="residentName"]').value = this.value;
+            } else if (this.name === 'tel') {
+              document.querySelector('input[name="residentTel"]').value = this.value;
+            }
+          }
+        });
+      });
+      
+      // 전화번호 숫자만 입력
+      const telInputs = document.querySelectorAll('input[type="tel"]');
+      telInputs.forEach(input => {
+        input.addEventListener('input', function() {
+          this.value = this.value.replace(/[^0-9]/g, '');
+        });
+      });
+      
+      // 동의서 조건 확인에 따른 동의서 조건 필수 여부 토글
+      const agreementConditionInputs = document.querySelectorAll('input[name="agreementConditionCheck"]');
+      agreementConditionInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          const agreementTermsInput = document.querySelector('textarea[name="agreementTerms"]');
+          // 동의서 조건 라벨에서 required 클래스 토글 - id="agreementTermsLabel"
+          const agreementTermsLabel = document.getElementById('agreementTermsLabel');
+
+          if (this.value === 'N') {
+            // 미확인 선택 시 - 동의서 조건 필수 아님
+            agreementTermsInput.removeAttribute('required');
+            agreementTermsLabel.classList.remove('required');
+            console.log('❌ 미확인 - 동의서 조건 필수 해제');
+          } else {
+            // 확인완료 선택 시 - 동의서 조건 필수
+            agreementTermsInput.setAttribute('required', 'required');
+            agreementTermsLabel.classList.add('required');
+            console.log('✅ 확인완료 - 동의서 조건 필수');
+          }
+        });
+      });
+      
+      // 승강기 외부 보양여부에 따른 시공 층수 입력란 토글
+      const elevatorProtectionInputs = document.querySelectorAll('input[name="elevatorProtection"]');
+      elevatorProtectionInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          const elevatorFloorsGroup = document.getElementById('elevatorFloorsGroup');
+          const elevatorFloorsInput = document.querySelector('input[name="elevatorFloors"]');
+          
+          if (this.value === 'Y') {
+            // 예 또는 관리사무소 조건대로 선택 시 - 시공 층수 입력란 표시
+            elevatorFloorsGroup.style.display = 'block';
+            console.log('✅ 승강기 외부 보양 필요 - 시공 층수 입력란 표시');
+          } else {
+            // 아니오 또는 관리사무소 조건대로 선택 시 - 시공 층수 입력란 숨김 및 값 초기화
+            elevatorFloorsGroup.style.display = 'none';
+            elevatorFloorsInput.value = '';
+            console.log('❌ 승강기 외부 보양 불필요 - 시공 층수 입력란 숨김');
+          }
+        });
+      });
+      
+      // 기존 허가 여부에 따른 허가 정보 입력란 토글
+      const existingPermitInputs = document.querySelectorAll('input[name="existingPermit"]');
+      existingPermitInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          const existingPermitInfoGroup = document.getElementById('existingPermitInfoGroup');
+          const existingPermitInfoInput = document.querySelector('textarea[name="existingPermitInfo"]');
+          
+          if (this.value === 'Y') {
+            // 예 선택 시 - 기존 허가 정보 입력란 표시
+            existingPermitInfoGroup.style.display = 'block';
+            console.log('✅ 기존 허가 있음 - 허가 정보 입력란 표시');
+          } else {
+            // 아니오 선택 시 - 기존 허가 정보 입력란 숨김 및 값 초기화
+            existingPermitInfoGroup.style.display = 'none';
+            existingPermitInfoInput.value = '';
+            console.log('❌ 기존 허가 없음 - 허가 정보 입력란 숨김');
+          }
+        });
+      });
+      
+      // Flatpickr 다중 날짜 선택기 초기화
+      flatpickr("#noiseDatePicker", {
+        mode: "multiple",
+        dateFormat: "Y-m-d",
+        locale: "ko",
+        placeholder: "소음이 발생할 날짜를 선택해주세요",
+        allowInput: false,
+        clickOpens: true,
+        minDate: "today",
+        maxDate: new Date().fp_incr(365), // 1년 후까지
+        conjunction: ", ",
+        onChange: function(selectedDates, dateStr, instance) {
+          console.log('선택된 소음 발생일:', dateStr);
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+          // 커스텀 스타일 적용
+          instance.calendarContainer.classList.add('noise-date-calendar');
+        }
+      });
+    });
+    
+    // 주소 검색 팝업
+    function openAddressSearch() {
+      new daum.Postcode({
+        oncomplete: function(data) {
+          document.querySelector('input[name="address"]').value = data.address;
+        }
+      }).open();
+    }
+    
+    // 폼 제출
+    function submitForm() {
+      const form = document.getElementById('detailForm');
+      const formData = new FormData(form);
+      
+      // 데이터 가져오기 - 두 가지 방식 지원
+      let firstServices, secondService, terms;
+      
+      // 쿼리 파라미터에서 먼저 확인
+      const urlParams = new URLSearchParams(window.location.search);
+      firstServices = urlParams.get('firstServices') || sessionStorage.getItem('firstServices');
+      secondService = urlParams.get('secondService') || sessionStorage.getItem('secondService');
+      terms = urlParams.get('terms') || sessionStorage.getItem('terms');
+      
+      formData.append('firstServices', firstServices); // 배열 형태로 전송
+      formData.append('secondService', secondService);
+      formData.append('terms', terms);
+      
+      // 유효성 검사
+      if (!validateForm(formData)) {
+        return;
+      }
+      
+      // 💎 서버로 전송 - Forms 전용 AJAX 함수 사용
+      formsAjax('', 'POST', formData)
+      .then(data => {
+        console.log('📋 설문 등록 응답:', data);
+        
+        if (data.success) {
+          // 세션 스토리지 클리어
+          sessionStorage.removeItem('firstServices');
+          sessionStorage.removeItem('secondService');
+          sessionStorage.removeItem('terms');
+          
+          // 성공 알림 (SweetAlert2 사용)
+          $alert({
+            title: '등록 완료',
+            text: '성공적으로 등록되었습니다.',
+            icon: 'success',
+            confirmButtonText: '완료 페이지로'
+          }).then(() => {
+            // 완료 페이지로 이동
+            location.href = '/forms/complete';
+          });
+        } else {
+          $alert({
+            title: '❌ 등록 실패',
+            text: data.message || '등록에 실패했습니다.',
+            icon: 'error'
+          });
+        }
+      })
+      .catch(error => {
+        console.error('등록 오류:', error);
+        $alert({
+          title: '서버 오류',
+          text: '서버 오류가 발생했습니다.\n잠시 후 다시 시도해주세요.',
+          icon: 'error'
+        });
+      });
+    }
+    
+    // 폼 유효성 검사
+    function validateForm(formData) {
+      // 공통 양식 필수 필드 검사만 적용
+      const requiredFields = ['stdDate', 'endDate', 'address', 'detailAddress', 'name', 'tel'];
+      
+      for (let field of requiredFields) {
+        if (!formData.get(field)) {
+          $alert({
+            title: '⚠️ 필수 입력 누락',
+            text: '공통 필수 항목을 모두 입력해주세요.',
+            icon: 'warning'
+          });
+          return false;
+        }
+      }
+      
+      // 전화번호 형식 검사
+      const tel = formData.get('tel');
+      const telRegex = /^01[016789]\d{7,8}$/;
+      if (!telRegex.test(tel)) {
+        $alert({
+          title: '📱 전화번호 형식 오류',
+          text: '올바른 전화번호 형식을 입력해주세요.\n예: 01012345678',
+          icon: 'warning'
+        });
+        return false;
+      }
+      
+      // 세대주 정보 유효성 검사 (입주민동의서 선택 시)
+      const firstServices = formData.get('firstServices');
+      if (firstServices && firstServices.includes('1')) {
+        // 관리사무소 조건 확인 라디오 버튼 선택 검사
+        const agreementConditionCheck = document.querySelector('input[name="agreementConditionCheck"]:checked');
+        if (!agreementConditionCheck) {
+          $alert({
+            title: '⚠️ 관리사무소 조건 확인 누락',
+            text: '관리사무소 조건 확인 여부를 선택해주세요.',
+            icon: 'warning'
+          });
+          return false;
+        }
+        // 확인 선택 시 동의서 조건 필수 검사
+        if (agreementConditionCheck.value === 'Y') {
+          const agreementTerms = formData.get('agreementTerms');
+          if (!agreementTerms) {
+            $alert({
+              title: '⚠️ 동의서 조건 누락',
+              text: '동의서 조건을 입력해주세요.',
+              icon: 'warning'
+            });
+            return false;
+          }
+        }
+        
+        const residentName = document.querySelector('input[name="residentName"]')?.value;
+        const residentTel = document.querySelector('input[name="residentTel"]')?.value;
+        
+        if (!residentName || !residentTel) {
+          $alert({
+            title: '⚠️ 세대주 정보 누락',
+            text: '세대주명과 세대주 전화번호를 모두 입력해주세요.',
+            icon: 'warning'
+          });
+          return false;
+        }
+        
+        // 세대주 전화번호 형식 검사
+        if (!telRegex.test(residentTel)) {
+          $alert({
+            title: '📱 세대주 전화번호 형식 오류',
+            text: '올바른 세대주 전화번호 형식을 입력해주세요.\n예: 01012345678',
+            icon: 'warning'
+          });
+          return false;
+        }
+      }
+      
+      // 공사 기간 검사
+      // const stdDate = new Date(formData.get('stdDate'));
+      // const endDate = new Date(formData.get('endDate'));
+      // if (stdDate >= endDate) {
+      //   $alert({
+      //     title: '📅 날짜 설정 오류',
+      //     text: '공사 종료일은 시작일보다 뒤여야 합니다.',
+      //     icon: 'warning'
+      //   });
+      //   return false;
+      // }
+      
+      return true;
+    }
+  </script>
+</body>
+</html>

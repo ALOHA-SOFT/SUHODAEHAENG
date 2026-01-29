@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layouts/admin/admin_layout}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>설문 관리 - 수호대행</title>
+  <style>
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #f8f9fa;
+    }
+    
+    .page-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    
+    .btn-success {
+      background-color: #28a745;
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background-color: #218838;
+    }
+    
+    .forms-table-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    
+    .forms-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .forms-table th {
+      background-color: #f8f9fa;
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+      color: #555;
+      border-bottom: 2px solid #e9ecef;
+    }
+    
+    .forms-table td {
+      padding: 15px;
+      border-bottom: 1px solid #f8f9fa;
+      vertical-align: middle;
+    }
+    
+    .forms-table tr:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .applicant-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .applicant-name {
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .applicant-tel {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .address-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      max-width: 200px;
+    }
+    
+    .address-main {
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .address-detail {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .service-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .service-item {
+      padding: 4px 8px;
+      background-color: #e7f3ff;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #007bff;
+      text-align: center;
+    }
+    
+    .date-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .date-range {
+      font-size: 14px;
+      color: #333;
+    }
+    
+    .date-created {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .noise-dates {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.4;
+    }
+    
+    .text-muted {
+      color: #6c757d;
+      font-style: italic;
+    }
+    
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .status-pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-approved {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .status-completed {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .action-btn {
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    
+    .action-btn.view {
+      background-color: #17a2b8;
+      color: white;
+    }
+    
+    .action-btn.view:hover {
+      background-color: #138496;
+    }
+    
+    .action-btn.edit {
+      background-color: #ffc107;
+      color: #212529;
+    }
+    
+    .action-btn.edit:hover {
+      background-color: #e0a800;
+    }
+    
+    .action-btn.delete {
+      background-color: #dc3545;
+      color: white;
+    }
+    
+    .action-btn.delete:hover {
+      background-color: #c82333;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+    
+    .empty-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+    
+    .empty-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .empty-description {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    
+    .search-bar {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .search-input {
+      flex: 1;
+      min-width: 300px;
+      padding: 10px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+    
+    .status-filter {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .status-filter-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid #e9ecef;
+      background-color: white;
+      color: #666;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .status-filter-btn:hover {
+      border-color: #007bff;
+      color: #007bff;
+    }
+    
+    .status-filter-btn.active {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: white;
+    }
+    
+    .status-filter-btn .count {
+      background-color: rgba(0,0,0,0.1);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    
+    .status-filter-btn.active .count {
+      background-color: rgba(255,255,255,0.3);
+    }
+    
+    .status-rejected {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    
+    @media (max-width: 768px) {
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+      
+      .header-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      
+      .forms-table-container {
+        overflow-x: auto;
+      }
+      
+      .forms-table {
+        min-width: 800px;
+      }
+      
+      .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .search-input {
+        width: 100%;
+        min-width: auto;
+      }
+      
+      .status-filter {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      
+      .status-filter-btn {
+        flex: 1;
+        min-width: auto;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body layout:fragment="content">
+  <div class="container-fluid">
+    <!-- 페이지 헤더 -->
+    <div class="page-header">
+      <h2 class="page-title">📋 설문 관리</h2>
+      <div class="header-actions">
+        <a href="/admin" class="btn btn-primary">
+          <i class="fas fa-arrow-left"></i> 대시보드
+        </a>
+        <a href="/forms" class="btn btn-success">
+          <i class="fas fa-plus"></i> 새 설문 작성
+        </a>
+      </div>
+    </div>
+    
+    <!-- 검색 및 필터 바 -->
+    <div class="search-bar d-flex justify-content-between align-items-center">
+      <form action="" method="get" class="">
+        <input type="text" class="search-input" name="search" placeholder="신청인명 또는 주소로 검색..." id="searchInput">
+          <button class="btn btn-success btn-lg" onclick="searchForms()" style="margin-left: 10px;">
+            <i class="fas fa-search"></i> 검색
+          </button>
+      </form>
+
+      
+      <div class="status-filter">
+        <a th:href="@{/admin/forms(status='전체')}" 
+           th:class="${currentStatus == '전체' or currentStatus == null} ? 'status-filter-btn active' : 'status-filter-btn'">
+          <span>전체</span>
+          <span class="count" th:text="${statusCount['전체'] != null ? statusCount['전체'] : 0}">0</span>
+        </a>
+        <a th:href="@{/admin/forms(status='접수')}" 
+           th:class="${currentStatus == '접수'} ? 'status-filter-btn active' : 'status-filter-btn'">
+          <span>접수</span>
+          <span class="count" th:text="${statusCount['접수'] != null ? statusCount['접수'] : 0}">0</span>
+        </a>
+        <a th:href="@{/admin/forms(status='검토중')}" 
+           th:class="${currentStatus == '검토중'} ? 'status-filter-btn active' : 'status-filter-btn'">
+          <span>검토중</span>
+          <span class="count" th:text="${statusCount['검토중'] != null ? statusCount['검토중'] : 0}">0</span>
+        </a>
+        <a th:href="@{/admin/forms(status='승인')}" 
+           th:class="${currentStatus == '승인'} ? 'status-filter-btn active' : 'status-filter-btn'">
+          <span>승인</span>
+          <span class="count" th:text="${statusCount['승인'] != null ? statusCount['승인'] : 0}">0</span>
+        </a>
+        <a th:href="@{/admin/forms(status='반려')}" 
+           th:class="${currentStatus == '반려'} ? 'status-filter-btn active' : 'status-filter-btn'">
+          <span>반려</span>
+          <span class="count" th:text="${statusCount['반려'] != null ? statusCount['반려'] : 0}">0</span>
+        </a>
+        <a th:href="@{/admin/forms(status='완료')}" 
+           th:class="${currentStatus == '완료'} ? 'status-filter-btn active' : 'status-filter-btn'">
+          <span>완료</span>
+          <span class="count" th:text="${statusCount['완료'] != null ? statusCount['완료'] : 0}">0</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 일괄 작업 버튼 -->
+    <div class="batch-actions" id="batchActions" style="display: none; margin-bottom: 20px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+      <span style="margin-right: 15px; font-weight: 600;">선택된 항목: <span id="selectedCount">0</span>개</span>
+      <select id="batchStatusSelect" style="padding: 8px 12px; border: 2px solid #e9ecef; border-radius: 6px; margin-right: 10px;">
+        <option value="">상태 선택</option>
+        <option value="접수">접수</option>
+        <option value="검토중">검토중</option>
+        <option value="승인">승인</option>
+        <option value="반려">반려</option>
+        <option value="완료">완료</option>
+      </select>
+      <button class="btn btn-primary" onclick="batchUpdateStatus()" style="margin-right: 10px;">
+        <i class="fas fa-sync-alt"></i> 상태 변경
+      </button>
+      <button class="btn" onclick="batchDelete()" style="background-color: #dc3545; color: white;">
+        <i class="fas fa-trash-alt"></i> 선택 삭제
+      </button>
+    </div>
+    
+    <!-- 설문 목록 테이블 -->
+    <div class="forms-table-container">
+      <table class="forms-table" th:if="${pageInfo.list != null and !pageInfo.list.isEmpty()}">
+        <thead>
+          <tr>
+            <th style="width: 50px;">
+              <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)" class="form-check-input">
+            </th>
+            <th>신청인 정보</th>
+            <th>주소</th>
+            <th>서비스</th>
+            <th>공사 기간</th>
+            <th>상태</th>
+            <th>관리</th>
+          </tr>
+        </thead>
+        <tbody id="formsTableBody">
+          <tr th:each="form : ${pageInfo.list}">
+            <td>
+              <input type="checkbox" class="form-checkbox form-checkbox-input form-check-input" th:value="${form.id}" onchange="updateBatchActions()">
+            </td>
+            <td>
+              <div class="applicant-info">
+                <div class="applicant-name" th:text="${form.name}">홍길동</div>
+                <div class="applicant-tel" th:text="${form.tel}">010-1234-5678</div>
+              </div>
+            </td>
+            <td>
+              <div class="address-info">
+                <div class="address-main" th:text="${form.address}">서울시 강남구 테헤란로 123</div>
+                <div class="address-detail" th:text="${form.detailAddress}">101동 101호</div>
+              </div>
+            </td>
+            <td>
+              <div class="service-info">
+                <div class="service-item" th:if="${form.firstService != null and !form.firstService.isEmpty()} and !${#strings.equals(form.firstService, 'null')}">
+                  <span th:if="${#strings.contains(form.firstService, '1')}">입주민 동의서 </span>
+                  <span th:if="${#strings.contains(form.firstService, '2')}">승강기 기타 보양 </span>
+                  <span th:if="${#strings.contains(form.firstService, '3')}">행위허가 </span>
+                </div>
+                <div class="service-item" th:if="${form.secondService != null and !form.secondService.isEmpty()} and !${#strings.equals(form.secondService, 'null')}">
+                  <span th:if="${#strings.contains(form.secondService, '1')}">방충망 시공 </span>
+                  <span th:if="${#strings.contains(form.secondService, '2')}">종합 청소 </span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="date-info">
+                <div class="date-range" th:text="${#dates.format(form.stdDate, 'MM-dd')} + ' ~ ' + ${#dates.format(form.endDate, 'MM-dd')}">01-15 ~ 01-20</div>
+                <div class="date-created" th:text="'접수: ' + ${#dates.format(form.createdAt, 'MM-dd HH:mm')}">접수: 01-14 14:30</div>
+              </div>
+            </td>
+            <td>
+              <span class="status-badge" 
+                    th:classappend="${form.status == '접수' ? 'status-pending' : 
+                                    (form.status == '검토중' ? 'status-pending' : 
+                                    (form.status == '승인' ? 'status-approved' : 
+                                    (form.status == '완료' ? 'status-completed' : 
+                                    (form.status == '반려' ? 'status-rejected' : 'status-pending'))))}"
+                    th:text="${form.status != null and !form.status.isEmpty() ? form.status : '접수'}">검토 중</span>
+            </td>
+            <td>
+              <div class="actions">
+                <a th:href="@{/admin/forms/{id}(id=${form.id})}" class="action-btn view">상세</a>
+                <a th:href="@{/admin/forms/update/{id}(id=${form.id})}" class="action-btn edit">수정</a>
+                <button class="action-btn delete" th:data-form-id="${form.id}" onclick="deleteForm(this.dataset.formId)">삭제</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- 빈 상태 -->
+      <div class="empty-state" th:if="${pageInfo.list == null or pageInfo.list.isEmpty()}">
+        <div class="empty-icon">📋</div>
+        <div class="empty-title">설문이 없습니다</div>
+        <div class="empty-description">현재 상태에서 설문이 없습니다.</div>
+        <a href="/forms" class="btn btn-primary">새 설문 작성하기</a>
+      </div>
+    </div>
+
+    <!-- 페이지 -->
+    <th:block th:replace="~{UI/fragments/common/page::page}"></th:block>
+
+  </div>
+
+  <script>
+    // 검색 기능
+    // document.getElementById('searchInput').addEventListener('input', function() {
+    //   const searchTerm = this.value.toLowerCase();
+    //   const tableBody = document.getElementById('formsTableBody');
+    //   const rows = tableBody.querySelectorAll('tr');
+      
+    //   rows.forEach(row => {
+    //     const name = row.querySelector('.applicant-name').textContent.toLowerCase();
+    //     const address = row.querySelector('.address-main').textContent.toLowerCase();
+    //     const detailAddress = row.querySelector('.address-detail').textContent.toLowerCase();
+        
+    //     if (name.includes(searchTerm) || address.includes(searchTerm) || detailAddress.includes(searchTerm)) {
+    //       row.style.display = '';
+    //     } else {
+    //       row.style.display = 'none';
+    //     }
+    //   });
+    // });
+    
+    // 전체 선택/해제
+    function toggleSelectAll(checkbox) {
+      const checkboxes = document.querySelectorAll('.form-checkbox');
+      checkboxes.forEach(cb => {
+        cb.checked = checkbox.checked;
+      });
+      updateBatchActions();
+    }
+    
+    // 일괄 작업 버튼 표시/숨김
+    function updateBatchActions() {
+      const checkboxes = document.querySelectorAll('.form-checkbox:checked');
+      const batchActions = document.getElementById('batchActions');
+      const selectedCount = document.getElementById('selectedCount');
+      
+      if (checkboxes.length > 0) {
+        batchActions.style.display = 'block';
+        selectedCount.textContent = checkboxes.length;
+      } else {
+        batchActions.style.display = 'none';
+        selectedCount.textContent = '0';
+      }
+      
+      // 전체 선택 체크박스 업데이트
+      const allCheckboxes = document.querySelectorAll('.form-checkbox');
+      const selectAllCheckbox = document.getElementById('selectAll');
+      selectAllCheckbox.checked = allCheckboxes.length > 0 && checkboxes.length === allCheckboxes.length;
+    }
+    
+    // 선택된 항목의 ID 가져오기
+    function getSelectedIds() {
+      const checkboxes = document.querySelectorAll('.form-checkbox:checked');
+      return Array.from(checkboxes).map(cb => cb.value);
+    }
+    
+    // 일괄 삭제 - 개별 DELETE 요청을 여러 번 호출
+    async function batchDelete() {
+      const ids = getSelectedIds();
+      
+      if (ids.length === 0) {
+        alert('삭제할 항목을 선택해주세요.');
+        return;
+      }
+      
+      if (!confirm(`선택한 ${ids.length}개의 설문을 삭제하시겠습니까?`)) {
+        return;
+      }
+      
+      let successCount = 0;
+      let failCount = 0;
+      
+      // 각 ID에 대해 개별 DELETE 요청
+      for (const id of ids) {
+        const result = await formsAjax(`/${id}`, 'DELETE');
+        
+        if (result !== 'FAIL' && result.success) {
+          successCount++;
+        } else {
+          failCount++;
+        }
+      }
+      
+      // 결과 알림
+      if (failCount === 0) {
+        alert(`${successCount}개의 설문이 삭제되었습니다.`);
+      } else {
+        alert(`${successCount}개 성공, ${failCount}개 실패했습니다.`);
+      }
+      
+      location.reload();
+    }
+    
+    // 일괄 상태 변경
+    async function batchUpdateStatus() {
+      const ids = getSelectedIds();
+      const status = document.getElementById('batchStatusSelect').value;
+      
+      if (ids.length === 0) {
+        alert('변경할 항목을 선택해주세요.');
+        return;
+      }
+      
+      if (!status) {
+        alert('변경할 상태를 선택해주세요.');
+        return;
+      }
+      
+      if (!confirm(`선택한 ${ids.length}개의 설문 상태를 "${status}"(으)로 변경하시겠습니까?`)) {
+        return;
+      }
+      
+      // ajax.js 공통 함수 사용
+      const result = await formsAjax('/batch/status', 'PUT', { 
+        ids: ids,
+        status: status 
+      });
+      
+      if (result !== 'FAIL' && result.success) {
+        alert(result.message || `상태가 "${status}"(으)로 변경되었습니다.`);
+        location.reload();
+      } else {
+        alert(result.message || '상태 변경에 실패했습니다.');
+      }
+    }
+    
+    // 설문 삭제
+    async function deleteForm(formId) {
+      if (!confirm('정말로 이 설문을 삭제하시겠습니까?')) {
+        return;
+      }
+      
+      // ajax.js 공통 함수 사용
+      const result = await formsAjax(`/${formId}`, 'DELETE');
+      
+      if (result !== 'FAIL' && result.success) {
+        alert(result.message || '설문이 삭제되었습니다.');
+        location.reload();
+      } else {
+        alert(result.message || '삭제에 실패했습니다.');
+      }
+    }
+  </script>
+</body>
+</html>
