@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layouts/admin/admin_layout}">
+<head>
+  <title>문의사항 관리 - 관리자</title>
+</head>
+<body>
+  <main layout:fragment="content">
+    <div class="container-fluid">
+      <!-- Header -->
+      <div class="page-header d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h1>문의사항 관리</h1>
+          <p class="text-muted">고객 문의사항 목록 및 관리</p>
+        </div>
+      </div>
+
+      <!-- Filter Section -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <form method="post" th:action="@{/admin/inquiries}" class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">검색</label>
+              <input type="text" class="form-control" name="search" placeholder="이름 또는 문의 내용 검색">
+            </div>
+            
+            <div class="col-md-3">
+              <label class="form-label">상태</label>
+              <select class="form-control" name="status">
+                <option value="전체" th:selected="${currentStatus == '전체'}">전체</option>
+                <option value="대기" th:selected="${currentStatus == '대기'}">대기중</option>
+                <option value="답변완료" th:selected="${currentStatus == '답변완료'}">답변완료</option>
+              </select>
+            </div>
+            
+            <div class="col-md-3 d-flex align-items-end">
+              <button type="submit" class="btn btn-success w-100">
+                <i class="bi bi-search"></i> 검색
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Status Summary -->
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">전체</h5>
+              <p class="card-text fs-4 fw-bold" th:text="${pageInfo.total}">0</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">답변 대기</h5>
+              <p class="card-text fs-4 fw-bold text-warning">3</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">답변 완료</h5>
+              <p class="card-text fs-4 fw-bold text-success">5</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="card">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th style="width: 5%;">번호</th>
+              <th style="width: 15%;">이름</th>
+              <th style="width: 40%;">제목</th>
+              <th style="width: 10%;">연락처</th>
+              <th style="width: 15%;">등록일</th>
+              <th style="width: 10%;">상태</th>
+              <th style="width: 5%;">작업</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${pageInfo.list.isEmpty()}">
+              <td colspan="7" class="text-center text-muted py-4">문의사항이 없습니다.</td>
+            </tr>
+            <tr th:each="inquiry, stat : ${pageInfo.list}">
+              <td th:text="${pageInfo.total - (pageInfo.pageNum - 1) * pageInfo.pageSize - stat.count + 1}">1</td>
+              <td th:text="${inquiry.name}">이름</td>
+              <td>
+                <a th:href="@{/admin/inquiries/{id}(id=${inquiry.id})}" class="text-decoration-none">
+                  <span th:text="${inquiry.title}">제목</span>
+                </a>
+              </td>
+              <td>
+                <a th:href="@{'tel:' + ${inquiry.phone}}" class="text-decoration-none">
+                  <span th:text="${inquiry.phone}">010-0000-0000</span>
+                </a>
+              </td>
+              <td th:text="${#dates.format(inquiry.createdAt, 'yyyy-MM-dd HH:mm')}">2026-01-25 14:30</td>
+              <td>
+                <span th:if="${inquiry.status == '대기'}" class="badge bg-warning">답변대기</span>
+                <span th:if="${inquiry.status == '답변완료'}" class="badge bg-success">답변완료</span>
+              </td>
+              <td>
+                <div class="btn-group btn-group-sm" role="group">
+                  <a th:href="@{/admin/inquiries/{id}(id=${inquiry.id})}" class="btn btn-outline-primary" title="보기">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                  <a th:if="${inquiry.status == '대기'}" 
+                     th:href="@{/admin/inquiries/reply/{id}(id=${inquiry.id})}" 
+                     class="btn btn-outline-success" title="답변">
+                    <i class="bi bi-reply"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" th:classappend="${pageInfo.pageNum == 1} ? 'disabled'">
+            <a class="page-link" href="#" th:href="@{${pageUri}(page=1)}">처음</a>
+          </li>
+          <li class="page-item" th:classappend="${pageInfo.pageNum == 1} ? 'disabled'">
+            <a class="page-link" href="#" th:href="@{${pageUri}(page=${pageInfo.pageNum - 1})}">이전</a>
+          </li>
+          
+          <li th:each="pageNum : ${#numbers.sequence(Math.max(1, pageInfo.pageNum - 4), Math.min(pageInfo.pages, pageInfo.pageNum + 4))}"
+              class="page-item" th:classappend="${pageNum == pageInfo.pageNum} ? 'active'">
+            <a class="page-link" href="#" th:href="@{${pageUri}(page=${pageNum})}" th:text="${pageNum}">1</a>
+          </li>
+          
+          <li class="page-item" th:classappend="${pageInfo.pageNum == pageInfo.pages} ? 'disabled'">
+            <a class="page-link" href="#" th:href="@{${pageUri}(page=${pageInfo.pageNum + 1})}">다음</a>
+          </li>
+          <li class="page-item" th:classappend="${pageInfo.pageNum == pageInfo.pages} ? 'disabled'">
+            <a class="page-link" href="#" th:href="@{${pageUri}(page=${pageInfo.pages})}">마지막</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </main>
+</body>
+</html>

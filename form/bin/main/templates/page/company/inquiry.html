@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layouts/company/company_layout}">
+<head>
+  <title>문의하기 - 수호대행</title>
+</head>
+<body>
+  <main layout:fragment="content">
+    <!-- Hero Section -->
+    <section class="page-header">
+      <div class="container">
+        <h1>문의하기</h1>
+        <p>궁금한 사항이 있으신가요? 편하게 문의해주세요.</p>
+      </div>
+    </section>
+    
+    <!-- Inquiry Form Section -->
+    <section class="page-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <form id="inquiryForm" class="inquiry-form">
+              <!-- CSRF Token -->
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+              
+              <!-- Name Field -->
+              <div class="form-group">
+                <label for="name" class="form-label">이름 <span class="required">*</span></label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="성명을 입력하세요" required />
+              </div>
+              
+              <!-- Email Field -->
+              <div class="form-group">
+                <label for="email" class="form-label">이메일 <span class="required">*</span></label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요" required />
+              </div>
+              
+              <!-- Phone Field -->
+              <div class="form-group">
+                <label for="phone" class="form-label">연락처 <span class="required">*</span></label>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="010-0000-0000" required />
+              </div>
+              
+              <!-- Title Field -->
+              <div class="form-group">
+                <label for="title" class="form-label">제목 <span class="required">*</span></label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="문의 제목을 입력하세요" required />
+              </div>
+              
+              <!-- Content Field -->
+              <div class="form-group">
+                <label for="content" class="form-label">내용 <span class="required">*</span></label>
+                <textarea class="form-control" id="content" name="content" rows="8" placeholder="문의 내용을 입력하세요" required></textarea>
+              </div>
+              
+              <!-- Agreement Checkbox -->
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="agreePrivacy" required />
+                <label class="form-check-label" for="agreePrivacy">
+                  개인정보 수집 및 이용에 동의합니다 <span class="required">*</span>
+                </label>
+              </div>
+              
+              <!-- Submit Button -->
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">문의 제출</button>
+                <button type="reset" class="btn btn-outline-secondary btn-lg">초기화</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Contact Info Section -->
+    <section class="page-section bg-light">
+      <div class="container">
+        <h2 class="section-title">다른 방법으로 연락하세요</h2>
+        <div class="row">
+          <div class="col-md-4 text-center">
+            <div class="contact-card">
+              <div class="contact-icon">📞</div>
+              <h4>전화</h4>
+              <p><a href="tel:1234-5678" class="contact-link">1234-5678</a></p>
+              <p style="font-size: 0.9rem; color: var(--text-light);">평일 09:00~18:00</p>
+            </div>
+          </div>
+          
+          <div class="col-md-4 text-center">
+            <div class="contact-card">
+              <div class="contact-icon">📧</div>
+              <h4>이메일</h4>
+              <p><a href="mailto:info@suhodahaeng.com" class="contact-link">info@suhodahaeng.com</a></p>
+            </div>
+          </div>
+          
+          <div class="col-md-4 text-center">
+            <div class="contact-card">
+              <div class="contact-icon">💬</div>
+              <h4>카카오톡</h4>
+              <p><a href="#" class="contact-link">수호대행 상담</a></p>
+              <p style="font-size: 0.9rem; color: var(--text-light);">빠른 응답</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <style>
+      .page-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+      }
+      
+      .page-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .inquiry-form {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+      
+      .required {
+        color: #DC3545;
+      }
+      
+      .form-check {
+        margin-bottom: 2rem;
+      }
+      
+      .form-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+      
+      .contact-card {
+        padding: 2rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+      
+      .contact-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .contact-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      
+      .contact-link:hover {
+        text-decoration: underline;
+      }
+      
+      @media (max-width: 768px) {
+        .page-header h1 {
+          font-size: 2rem;
+        }
+        
+        .inquiry-form {
+          padding: 1.5rem;
+        }
+        
+        .form-actions {
+          flex-direction: column;
+        }
+      }
+    </style>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const inquiryForm = document.getElementById('inquiryForm');
+        
+        inquiryForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Form validation
+          if (!validateForm(this)) {
+            $alert('필수 항목을 모두 입력해주세요.', 'warning');
+            return;
+          }
+          
+          // Email validation
+          const email = document.getElementById('email').value;
+          if (!isValidEmail(email)) {
+            $alert('유효한 이메일 주소를 입력해주세요.', 'warning');
+            return;
+          }
+          
+          // Phone validation
+          const phone = document.getElementById('phone').value;
+          if (!isValidPhone(phone)) {
+            $alert('유효한 전화번호를 입력해주세요.', 'warning');
+            return;
+          }
+          
+          // Privacy agreement check
+          if (!document.getElementById('agreePrivacy').checked) {
+            $alert('개인정보 수집 및 이용에 동의해주세요.', 'warning');
+            return;
+          }
+          
+          // Submit form via AJAX
+          showLoading();
+          
+          const formData = {
+            name: document.getElementById('name').value,
+            email: email,
+            phone: phone,
+            title: document.getElementById('title').value,
+            content: document.getElementById('content').value
+          };
+          
+          $ajax({
+            url: '/api/inquiries',
+            method: 'POST',
+            data: JSON.stringify(formData),
+            contentType: 'application/json',
+            success: function(response) {
+              hideLoading();
+              if (response.success) {
+                $alert('문의가 성공적으로 접수되었습니다. 빠르게 연락드리겠습니다.', 'success');
+                inquiryForm.reset();
+                setTimeout(() => {
+                  window.location.href = '/';
+                }, 2000);
+              } else {
+                $alert(response.message || '문의 접수에 실패했습니다.', 'error');
+              }
+            },
+            error: function() {
+              hideLoading();
+              $alert('서버 오류가 발생했습니다.', 'error');
+            }
+          });
+        });
+      });
+    </script>
+  </main>
+</body>
+</html>

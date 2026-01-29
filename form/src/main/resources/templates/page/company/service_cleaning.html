@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layouts/company/company_layout}">
+<head>
+  <title>종합 청소 - 수호대행</title>
+</head>
+<body>
+  <main layout:fragment="content">
+    <!-- Hero Section -->
+    <section class="service-hero">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="/">홈</a> > <a href="/services">서비스</a> > <span>종합 청소</span>
+        </div>
+        <h1>종합 청소 서비스</h1>
+        <p>입주 전/후 전문 청소 및 관리</p>
+      </div>
+    </section>
+    
+    <!-- Overview Section -->
+    <section class="page-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h2>서비스 개요</h2>
+            <p>
+              공사 후 발생하는 먼지, 오염물질을 완벽하게 제거합니다. 
+              입주 전 쾌적한 환경을 만들어 편안한 입주를 도와드립니다.
+            </p>
+            <ul class="benefits-list">
+              <li>✓ 철저한 청소</li>
+              <li>✓ 환경 친화적 세제</li>
+              <li>✓ 전문 청소 팀</li>
+              <li>✓ 사후 관리</li>
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <img src="/img/cleaning-image.png" alt="종합 청소" class="img-fluid rounded" />
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Cleaning Areas Section -->
+    <section class="page-section bg-light">
+      <div class="container">
+        <h2 class="section-title">청소 범위</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h4>실내 청소</h4>
+                <ul>
+                  <li>벽면 청소</li>
+                  <li>바닥 청소</li>
+                  <li>천장 청소</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h4>주방 및 욕실</h4>
+                <ul>
+                  <li>타일 청소</li>
+                  <li>배수구 청소</li>
+                  <li>기구 세척</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h4>공용 공간</h4>
+                <ul>
+                  <li>복도 청소</li>
+                  <li>계단 청소</li>
+                  <li>현관 청소</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Process Section -->
+    <section class="page-section">
+      <div class="container">
+        <h2 class="section-title">청소 진행 과정</h2>
+        <div class="process-timeline">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <h4>신청 및 상담</h4>
+            <p>청소 범위 및 일정 상담</p>
+          </div>
+          <div class="process-arrow">→</div>
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <h4>사전 점검</h4>
+            <p>청소 전 상태 확인</p>
+          </div>
+          <div class="process-arrow">→</div>
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <h4>청소 진행</h4>
+            <p>전문 팀에 의한 청소</p>
+          </div>
+          <div class="process-arrow">→</div>
+          <div class="process-step">
+            <div class="step-number">4</div>
+            <h4>최종 점검</h4>
+            <p>청소 완료 후 검수</p>
+          </div>
+          <div class="process-arrow">→</div>
+          <div class="process-step">
+            <div class="step-number">5</div>
+            <h4>입주</h4>
+            <p>깨끗한 환경에서 입주</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="page-section">
+      <div class="container">
+        <h2 class="section-title">청소의 특징</h2>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="feature-box text-center">
+              <div class="feature-icon">✨</div>
+              <h4>완벽함</h4>
+              <p>세세한 부분까지 꼼꼼하게</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="feature-box text-center">
+              <div class="feature-icon">🌿</div>
+              <h4>친환경</h4>
+              <p>안전한 세제 사용</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="feature-box text-center">
+              <div class="feature-icon">⏱️</div>
+              <h4>신속함</h4>
+              <p>효율적인 일정 관리</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="feature-box text-center">
+              <div class="feature-icon">✅</div>
+              <h4>안심</h4>
+              <p>1년 하자 보증</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="page-section bg-primary text-white">
+      <div class="container text-center">
+        <h2>지금 신청하세요!</h2>
+        <p>깨끗한 입주 환경을 위해 전문 청소를 맡기세요.</p>
+        <a href="/forms" class="btn btn-light btn-lg">신청하기</a>
+      </div>
+    </section>
+    
+    <style>
+      .service-hero {
+        background: linear-gradient(135deg, #27AE60, #16A085);
+        color: white;
+        padding: 4rem 0;
+        margin-bottom: 2rem;
+      }
+      
+      .service-hero h1 {
+        font-size: 3rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+      
+      .breadcrumb {
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+      }
+      
+      .breadcrumb a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+      }
+      
+      .benefits-list {
+        list-style: none;
+        padding: 0;
+      }
+      
+      .benefits-list li {
+        padding: 0.5rem 0;
+        font-size: 1.1rem;
+      }
+      
+      .process-timeline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      
+      .process-step {
+        flex: 1;
+        min-width: 180px;
+        text-align: center;
+        padding: 2rem 1rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+      
+      .step-number {
+        width: 50px;
+        height: 50px;
+        background: #27AE60;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 auto 1rem;
+      }
+      
+      .process-arrow {
+        flex: 0;
+        font-size: 2rem;
+        color: #27AE60;
+      }
+      
+      .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+      
+      @media (max-width: 768px) {
+        .service-hero h1 {
+          font-size: 2rem;
+        }
+        
+        .process-timeline {
+          flex-direction: column;
+        }
+        
+        .process-arrow {
+          transform: rotate(90deg);
+        }
+      }
+    </style>
+  </main>
+</body>
+</html>

@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.aloha.form.domain.Forms;
+import com.aloha.form.domain.Inquiry;
+import com.aloha.form.domain.Notice;
 import com.aloha.form.domain.Schedules;
 import com.aloha.form.domain.common.Pagination;
 import com.aloha.form.domain.common.QueryParams;
 import com.aloha.form.service.FormsService;
+import com.aloha.form.service.InquiryService;
+import com.aloha.form.service.NoticeService;
 import com.aloha.form.service.SchedulesService;
 import com.github.pagehelper.PageInfo;
 
@@ -33,6 +37,12 @@ public class AdminController {
     
     @Autowired 
     private SchedulesService schedulesService;
+    
+    @Autowired 
+    private NoticeService noticeService;
+    
+    @Autowired 
+    private InquiryService inquiryService;
 
     /**
      * 💻 관리자 메인 페이지
@@ -223,6 +233,177 @@ public class AdminController {
         //     log.error("일정 목록 조회 오류", e);
         // }
         return "page/admin/calendar";
+    }
+    
+    /**
+     * 💻 공지사항 관리 페이지
+     * @return
+     */
+    @GetMapping("/notices")
+    public String notices(
+        Model model, 
+        QueryParams queryParams,
+        Pagination pagination, 
+        HttpServletRequest request,
+        @RequestParam(value = "status", required = false, defaultValue = "전체") String status
+    ) {
+        try {
+            PageInfo<Notice> pageInfo;
+            
+            // 상태별 조회
+            if ("전체".equals(status)) {
+                pageInfo = noticeService.page(queryParams);
+            } else {
+                pageInfo = noticeService.pageByStatus(queryParams, status);
+            }
+            
+            model.addAttribute("pageInfo", pageInfo);
+            model.addAttribute("currentStatus", status);
+
+            // 페이지
+            Long total = pageInfo.getTotal();
+            pagination.setPage(queryParams.getPage());
+            pagination.setSize(queryParams.getSize());
+            pagination.setTotal(total);
+            model.addAttribute("pagination", pagination);
+            
+            log.info("공지사항 목록 조회 - 상태: {}, 결과 수: {}", status, pageInfo.getList().size());
+
+            String path = request.getServletPath();
+            String pageUri = UriComponentsBuilder.fromPath(path)
+                                                .queryParam("search", queryParams.getSearch())
+                                                .queryParam("size", pagination.getSize())
+                                                .queryParam("status", status)
+                                                .build()
+                                                .toUriString();
+            model.addAttribute("pageUri", pageUri);
+            
+        } catch (Exception e) {
+            log.error("공지사항 목록 조회 오류", e);
+        }
+        return "page/admin/notices";
+    }
+
+    /**
+     * 💻 공지사항 상세 조회 페이지
+     * @return
+     */
+    @GetMapping("/notices/{id}")
+    public String noticeDetail(Model model, @PathVariable("id") String id) {
+        try {
+            Notice notice = noticeService.selectById(id);
+            model.addAttribute("notice", notice);
+            
+        } catch (Exception e) {
+            log.error("공지사항 상세 조회 오류", e);
+        }
+        return "page/admin/notice_detail";
+    }
+
+    /**
+     * 💻 공지사항 작성 페이지
+     * @return
+     */
+    @GetMapping("/notices/create")
+    public String noticeCreate(Model model) {
+        return "page/admin/notice_create";
+    }
+
+    /**
+     * 💻 공지사항 수정 페이지
+     * @return
+     */
+    @GetMapping("/notices/update/{id}")
+    public String noticeUpdate(Model model, @PathVariable("id") String id) {
+        try {
+            Notice notice = noticeService.selectById(id);
+            model.addAttribute("notice", notice);
+            
+        } catch (Exception e) {
+            log.error("공지사항 수정 페이지 조회 오류", e);
+        }
+        return "page/admin/notice_update";
+    }
+    
+    /**
+     * 💻 문의사항 관리 페이지
+     * @return
+     */
+    @GetMapping("/inquiries")
+    public String inquiries(
+        Model model, 
+        QueryParams queryParams,
+        Pagination pagination, 
+        HttpServletRequest request,
+        @RequestParam(value = "status", required = false, defaultValue = "전체") String status
+    ) {
+        try {
+            PageInfo<Inquiry> pageInfo;
+            
+            // 상태별 조회
+            if ("전체".equals(status)) {
+                pageInfo = inquiryService.page(queryParams);
+            } else {
+                pageInfo = inquiryService.pageByStatus(queryParams, status);
+            }
+            
+            model.addAttribute("pageInfo", pageInfo);
+            model.addAttribute("currentStatus", status);
+
+            // 페이지
+            Long total = pageInfo.getTotal();
+            pagination.setPage(queryParams.getPage());
+            pagination.setSize(queryParams.getSize());
+            pagination.setTotal(total);
+            model.addAttribute("pagination", pagination);
+            
+            log.info("문의사항 목록 조회 - 상태: {}, 결과 수: {}", status, pageInfo.getList().size());
+
+            String path = request.getServletPath();
+            String pageUri = UriComponentsBuilder.fromPath(path)
+                                                .queryParam("search", queryParams.getSearch())
+                                                .queryParam("size", pagination.getSize())
+                                                .queryParam("status", status)
+                                                .build()
+                                                .toUriString();
+            model.addAttribute("pageUri", pageUri);
+            
+        } catch (Exception e) {
+            log.error("문의사항 목록 조회 오류", e);
+        }
+        return "page/admin/inquiries";
+    }
+
+    /**
+     * 💻 문의사항 상세 조회 페이지
+     * @return
+     */
+    @GetMapping("/inquiries/{id}")
+    public String inquiryDetail(Model model, @PathVariable("id") String id) {
+        try {
+            Inquiry inquiry = inquiryService.selectById(id);
+            model.addAttribute("inquiry", inquiry);
+            
+        } catch (Exception e) {
+            log.error("문의사항 상세 조회 오류", e);
+        }
+        return "page/admin/inquiry_detail";
+    }
+
+    /**
+     * 💻 문의사항 답변 페이지
+     * @return
+     */
+    @GetMapping("/inquiries/reply/{id}")
+    public String inquiryReply(Model model, @PathVariable("id") String id) {
+        try {
+            Inquiry inquiry = inquiryService.selectById(id);
+            model.addAttribute("inquiry", inquiry);
+            
+        } catch (Exception e) {
+            log.error("문의사항 답변 페이지 조회 오류", e);
+        }
+        return "page/admin/inquiry_reply";
     }
     
 }

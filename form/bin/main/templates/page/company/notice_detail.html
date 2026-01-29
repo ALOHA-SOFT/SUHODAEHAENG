@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layouts/company/company_layout}">
+<head>
+  <title th:text="${notice.title + ' - 수호대행'}"></title>
+</head>
+<body>
+  <main layout:fragment="content">
+    <!-- Hero Section -->
+    <section class="page-header">
+      <div class="container">
+        <div class="breadcrumb-nav">
+          <a href="/">홈</a> > <a href="/notices">공지사항</a> > <span th:text="${notice.title}"></span>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Notice Detail Section -->
+    <section class="page-section">
+      <div class="container">
+        <article class="notice-detail">
+          <!-- Notice Header -->
+          <header class="notice-header">
+            <h1 th:text="${notice.title}"></h1>
+            <div class="notice-meta">
+              <span class="meta-item">
+                <strong>작성자:</strong> <span th:text="${notice.author}"></span>
+              </span>
+              <span class="meta-item">
+                <strong>작성일:</strong> <span th:text="${#dates.format(notice.createdAt, 'yyyy년 MM월 dd일 HH:mm')}"></span>
+              </span>
+            </div>
+          </header>
+          
+          <!-- Divider -->
+          <hr class="notice-divider" />
+          
+          <!-- Notice Content -->
+          <div class="notice-content">
+            <p th:text="${notice.content}" style="white-space: pre-line;"></p>
+          </div>
+          
+          <!-- Divider -->
+          <hr class="notice-divider" />
+          
+          <!-- Navigation -->
+          <div class="notice-navigation">
+            <div class="prev-next-nav">
+              <p class="nav-title">이전글/다음글</p>
+              <!-- Previous Notice will be loaded here if exists -->
+              <div class="nav-item">
+                <span class="nav-label">이전글</span>
+                <a href="#" class="nav-link">이전 공지사항이 없습니다.</a>
+              </div>
+              <!-- Next Notice will be loaded here if exists -->
+              <div class="nav-item">
+                <span class="nav-label">다음글</span>
+                <a href="#" class="nav-link">다음 공지사항이 없습니다.</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="notice-actions">
+            <a href="/notices" class="btn btn-outline-primary">목록으로</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    
+    <style>
+      .page-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+      }
+      
+      .breadcrumb-nav {
+        font-size: 0.95rem;
+      }
+      
+      .breadcrumb-nav a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+      }
+      
+      .breadcrumb-nav a:hover {
+        text-decoration: underline;
+      }
+      
+      .notice-detail {
+        background: white;
+        padding: 3rem;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+      }
+      
+      .notice-header {
+        margin-bottom: 1.5rem;
+      }
+      
+      .notice-header h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--text-dark);
+      }
+      
+      .notice-meta {
+        display: flex;
+        gap: 2rem;
+        color: var(--text-light);
+        font-size: 0.95rem;
+      }
+      
+      .meta-item {
+        display: flex;
+        gap: 0.5rem;
+      }
+      
+      .notice-divider {
+        border: none;
+        border-top: 2px solid var(--border-color);
+        margin: 2rem 0;
+      }
+      
+      .notice-content {
+        margin: 2rem 0;
+        line-height: 1.8;
+        color: var(--text-dark);
+        font-size: 1.1rem;
+      }
+      
+      .notice-navigation {
+        margin: 2rem 0;
+      }
+      
+      .nav-title {
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-dark);
+      }
+      
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: var(--bg-light);
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+      }
+      
+      .nav-label {
+        font-weight: 500;
+        min-width: 60px;
+        color: var(--text-light);
+      }
+      
+      .nav-link {
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+      
+      .nav-link:hover {
+        text-decoration: underline;
+      }
+      
+      .notice-actions {
+        margin-top: 2rem;
+        text-align: center;
+      }
+      
+      @media (max-width: 768px) {
+        .notice-detail {
+          padding: 1.5rem;
+        }
+        
+        .notice-header h1 {
+          font-size: 1.5rem;
+        }
+        
+        .notice-meta {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      }
+    </style>
+  </main>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+  <!-- Footer Fragment -->
+  <footer th:fragment="footer" class="footer">
+    <div class="footer-bg-overlay"></div>
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-left">
+          <div class="footer-logo">
+            <img src="/img/logo.png" alt="수호대행" class="logo-white" />
+          </div>
+          <p class="footer-tagline">전문적인 인테리어 대행 서비스</p>
+          
+          <div class="footer-contact">
+            <div class="contact-item">
+              <img src="/img/icon/phone-sm-primary.png" alt="전화" width="20" height="20" />
+              <a href="tel:070-8057-6208">070-8057-6208</a>
+            </div>
+            <div class="contact-item">
+              <img src="/img/icon/time-sm-primary.png" alt="영업시간" width="20" height="20" />
+              <span>영업시간: 07:00 - 19:00</span>
+            </div>
+          </div>
+          
+          <div class="footer-tags">
+            <span class="tag tag-blue">인테리어</span>
+            <span class="tag tag-purple">전문서비스</span>
+          </div>
+        </div>
+        
+        <div class="footer-right">
+          <div class="footer-section">
+            <h3>주소</h3>
+            <div class="address-info">
+              <img src="/img/icon/location-sm-primary.png" alt="위치" width="20" height="20" />
+              <div class="address-text">
+                <span>경기도 용인시 수지구</span>
+                <span>풍덕천로139번길 10-6</span>
+                <span>(풍덕천동)</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="footer-section">
+            <h3>사업자 정보</h3>
+            <div class="business-info">
+              <img src="/img/icon/docs-sm-primary.png" alt="사업자정보" width="20" height="20" />
+              <div class="business-text">
+                <p class="business-name">대표: 김영만</p>
+                <p class="business-label">사업자등록번호</p>
+                <p class="business-number">368-39-00473</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>
+          &copy; 2024 
+          <span class="brand-gradient">수호대행</span>
+          . All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
