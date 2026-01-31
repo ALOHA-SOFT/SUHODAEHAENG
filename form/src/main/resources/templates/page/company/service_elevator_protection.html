@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layouts/company/company_layout}">
+<head>
+  <title>승강기 보양 - 수호대행</title>
+</head>
+<body>
+  <main layout:fragment="content">
+    <!-- Hero Section -->
+    <section class="service-hero">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="/">홈</a> > <a href="/services">서비스</a> > <span>승강기 보양</span>
+        </div>
+        <h1>승강기 보양 서비스</h1>
+        <p>공사 중 승강기 및 공용 공간 보호</p>
+      </div>
+    </section>
+    
+    <!-- Overview Section -->
+    <section class="page-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h2>서비스 개요</h2>
+            <p>
+              공사 중 발생할 수 있는 승강기 손상을 방지하기 위한 전문적인 보양 서비스입니다. 
+              올보양, 준보양, 하프보양 등 공사 규모에 맞는 맞춤형 보양을 제공합니다.
+            </p>
+            <ul class="benefits-list">
+              <li>✓ 승강기 외부 보호</li>
+              <li>✓ 공용 공간 보양</li>
+              <li>✓ 바닥/벽면 보호</li>
+              <li>✓ 전문가 관리</li>
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <img src="/img/elevator-protection-image.png" alt="승강기 보양" class="img-fluid rounded" />
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Process Section -->
+    <section class="page-section bg-light">
+      <div class="container">
+        <h2 class="section-title">서비스 진행 절차</h2>
+        <div class="process-timeline">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <h4>신청 및 상담</h4>
+            <p>보양 범위 및 방식 결정</p>
+          </div>
+          <div class="process-arrow">→</div>
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <h4>계획 검토</h4>
+            <p>공사 계획 및 일정 확인</p>
+          </div>
+          <div class="process-arrow">→</div>
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <h4>보양 시공</h4>
+            <p>전문가에 의한 보양 작업</p>
+          </div>
+          <div class="process-arrow">→</div>
+          <div class="process-step">
+            <div class="step-number">4</div>
+            <h4>유지관리</h4>
+            <p>공사 기간 중 상태 점검</p>
+          </div>
+          <div class="process-arrow">→</div>
+          <div class="process-step">
+            <div class="step-number">5</div>
+            <h4>철거</h4>
+            <p>공사 완료 후 보양 철거</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Preservation Types Section -->
+    <section class="page-section">
+      <div class="container">
+        <h2 class="section-title">보양 종류</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <h4>올보양</h4>
+                <p>승강기 전체를 완전히 보호하는 방식</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <h4>준보양</h4>
+                <p>부분적 손상 위험 부위만 보호</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <h4>하프보양</h4>
+                <p>최소한의 필수 부분만 보호</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="page-section bg-primary text-white">
+      <div class="container text-center">
+        <h2>지금 신청하세요!</h2>
+        <p>안전한 보양으로 승강기를 보호하세요.</p>
+        <a href="/forms" class="btn btn-light btn-lg">신청하기</a>
+      </div>
+    </section>
+    
+    <style>
+      .service-hero {
+        background: linear-gradient(135deg, #50E3C2, #4A90E2);
+        color: white;
+        padding: 4rem 0;
+        margin-bottom: 2rem;
+      }
+      
+      .service-hero h1 {
+        font-size: 3rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+      
+      .breadcrumb {
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+      }
+      
+      .breadcrumb a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+      }
+      
+      .benefits-list {
+        list-style: none;
+        padding: 0;
+      }
+      
+      .benefits-list li {
+        padding: 0.5rem 0;
+        font-size: 1.1rem;
+      }
+      
+      .process-timeline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      
+      .process-step {
+        flex: 1;
+        min-width: 180px;
+        text-align: center;
+        padding: 2rem 1rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+      
+      .step-number {
+        width: 50px;
+        height: 50px;
+        background: #50E3C2;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 auto 1rem;
+      }
+      
+      .process-arrow {
+        flex: 0;
+        font-size: 2rem;
+        color: #50E3C2;
+      }
+      
+      @media (max-width: 768px) {
+        .service-hero h1 {
+          font-size: 2rem;
+        }
+        
+        .process-timeline {
+          flex-direction: column;
+        }
+        
+        .process-arrow {
+          transform: rotate(90deg);
+        }
+      }
+    </style>
+  </main>
+</body>
+</html>

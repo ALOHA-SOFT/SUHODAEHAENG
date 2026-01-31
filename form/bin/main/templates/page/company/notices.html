@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layouts/company/company_layout}">
+<head>
+  <title>공지사항 - 수호대행</title>
+</head>
+<body>
+  <main layout:fragment="content">
+    <!-- Hero Section -->
+    <section class="page-header">
+      <div class="container">
+        <h1>공지사항</h1>
+        <p>수호대행의 최신 소식과 안내사항입니다</p>
+      </div>
+    </section>
+    
+    <!-- Notice List Section -->
+    <section class="page-section">
+      <div class="container">
+        <!-- Search and Filter -->
+        <div class="notice-controls">
+          <form class="search-form" th:action="@{/notices}" method="get">
+            <input type="text" class="form-control" name="search" placeholder="검색어를 입력하세요" th:value="${pageInfo.list.size() > 0 ? '' : ''}" />
+            <button type="submit" class="btn btn-primary">검색</button>
+          </form>
+        </div>
+        
+        <!-- Notice List -->
+        <div class="notice-list">
+          <div th:if="${pageInfo.list.size() > 0}">
+            <table class="table table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th style="width: 5%;">번호</th>
+                  <th style="width: 60%;">제목</th>
+                  <th style="width: 15%;">작성자</th>
+                  <th style="width: 20%;">작성일</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="notice, stat : ${pageInfo.list}">
+                  <td th:text="${pageInfo.total - (pageInfo.pageNum - 1) * pageInfo.pageSize - stat.count + 1}"></td>
+                  <td>
+                    <a th:href="@{/notices/{id}(id=${notice.id})}" th:text="${notice.title}" class="notice-link"></a>
+                  </td>
+                  <td th:text="${notice.author}"></td>
+                  <td th:text="${#dates.format(notice.createdAt, 'yyyy-MM-dd')}"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- Empty State -->
+          <div th:if="${pageInfo.list.size() == 0}" class="empty-state">
+            <p>공지사항이 없습니다.</p>
+          </div>
+        </div>
+        
+        <!-- Pagination -->
+        <nav th:if="${pagination.total > 0}" class="pagination-wrapper">
+          <ul class="pagination">
+            <!-- First Page -->
+            <li class="page-item" th:classappend="${pageInfo.pageNum == 1 ? 'disabled' : ''}">
+              <a class="page-link" th:href="@{/notices(page=1)}">처음</a>
+            </li>
+            
+            <!-- Previous Page -->
+            <li class="page-item" th:classappend="${pageInfo.pageNum == 1 ? 'disabled' : ''}">
+              <a class="page-link" th:href="@{/notices(page=${pageInfo.pageNum - 1})}">이전</a>
+            </li>
+            
+            <!-- Page Numbers -->
+            <th:block th:with="pageNum=${pageInfo.pageNum}, endPage=${pageInfo.pages}">
+              <li th:each="page : ${#numbers.sequence(Math.max(1, pageInfo.pageNum - 4), Math.min(pageInfo.pages, pageInfo.pageNum + 4))}" 
+                  class="page-item" th:classappend="${page == pageInfo.pageNum ? 'active' : ''}">
+                <a class="page-link" th:href="@{/notices(page=${page})}" th:text="${page}"></a>
+              </li>
+            </th:block>
+            
+            <!-- Next Page -->
+            <li class="page-item" th:classappend="${pageInfo.pageNum >= pageInfo.pages ? 'disabled' : ''}">
+              <a class="page-link" th:href="@{/notices(page=${pageInfo.pageNum + 1})}">다음</a>
+            </li>
+            
+            <!-- Last Page -->
+            <li class="page-item" th:classappend="${pageInfo.pageNum >= pageInfo.pages ? 'disabled' : ''}">
+              <a class="page-link" th:href="@{/notices(page=${pageInfo.pages})}">끝</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+    
+    <style>
+      .page-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+      }
+      
+      .page-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .notice-controls {
+        margin-bottom: 2rem;
+      }
+      
+      .search-form {
+        display: flex;
+        gap: 1rem;
+      }
+      
+      .search-form input {
+        flex: 1;
+      }
+      
+      .notice-list {
+        margin-bottom: 2rem;
+      }
+      
+      .notice-link {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: color 0.3s;
+      }
+      
+      .notice-link:hover {
+        color: #3A7BC8;
+        text-decoration: underline;
+      }
+      
+      .empty-state {
+        text-align: center;
+        padding: 3rem;
+        color: var(--text-light);
+      }
+      
+      .pagination-wrapper {
+        display: flex;
+        justify-content: center;
+      }
+      
+      @media (max-width: 768px) {
+        .search-form {
+          flex-direction: column;
+        }
+        
+        .page-header h1 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </main>
+</body>
+</html>

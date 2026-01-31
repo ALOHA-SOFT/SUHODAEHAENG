@@ -19,15 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 public class HomeController {
 
   /**
-   * 💻 메인
-   * @return
-   */
-  @GetMapping("/")
-  public String home() {
-    return "page/forms/index";
-  }
-
-  /**
    * 💻 회원가입
    * @return
    */

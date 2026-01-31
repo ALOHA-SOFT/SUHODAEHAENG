@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <th:block th:replace="~{UI/fragments/company/meta :: meta}"></th:block>
+  <th:block th:replace="~{UI/fragments/company/link :: link}"></th:block>
+  <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">수호대행</title>
+</head>
+<body>
+  <!-- Header -->
+  <th:block th:replace="~{UI/fragments/company/header :: header}"></th:block>
+  
+  <!-- Main Content -->
+  <main layout:fragment="content">
+    <!-- Page content goes here -->
+  </main>
+  
+  <!-- Footer -->
+  <th:block th:replace="~{UI/fragments/company/footer :: footer}"></th:block>
+  
+  <!-- Floating Buttons -->
+  <th:block th:replace="~{UI/fragments/company/floating :: floating}"></th:block>
+  
+  <!-- Scripts -->
+  <th:block th:replace="~{UI/fragments/company/script :: script}"></th:block>
+</body>
+</html>

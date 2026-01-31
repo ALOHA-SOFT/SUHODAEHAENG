@@ -1,0 +1,7 @@
+/* Slick Carousel Styles - Must be imported first to avoid @charset issues */
+@import 'slick-carousel/slick/slick.css';
+@import 'slick-carousel/slick/slick-theme.css';
+
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';

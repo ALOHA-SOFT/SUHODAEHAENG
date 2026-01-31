@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+  <!-- Footer Fragment -->
+  <footer th:fragment="footer" class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section footer-info">
+          <img src="/img/company/main/logo.png" alt="수호대행" class="footer-logo" />
+          <p class="footer-tagline">전문적인 인테리어 대행 서비스</p>
+          <div class="footer-contact">
+            <p>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M2 4L10 10L18 4" stroke="#51A2FF" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="2" y="4" width="16" height="12" rx="2" stroke="#51A2FF" stroke-width="1.67"/>
+              </svg>
+              <a href="tel:070-8057-6208">070-8057-6208</a>
+            </p>
+            <p>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="10" r="8" stroke="#51A2FF" stroke-width="1.67"/>
+                <path d="M10 6V10L13 12" stroke="#51A2FF" stroke-width="1.67" stroke-linecap="round"/>
+              </svg>
+              <span>영업시간: 07:00 - 19:00</span>
+            </p>
+          </div>
+          <div class="footer-tags">
+            <span class="tag">인테리어</span>
+            <span class="tag">전문서비스</span>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h4>주소</h4>
+          <div class="address-info">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2C6.69 2 4 4.69 4 8c0 5.25 6 10 6 10s6-4.75 6-10c0-3.31-2.69-6-6-6z" stroke="#51A2FF" stroke-width="1.67"/>
+              <circle cx="10" cy="8" r="2" stroke="#51A2FF" stroke-width="1.67"/>
+            </svg>
+            <div>
+              <p>경기도 용인시 수지구</p>
+              <p>풍덕천로139번길 10-6</p>
+              <p>(풍덕천동)</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h4>사업자 정보</h4>
+          <div class="business-info">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <rect x="3.33" y="1.67" width="13.33" height="16.67" rx="2" stroke="#51A2FF" stroke-width="1.67"/>
+              <path d="M6.67 7.5h6.67M6.67 10.83h6.67M6.67 14.17h6.67" stroke="#51A2FF" stroke-width="1.67" stroke-linecap="round"/>
+            </svg>
+            <div>
+              <p class="business-name">대표: 김영만</p>
+              <p class="business-label">사업자등록번호</p>
+              <p class="business-number">368-39-00473</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2024 <span class="brand">수호대행</span>. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

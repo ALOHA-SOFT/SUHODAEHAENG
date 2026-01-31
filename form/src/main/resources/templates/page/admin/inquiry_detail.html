@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layouts/admin/admin_layout}">
+<head>
+  <title>문의사항 상세 - 관리자</title>
+</head>
+<body>
+  <main layout:fragment="content">
+    <div class="container-fluid">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin">관리자</a></li>
+          <li class="breadcrumb-item"><a href="/admin/inquiries">문의사항</a></li>
+          <li class="breadcrumb-item active" aria-current="page" th:text="${inquiry.title}">문의 제목</li>
+        </ol>
+      </nav>
+
+      <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+          <!-- Header -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                  <h1 th:text="${inquiry.title}" class="mb-2">문의 제목</h1>
+                  <div class="text-muted small">
+                    <div>문의자: <strong th:text="${inquiry.name}">이름</strong></div>
+                    <div>등록일: <strong th:text="${#dates.format(inquiry.createdAt, 'yyyy-MM-dd HH:mm')}">2026-01-25 14:30</strong></div>
+                  </div>
+                </div>
+                <span th:if="${inquiry.status == '대기'}" class="badge bg-warning">답변대기</span>
+                <span th:if="${inquiry.status == '답변완료'}" class="badge bg-success">답변완료</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inquiry Content -->
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5>문의 내용</h5>
+            </div>
+            <div class="card-body">
+              <div class="inquiry-content" th:text="${inquiry.content}" style="white-space: pre-line; line-height: 1.8; color: #333;">
+                문의 내용이 여기에 표시됩니다.
+              </div>
+            </div>
+          </div>
+
+          <!-- Reply Content (if exists) -->
+          <div class="card" th:if="${inquiry.status == '답변완료'}">
+            <div class="card-header bg-success text-white">
+              <h5 class="mb-0">답변</h5>
+            </div>
+            <div class="card-body">
+              <div class="small text-muted mb-2">
+                답변일: <span th:text="${#dates.format(inquiry.replyAt, 'yyyy-MM-dd HH:mm')}">2026-01-26 10:00</span>
+              </div>
+              <div class="reply-content" th:text="${inquiry.replyContent}" style="white-space: pre-line; line-height: 1.8; color: #333;">
+                답변 내용이 여기에 표시됩니다.
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="d-flex gap-2 justify-content-end mt-4">
+            <a href="/admin/inquiries" class="btn btn-secondary">목록</a>
+            <a th:if="${inquiry.status == '대기'}" 
+               th:href="@{/admin/inquiries/reply/{id}(id=${inquiry.id})}" 
+               class="btn btn-primary">답변하기</a>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <!-- Customer Info -->
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5>문의자 정보</h5>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <label class="form-label text-muted small">이름</label>
+                <p th:text="${inquiry.name}">이름</p>
+              </div>
+              <div class="mb-3">
+                <label class="form-label text-muted small">이메일</label>
+                <p>
+                  <a th:href="@{'mailto:' + ${inquiry.email}}" class="text-decoration-none">
+                    <span th:text="${inquiry.email}">email@example.com</span>
+                  </a>
+                </p>
+              </div>
+              <div class="mb-3">
+                <label class="form-label text-muted small">연락처</label>
+                <p>
+                  <a th:href="@{'tel:' + ${inquiry.phone}}" class="text-decoration-none">
+                    <span th:text="${inquiry.phone}">010-0000-0000</span>
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status Info -->
+          <div class="card">
+            <div class="card-header">
+              <h5>상태</h5>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <label class="form-label text-muted small">처리 상태</label>
+                <div>
+                  <span th:if="${inquiry.status == '대기'}" class="badge bg-warning p-2">답변 대기중</span>
+                  <span th:if="${inquiry.status == '답변완료'}" class="badge bg-success p-2">답변 완료</span>
+                </div>
+              </div>
+              <div class="mb-3" th:if="${inquiry.status == '답변완료'}">
+                <label class="form-label text-muted small">답변일</label>
+                <p th:text="${#dates.format(inquiry.replyAt, 'yyyy-MM-dd HH:mm')}">2026-01-26 10:00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
