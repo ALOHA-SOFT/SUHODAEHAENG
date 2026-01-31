@@ -1,3 +1,4 @@
+-- Active: 1765956701887@@127.0.0.1@3306@suhodaehaeng
 INSERT INTO forms (
     id, first_service, second_service, terms, std_date, end_date, noise_date,
     address, detail_address, name, tel, email, biz_name,
@@ -33,3 +34,5 @@ SELECT
     address, detail_address, name, tel, email, biz_name,
     created_at, updated_at
 FROM forms;
+
+

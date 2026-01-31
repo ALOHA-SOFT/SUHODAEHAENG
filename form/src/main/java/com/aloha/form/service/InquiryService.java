@@ -25,6 +25,6 @@ public interface InquiryService extends BaseService<Inquiry> {
     boolean delete(String id);
     
     // 답변 추가
-    boolean reply(String id, String replyContent);
+    boolean reply(Inquiry inquiry);
     
 }

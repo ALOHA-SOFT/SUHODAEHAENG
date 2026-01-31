@@ -1,6 +1,8 @@
 package com.aloha.form.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,19 +75,19 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice, NoticeMapper> imp
     public PageInfo<Notice> page(QueryParams queryParams) throws Exception {
         // 페이지 시작
         PageHelper.startPage(queryParams.getPage(), queryParams.getSize());
-        QueryWrapper<Notice> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("created_at");
-        return new PageInfo<>(noticeMapper.selectList(queryWrapper));
+        Map<String, Object> params = new HashMap<>();
+        params.put("queryParams", queryParams);
+        return new PageInfo<>(noticeMapper.listWithParams(params));
     }
     
     @Override
     public PageInfo<Notice> pageByStatus(QueryParams queryParams, String status) throws Exception {
         // 페이지 시작
         PageHelper.startPage(queryParams.getPage(), queryParams.getSize());
-        QueryWrapper<Notice> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("status", status);
-        queryWrapper.orderByDesc("created_at");
-        return new PageInfo<>(noticeMapper.selectList(queryWrapper));
+        Map<String, Object> params = new HashMap<>();
+        params.put("queryParams", queryParams);
+        params.put("status", status);
+        return new PageInfo<>(noticeMapper.listWithParams(params));
     }
     
 }

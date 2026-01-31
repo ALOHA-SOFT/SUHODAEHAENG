@@ -20,7 +20,7 @@ export default function Header() {
     {
       title: '바로 신청',
       items: [
-        { icon: Edit, name: '신청서 작성하기', link: 'http://www.suhodaehaeng.com' },
+        { icon: Edit, name: '신청서 작성하기', link: '/forms' },
         { icon: MessageCircle, name: '카톡 상담', link: 'https://pf.kakao.com/_qbqbn' }
       ]
     },

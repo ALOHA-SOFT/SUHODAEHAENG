@@ -1,4 +1,4 @@
--- Active: 1758440462829@@127.0.0.1@3306@alohaforms
+-- Active: 1768221355775@@suhodaehaeng.com@3306@suhodaehaeng
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- USE `alohaforms`;
@@ -136,15 +136,3 @@ CREATE TABLE `inquiries` (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-
-
-
-
-
-
-
-
-
-
-
-SET FOREIGN_KEY_CHECKS = 1;

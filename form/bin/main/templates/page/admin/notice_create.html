@@ -10,7 +10,7 @@
     <div class="container-fluid">
       <!-- Header -->
       <div class="page-header mb-4">
-        <h1>새 공지사항</h1>
+        <h1>공지사항 - 등록</h1>
         <p class="text-muted">새로운 공지사항을 작성합니다</p>
       </div>
 
@@ -53,30 +53,38 @@
     </div>
 
     <script>
-      document.getElementById('noticeForm').addEventListener('submit', function(e) {
+      document.getElementById('noticeForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const formData = new FormData(this);
         const data = Object.fromEntries(formData);
         
-        fetch('/api/notices', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').content
-          },
-          body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            alert('공지사항이 작성되었습니다.');
+        showLoading('공지사항을 작성하는 중입니다...');
+        
+        try {
+          const result = await $ajax({
+            url: '/api/notices',
+            type: 'POST',
+            data: data
+          });
+          
+          hideLoading();
+          
+          if (result !== 'FAIL') {
+            await $toast({
+              title: '✅ 공지사항이 작성되었습니다',
+              icon: 'success',
+              timer: 2000
+            });
             window.location.href = '/admin/notices';
           } else {
-            alert('작성 실패: ' + data.message);
+            await $alert('❌ 작성 실패', '공지사항 작성 중 오류가 발생했습니다.', 'error');
           }
-        })
-        .catch(error => console.error('Error:', error));
+        } catch (error) {
+          hideLoading();
+          console.error('Error:', error);
+          await $alert('❌ 작성 실패', '공지사항 작성 중 오류가 발생했습니다.', 'error');
+        }
       });
     </script>
   </main>

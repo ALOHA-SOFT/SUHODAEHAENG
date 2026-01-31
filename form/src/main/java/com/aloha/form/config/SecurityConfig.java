@@ -94,7 +94,7 @@ public class SecurityConfig {
                 )
             // CSRF 설정 - 특정 경로는 CSRF 예외 처리
             .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/CHEditor/upload")
+                .ignoringRequestMatchers("/CHEditor/upload", "/api/inquiries/**", "/api/notices/**")
             )
             ;
         

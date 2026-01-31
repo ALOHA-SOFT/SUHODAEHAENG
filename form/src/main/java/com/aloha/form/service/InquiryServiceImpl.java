@@ -1,12 +1,15 @@
 package com.aloha.form.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aloha.form.domain.Inquiry;
+import com.aloha.form.domain.Notice;
 import com.aloha.form.domain.common.QueryParams;
 import com.aloha.form.mapper.InquiryMapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -71,13 +74,13 @@ public class InquiryServiceImpl extends BaseServiceImpl<Inquiry, InquiryMapper> 
     }
 
     @Override
-    public boolean reply(String id, String replyContent) {
-        Inquiry inquiry = inquiryMapper.selectById(id);
-        if (inquiry != null) {
-            inquiry.setReplyContent(replyContent);
-            inquiry.setReplyAt(new Date());
-            inquiry.setStatus("답변완료");
-            return update(inquiry);
+    public boolean reply(Inquiry inquiry) {
+        Inquiry existingInquiry = selectById(inquiry.getId());
+        if (existingInquiry != null) {
+            existingInquiry.setReplyContent(inquiry.getReplyContent());
+            existingInquiry.setReplyAt(new Date());
+            existingInquiry.setStatus("답변완료");
+            return updateById(existingInquiry);
         }
         return false;
     }
@@ -86,19 +89,19 @@ public class InquiryServiceImpl extends BaseServiceImpl<Inquiry, InquiryMapper> 
     public PageInfo<Inquiry> page(QueryParams queryParams) throws Exception {
         // 페이지 시작
         PageHelper.startPage(queryParams.getPage(), queryParams.getSize());
-        QueryWrapper<Inquiry> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("created_at");
-        return new PageInfo<>(inquiryMapper.selectList(queryWrapper));
+        Map<String, Object> params = new HashMap<>();
+        params.put("queryParams", queryParams);
+        return new PageInfo<>(inquiryMapper.listWithParams(params));
     }
     
     @Override
     public PageInfo<Inquiry> pageByStatus(QueryParams queryParams, String status) throws Exception {
         // 페이지 시작
         PageHelper.startPage(queryParams.getPage(), queryParams.getSize());
-        QueryWrapper<Inquiry> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("status", status);
-        queryWrapper.orderByDesc("created_at");
-        return new PageInfo<>(inquiryMapper.selectList(queryWrapper));
+        Map<String, Object> params = new HashMap<>();
+        params.put("queryParams", queryParams);
+        params.put("status", status);
+        return new PageInfo<>(inquiryMapper.listWithParams(params));
     }
     
 }

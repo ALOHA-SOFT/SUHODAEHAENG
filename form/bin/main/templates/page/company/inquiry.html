@@ -182,68 +182,40 @@
       document.addEventListener('DOMContentLoaded', function() {
         const inquiryForm = document.getElementById('inquiryForm');
         
-        inquiryForm.addEventListener('submit', function(e) {
+        inquiryForm.addEventListener('submit', async function(e) {
           e.preventDefault();
-          
-          // Form validation
-          if (!validateForm(this)) {
-            $alert('필수 항목을 모두 입력해주세요.', 'warning');
-            return;
-          }
-          
-          // Email validation
-          const email = document.getElementById('email').value;
-          if (!isValidEmail(email)) {
-            $alert('유효한 이메일 주소를 입력해주세요.', 'warning');
-            return;
-          }
-          
-          // Phone validation
-          const phone = document.getElementById('phone').value;
-          if (!isValidPhone(phone)) {
-            $alert('유효한 전화번호를 입력해주세요.', 'warning');
-            return;
-          }
           
           // Privacy agreement check
           if (!document.getElementById('agreePrivacy').checked) {
-            $alert('개인정보 수집 및 이용에 동의해주세요.', 'warning');
+            $alert('⚠️ 동의 필요', '개인정보 수집 및 이용에 동의해주세요.', 'warning');
             return;
           }
           
-          // Submit form via AJAX
-          showLoading();
+          showLoading('문의를 접수하고 있습니다...');
           
           const formData = {
             name: document.getElementById('name').value,
-            email: email,
-            phone: phone,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
             title: document.getElementById('title').value,
             content: document.getElementById('content').value
           };
           
-          $ajax({
+          const result = await $ajax({
             url: '/api/inquiries',
-            method: 'POST',
-            data: JSON.stringify(formData),
-            contentType: 'application/json',
-            success: function(response) {
-              hideLoading();
-              if (response.success) {
-                $alert('문의가 성공적으로 접수되었습니다. 빠르게 연락드리겠습니다.', 'success');
-                inquiryForm.reset();
-                setTimeout(() => {
-                  window.location.href = '/';
-                }, 2000);
-              } else {
-                $alert(response.message || '문의 접수에 실패했습니다.', 'error');
-              }
-            },
-            error: function() {
-              hideLoading();
-              $alert('서버 오류가 발생했습니다.', 'error');
-            }
+            type: 'POST',
+            data: formData
           });
+          
+          hideLoading();
+          
+          if (result !== 'FAIL' && result.success) {
+            await $alert('🎉 접수 완료', '문의가 성공적으로 접수되었습니다. 빠르게 연락드리겠습니다.', 'success');
+            inquiryForm.reset();
+            window.location.href = '/';
+          } else {
+            $alert('❌ 접수 실패', result.message || '문의 접수에 실패했습니다.', 'error');
+          }
         });
       });
     </script>

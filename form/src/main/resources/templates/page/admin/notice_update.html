@@ -55,7 +55,7 @@
     </div>
 
     <script>
-      document.getElementById('noticeForm').addEventListener('submit', function(e) {
+      document.getElementById('noticeForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const formData = new FormData(this);
@@ -63,24 +63,26 @@
         const noticeId = data.id;
         delete data._method;
         
-        fetch(`/api/notices/${noticeId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').content
-          },
-          body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            alert('공지사항이 수정되었습니다.');
-            window.location.href = '/admin/notices';
-          } else {
-            alert('수정 실패: ' + data.message);
-          }
-        })
-        .catch(error => console.error('Error:', error));
+        showLoading('수정 중입니다...');
+        
+        const result = await $ajax({
+          url: `/api/notices/${noticeId}`,
+          type: 'PUT',
+          data: data
+        });
+        
+        hideLoading();
+        
+        if (result !== 'FAIL' && result.success) {
+          await $toast({
+            title: '✅ 공지사항이 수정되었습니다',
+            icon: 'success',
+            timer: 2000
+          });
+          window.location.href = '/admin/notices';
+        } else {
+          $alert('❌ 수정 실패', result.message || '알 수 없는 오류가 발생했습니다.', 'error');
+        }
       });
     </script>
   </main>
