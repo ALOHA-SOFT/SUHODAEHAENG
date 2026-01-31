@@ -21,7 +21,7 @@ import ServicesPage from '@/app/pages/ServicesPage';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<'home' | 'resident-consent' | 'elevator-protection' | 'act-permit' | 'screen-installation' | 'cleaning-service' | 'notice' | 'notice-detail' | 'inquiry' | 'reviews' | 'services'>('home');
-  const [noticeId, setNoticeId] = useState<number | null>(null);
+  const [noticeId, setNoticeId] = useState<string | null>(null);
 
   // Simple routing based on hash
   React.useEffect(() => {
@@ -40,7 +40,7 @@ export default function App() {
       } else if (hash === 'notice') {
         setCurrentPage('notice');
       } else if (hash.startsWith('notice-detail-')) {
-        const id = parseInt(hash.replace('notice-detail-', ''));
+        const id = hash.replace('notice-detail-', '');
         setNoticeId(id);
         setCurrentPage('notice-detail');
       } else if (hash === 'inquiry') {

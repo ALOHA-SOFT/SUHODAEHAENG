@@ -144,7 +144,7 @@ export default function ScreenInstallationPage() {
               </motion.p>
               
               <motion.a
-                href="#"
+                href="/forms"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
@@ -402,7 +402,7 @@ export default function ScreenInstallationPage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <motion.a
-                href="#"
+                href="/forms"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 sm:gap-3 px-8 sm:px-10 md:px-12 py-4 sm:py-5 bg-white text-blue-600 rounded-2xl shadow-2xl hover:shadow-white/50 transition-all duration-300 group font-bold text-base sm:text-lg"

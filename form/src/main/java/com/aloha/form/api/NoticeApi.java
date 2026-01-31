@@ -98,7 +98,7 @@ public class NoticeApi {
         
         try {
             notice.setId(id);
-            boolean result = noticeService.update(notice);
+            boolean result = noticeService.updateById(notice);
             
             Map<String, Object> response = new HashMap<>();
             if (result) {
@@ -125,7 +125,7 @@ public class NoticeApi {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> destroy(@PathVariable("id") String id) {
         try {
-            boolean result = noticeService.delete(id);
+            boolean result = noticeService.deleteById(id);
             Map<String, Object> response = new HashMap<>();
             
             if (result) {

@@ -16,6 +16,8 @@ export default function InquiryPage() {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const categories = [
     '일반 문의',
@@ -26,23 +28,55 @@ export default function InquiryPage() {
     '기타'
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 여기에 실제 제출 로직 추가
-    setIsSubmitted(true);
+    setIsLoading(true);
+    setErrorMessage('');
     
-    // 3초 후 폼 초기화
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        category: '일반 문의',
-        subject: '',
-        message: ''
+    try {
+      // API 요청 데이터 준비 (InquiryApi.java에 맞게)
+      const requestData = {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        title: `[${formData.category}] ${formData.subject}`,
+        content: formData.message
+      };
+
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
       });
-    }, 3000);
+
+      const result = await response.json();
+
+      if (result.success) {
+        setIsSubmitted(true);
+        
+        // 3초 후 폼 초기화
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            name: '',
+            phone: '',
+            email: '',
+            category: '일반 문의',
+            subject: '',
+            message: ''
+          });
+        }, 3000);
+      } else {
+        setErrorMessage(result.message || '문의 접수에 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('문의 접수 오류:', error);
+      setErrorMessage('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -145,6 +179,20 @@ export default function InquiryPage() {
           >
             {!isSubmitted ? (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* 에러 메시지 */}
+                {errorMessage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3"
+                  >
+                    <div className="flex-shrink-0 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">!</span>
+                    </div>
+                    <p className="text-red-700 text-sm">{errorMessage}</p>
+                  </motion.div>
+                )}
+
                 {/* Name */}
                 <div>
                   <label className="flex items-center text-sm font-bold text-gray-700 mb-2">
@@ -251,12 +299,24 @@ export default function InquiryPage() {
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                  disabled={isLoading}
+                  whileHover={{ scale: isLoading ? 1 : 1.02 }}
+                  whileTap={{ scale: isLoading ? 1 : 0.98 }}
+                  className={`w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 ${
+                    isLoading ? 'opacity-70 cursor-not-allowed' : ''
+                  }`}
                 >
-                  <Send className="w-5 h-5" />
-                  문의하기
+                  {isLoading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      제출 중...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5" />
+                      문의하기
+                    </>
+                  )}
                 </motion.button>
 
                 <p className="text-sm text-gray-500 text-center">

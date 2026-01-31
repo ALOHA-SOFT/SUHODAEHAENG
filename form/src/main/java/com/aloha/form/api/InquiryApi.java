@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/api/inquiries")
+@CrossOrigin(origins = "*")
 public class InquiryApi {
   
     @Autowired 
@@ -98,7 +100,7 @@ public class InquiryApi {
         
         try {
             inquiry.setId(id);
-            boolean result = inquiryService.update(inquiry);
+            boolean result = inquiryService.updateById(inquiry);
             
             Map<String, Object> response = new HashMap<>();
             if (result) {
@@ -122,14 +124,13 @@ public class InquiryApi {
     /**
      * 📋 문의사항 답변
      */
-    @PostMapping("/{id}/reply")
-    public ResponseEntity<?> reply(@PathVariable("id") String id, @RequestBody Map<String, String> request) {
+    @PostMapping("/reply")
+    public ResponseEntity<?> reply(Inquiry inquiry) {
         log.info("## 문의사항 답변 ##");
-        log.info("id={}, request={}", id, request);
+        log.info("inquiry={}", inquiry);
         
         try {
-            String replyContent = request.get("replyContent");
-            boolean result = inquiryService.reply(id, replyContent);
+            boolean result = inquiryService.reply(inquiry);
             
             Map<String, Object> response = new HashMap<>();
             if (result) {
@@ -142,6 +143,7 @@ public class InquiryApi {
                 return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("답변 등록 오류", e);
             Map<String, Object> response = new HashMap<>();
             response.put("success", false);
@@ -156,7 +158,7 @@ public class InquiryApi {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> destroy(@PathVariable("id") String id) {
         try {
-            boolean result = inquiryService.delete(id);
+            boolean result = inquiryService.deleteById(id);
             Map<String, Object> response = new HashMap<>();
             
             if (result) {

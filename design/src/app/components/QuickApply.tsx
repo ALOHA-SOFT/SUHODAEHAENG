@@ -72,9 +72,7 @@ export default function QuickApply() {
 
             {/* CTA Button */}
             <motion.a
-              href="http://www.suhodaehaeng.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/forms"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 md:px-10 py-4 sm:py-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 group font-bold text-base sm:text-lg"

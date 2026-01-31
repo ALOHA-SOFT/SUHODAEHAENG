@@ -48,9 +48,7 @@ export default function FloatingButtons() {
 
       {/* Floating Apply Button - Desktop & Mobile */}
       <motion.a
-        href="http://www.suhodaehaeng.com"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="/forms"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         whileHover={{ scale: 1.05 }}

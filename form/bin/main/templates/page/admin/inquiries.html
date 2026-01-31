@@ -20,11 +20,7 @@
       <div class="card mb-4">
         <div class="card-body">
           <form method="post" th:action="@{/admin/inquiries}" class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label">검색</label>
-              <input type="text" class="form-control" name="search" placeholder="이름 또는 문의 내용 검색">
-            </div>
-            
+
             <div class="col-md-3">
               <label class="form-label">상태</label>
               <select class="form-control" name="status">
@@ -32,6 +28,11 @@
                 <option value="대기" th:selected="${currentStatus == '대기'}">대기중</option>
                 <option value="답변완료" th:selected="${currentStatus == '답변완료'}">답변완료</option>
               </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">검색</label>
+              <input type="text" class="form-control" name="search" placeholder="이름 또는 문의 내용 검색">
             </div>
             
             <div class="col-md-3 d-flex align-items-end">
@@ -43,46 +44,18 @@
         </div>
       </div>
 
-      <!-- Status Summary -->
-      <div class="row mb-4">
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">전체</h5>
-              <p class="card-text fs-4 fw-bold" th:text="${pageInfo.total}">0</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">답변 대기</h5>
-              <p class="card-text fs-4 fw-bold text-warning">3</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">답변 완료</h5>
-              <p class="card-text fs-4 fw-bold text-success">5</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- Table -->
       <div class="card">
         <table class="table table-hover mb-0">
           <thead class="table-light">
             <tr>
-              <th style="width: 5%;">번호</th>
-              <th style="width: 15%;">이름</th>
-              <th style="width: 40%;">제목</th>
-              <th style="width: 10%;">연락처</th>
-              <th style="width: 15%;">등록일</th>
-              <th style="width: 10%;">상태</th>
-              <th style="width: 5%;">작업</th>
+              <th>번호</th>
+              <th>이름</th>
+              <th style="width: 30%;">제목</th>
+              <th>연락처</th>
+              <th>등록일</th>
+              <th>상태</th>
+              <th>작업</th>
             </tr>
           </thead>
           <tbody>
@@ -124,29 +97,8 @@
         </table>
       </div>
 
-      <!-- Pagination -->
-      <nav aria-label="Page navigation" class="mt-4">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" th:classappend="${pageInfo.pageNum == 1} ? 'disabled'">
-            <a class="page-link" href="#" th:href="@{${pageUri}(page=1)}">처음</a>
-          </li>
-          <li class="page-item" th:classappend="${pageInfo.pageNum == 1} ? 'disabled'">
-            <a class="page-link" href="#" th:href="@{${pageUri}(page=${pageInfo.pageNum - 1})}">이전</a>
-          </li>
-          
-          <li th:each="pageNum : ${#numbers.sequence(Math.max(1, pageInfo.pageNum - 4), Math.min(pageInfo.pages, pageInfo.pageNum + 4))}"
-              class="page-item" th:classappend="${pageNum == pageInfo.pageNum} ? 'active'">
-            <a class="page-link" href="#" th:href="@{${pageUri}(page=${pageNum})}" th:text="${pageNum}">1</a>
-          </li>
-          
-          <li class="page-item" th:classappend="${pageInfo.pageNum == pageInfo.pages} ? 'disabled'">
-            <a class="page-link" href="#" th:href="@{${pageUri}(page=${pageInfo.pageNum + 1})}">다음</a>
-          </li>
-          <li class="page-item" th:classappend="${pageInfo.pageNum == pageInfo.pages} ? 'disabled'">
-            <a class="page-link" href="#" th:href="@{${pageUri}(page=${pageInfo.pages})}">마지막</a>
-          </li>
-        </ul>
-      </nav>
+      <!-- 페이지 -->
+      <th:block th:replace="~{UI/fragments/common/page::page}"></th:block>
     </div>
   </main>
 </body>
