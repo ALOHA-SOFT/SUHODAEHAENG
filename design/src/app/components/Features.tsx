@@ -12,8 +12,8 @@ export default function Features() {
     },
     {
       icon: Clock,
-      title: '24시간 상담',
-      description: '언제든지 편하게 문의하세요. 카카오톡 채널을 통해 24시간 실시간 상담이 가능합니다.',
+      title: '365일상담',
+      description: '주말, 공휴일 상관없이 언제든지 문의하세요.<br> 카카오톡 채널을 통해 365일 실시간 상담이 가능합니다.',
       gradient: 'from-blue-400 to-cyan-500'
     },
     {

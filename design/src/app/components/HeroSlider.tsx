@@ -80,14 +80,14 @@ export default function HeroSlider() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight"
+              className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-tight"
             >
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800">
-                빠르고 정확한
+                고객만족 만족도 우수
               </span>
               <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600">
-                수호대행
+                빠르고 정확한 수호대행
               </span>
             </motion.h1>
 
@@ -97,8 +97,8 @@ export default function HeroSlider() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed"
             >
-              입주민 동의서부터 행위허가, 청소까지<br />
-              인테리어의 모든 것을 한번에 해결하세요
+              발빠른 서비스 당일 긴급 출동 OK<br />
+              인테리어 시작과 끝을 수호대행에 맡겨보세요
             </motion.p>
 
             <motion.div
@@ -145,7 +145,7 @@ export default function HeroSlider() {
               </div>
               <div className="text-center lg:text-left">
                 <div className="text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
-                  24시간
+                  365일
                 </div>
                 <div className="text-xs sm:text-sm text-gray-600 mt-1">상담 가능</div>
               </div>

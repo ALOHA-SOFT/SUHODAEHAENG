@@ -26,33 +26,49 @@ export default function ElevatorProtectionPage() {
 
   const galleryImages = [
     {
-      src: 'https://i.imgur.com/uS4ru3n.png',
-      alt: '보양 작업 현장 1'
-    },
-    {
-      src: 'https://i.imgur.com/icqlPsB.png',
-      alt: '보양 작업 현장 2'
-    },
-    {
-      src: 'https://i.imgur.com/higeEcm.png',
+      src: 'https://i.imgur.com/cSXxqvT.png',
       alt: '승강기 보양 1'
     },
     {
-      src: 'https://i.imgur.com/F3R2mQp.png',
+      src: 'https://i.imgur.com/QhucAcE.png',
       alt: '승강기 보양 2'
     },
     {
-      src: 'https://i.imgur.com/3lx2p67.png',
-      alt: '실내 보양'
+      src: 'https://i.imgur.com/Y93JK8l.png',
+      alt: '승강기 보양 3'
     },
     {
-      src: 'https://i.imgur.com/xgUU1V9.png',
-      alt: '잠 보양'
+      src: 'https://i.imgur.com/Z42fMxk.png',
+      alt: '승강기 보양 4'
     },
     {
-      src: 'https://i.imgur.com/rVu9VQ3.png',
-      alt: '동선 보양'
-    }
+      src: 'https://i.imgur.com/3q8mMq9.png',
+      alt: '승강기 보양 5'
+    },
+    {
+      src: 'https://i.imgur.com/Sr5csHr.png',
+      alt: '승강기 보양 6'
+    },
+    {
+      src: 'https://i.imgur.com/UG8aSdG.png',
+      alt: '승강기 보양 7'
+    },
+    {
+      src: 'https://i.imgur.com/EFmsAnr.png',
+      alt: '승강기 보양 8'
+    },
+    {
+      src: 'https://i.imgur.com/SBwAQ6V.png',
+      alt: '승강기 보양 9'
+    },
+    // {
+    //   src: 'https://i.imgur.com/HFzV6pi.png',
+    //   alt: '승강기 보양 10'
+    // },
+    // {
+    //   src: 'https://i.imgur.com/HPJPoo5.png',
+    //   alt: '승강기 보양 11'
+    // },
   ];
 
   const procedures = [
@@ -247,7 +263,7 @@ export default function ElevatorProtectionPage() {
                 <div className="bg-blue-50 p-4 sm:p-6 rounded-lg">
                   <p className="font-bold text-blue-900">
                     🛡️ 안전한 이사 & 공사!<br />
-                    <span className="font-normal text-sm sm:text-base">작업 후 깨끗하게 철거까지 책임집니다.</span>
+                    <span className="font-normal text-sm sm:text-base">작업 후 철거 시 잔사가 거의 남지 않는 테이프로 작업해드립니다.</span>
                   </p>
                 </div>
               </div>
@@ -335,7 +351,158 @@ export default function ElevatorProtectionPage() {
         </div>
       </section>
 
-      {/* Section 5: Behind the Scenes Gallery */}
+      
+      {/* Section 5: Pricing Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
+              가격 안내
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600">
+              투명하고 합리적인 가격으로 제공해드립니다
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="max-w-5xl mx-auto"
+          >
+            {/* Pricing Table */}
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden mb-8">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-gradient-to-r from-blue-600 to-purple-600">
+                      <th className="px-4 sm:px-6 py-5 sm:py-7 text-left text-sm sm:text-base md:text-lg font-bold text-white">
+                        승강기 기타 보양<br />
+                        <span className="text-xs sm:text-sm font-normal opacity-90">각종 보양</span>
+                      </th>
+                      <th className="px-4 sm:px-6 py-5 sm:py-7 text-center text-sm sm:text-base md:text-lg font-bold text-white">
+                        금액
+                      </th>
+                      <th className="px-4 sm:px-6 py-5 sm:py-7 text-center text-sm sm:text-base md:text-lg font-bold text-white bg-gradient-to-r from-orange-500 to-red-500">
+                        이벤트가 🎉
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {[
+                      { range: '올 보양', price: '150,000원', event: '110,000원' },
+                      { range: '준 보양', price: '110,000원', event: '90,000원' },
+                      { range: '하프 보양', price: '90,000원', event: '70,000원' },
+                      { range: '아파트 보양재 설치', price: '90,000원', event: '70,000원' },
+                      { range: '커버링(비닐보양)', price: '50,000원', event: '40,000원' },
+                      { range: '잠 보양', price: '20,000원', event: '15,000원' },
+                      { range: '실내,벽,동선 보양', price: '장당 6,000원', event: '장당 5,000원' },
+                      { range: '보양 철거\n(출장비 별도)', price: '장당 2,000원', event: '장당 2,000원' },
+                    ].map((item, index) => (
+                      <motion.tr
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        className="hover:bg-blue-50 transition-colors duration-200"
+                      >
+                        <td className="px-4 sm:px-6 py-5 sm:py-6 text-sm sm:text-base md:text-lg font-semibold text-gray-900 whitespace-pre-line">
+                          {item.range}
+                        </td>
+                        <td className="px-4 sm:px-6 py-5 sm:py-6 text-center text-sm sm:text-base md:text-lg text-gray-700 line-through opacity-60">
+                          {item.price}
+                        </td>
+                        <td className="px-4 sm:px-6 py-5 sm:py-6 text-center text-base sm:text-lg md:text-xl font-bold text-orange-600">
+                          {item.event}
+                        </td>
+                      </motion.tr>
+                    ))}
+                    <motion.tr
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.8 }}
+                      className="bg-gradient-to-r from-blue-50 to-purple-50"
+                    >
+                      <td className="px-4 sm:px-6 py-5 sm:py-6 text-sm sm:text-base md:text-lg font-semibold text-gray-900">
+                        그 외 각종 보양
+                      </td>
+                      <td colSpan={2} className="px-4 sm:px-6 py-5 sm:py-6 text-center text-sm sm:text-base md:text-lg font-bold text-blue-600">
+                        고객 센터 별도 문의
+                      </td>
+                    </motion.tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Important Notices */}
+            <div className="space-y-4 sm:space-y-6">
+              {/* VAT Notice */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.9 }}
+                className="bg-white rounded-xl p-6 sm:p-8 shadow-lg text-center"
+              >
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-800 font-bold">
+                  ℹ️ VAT(부가세) 별도
+                </p>
+              </motion.div>
+
+              {/* Cancellation Policy */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 1.0 }}
+                className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 sm:p-8 shadow-lg text-center"
+              >
+                <div className="space-y-3 sm:space-y-4">
+                  <p className="text-lg sm:text-xl md:text-2xl text-red-500 font-bold">
+                    ⚠️ 현장 방문 후 취소 시 출장비 55,000원이 발생됩니다.
+                  </p>
+                  <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold">
+                    ✅ 현장 방문 전 취소 시 100% 환불해드립니다.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Additional Info */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 1.1 }}
+                className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 sm:p-8 shadow-lg text-center"
+              >
+                <div className="space-y-3 sm:space-y-4">
+                  <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold">
+                    🏢 외부 보양 추가 시 추가 비용 발생되며, 외부 보양은 후불로 진행됩니다.
+                  </p>
+                  <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold">
+                    💬 구체적인 금액 상담은 카카오톡 또는 고객센터로 연락 부탁드립니다.
+                  </p>
+                  <p className="text-lg sm:text-xl md:text-2xl text-red-500 font-semibold">
+                    ⚡ 당일 급건의 경우 추가 비용 발생될 수 있습니다.
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Section 6: Behind the Scenes Gallery */}
       <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -388,7 +555,8 @@ export default function ElevatorProtectionPage() {
         </div>
       </section>
 
-      {/* Section 6: CTA Section */}
+
+      {/* Section 7: CTA Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-blue-500 to-cyan-500 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00em0wLTEwYzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
         

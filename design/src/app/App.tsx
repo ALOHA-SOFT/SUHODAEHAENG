@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from '@/app/components/Header';
 import HeroSlider from '@/app/components/HeroSlider';
 import ServiceCards from '@/app/components/ServiceCards';
+import SpecialPromotion from '@/app/components/SpecialPromotion';
 import Reviews from '@/app/components/Reviews';
 import Features from '@/app/components/Features';
 import QuickApply from '@/app/components/QuickApply';
@@ -52,6 +53,9 @@ export default function App() {
       } else {
         setCurrentPage('home');
       }
+      
+      // Scroll to top on page change
+      window.scrollTo(0, 0);
     };
 
     handleHashChange();
@@ -104,6 +108,7 @@ export default function App() {
       <Header />
       <HeroSlider />
       <ServiceCards />
+      <SpecialPromotion />
       <Reviews />
       <Features />
       <QuickApply />
