@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aloha.form.domain.Inquiry;
-import com.aloha.form.domain.Notice;
 import com.aloha.form.domain.common.QueryParams;
 import com.aloha.form.mapper.InquiryMapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

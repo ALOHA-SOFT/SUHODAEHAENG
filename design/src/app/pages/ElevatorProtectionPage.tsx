@@ -397,7 +397,7 @@ export default function ElevatorProtectionPage() {
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {[
-                      { range: '올 보양', price: '150,000원', event: '110,000원' },
+                      { range: '올 보양', price: '160,000원', event: '120,000원' },
                       { range: '준 보양', price: '110,000원', event: '90,000원' },
                       { range: '하프 보양', price: '90,000원', event: '70,000원' },
                       { range: '아파트 보양재 설치', price: '90,000원', event: '70,000원' },
@@ -488,6 +488,9 @@ export default function ElevatorProtectionPage() {
                 <div className="space-y-3 sm:space-y-4">
                   <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold">
                     🏢 외부 보양 추가 시 추가 비용 발생되며, 외부 보양은 후불로 진행됩니다.
+                  </p>
+                  <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold">
+                    🎉 잠보양은 기본 1개소 서비스로 진행됩니다.
                   </p>
                   <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold">
                     💬 구체적인 금액 상담은 카카오톡 또는 고객센터로 연락 부탁드립니다.
