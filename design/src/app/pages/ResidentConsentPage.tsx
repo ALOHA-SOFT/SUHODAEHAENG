@@ -25,29 +25,37 @@ export default function ResidentConsentPage() {
 
   const galleryImages = [
     {
-      src: 'https://i.imgur.com/p9IDVqO.png',
-      alt: '동의서 작업 현장 1'
+      src: 'https://i.imgur.com/ylm5kJv.png',
+      alt: '입주민동의서 1'
     },
     {
-      src: 'https://i.imgur.com/8bK4WRf.png',
-      alt: '동의서 작업 현장 2'
+      src: 'https://i.imgur.com/SEecW2P.png',
+      alt: '입주민동의서 2'
     },
     {
-      src: 'https://i.imgur.com/w0U9NYw.png',
-      alt: '동의서 작업 현장 3'
+      src: 'https://i.imgur.com/bPhUN48.png',
+      alt: '입주민동의서 3'
     },
     {
-      src: 'https://i.imgur.com/AqEH8JR.png',
-      alt: '관리사무소 업무 대행'
+      src: 'https://i.imgur.com/PrYMiat.png',
+      alt: '입주민동의서 4'
     },
     {
-      src: 'https://i.imgur.com/ltuONCw.png',
-      alt: '안내문 부착'
+      src: 'https://i.imgur.com/FwpVmax.png',
+      alt: '입주민동의서 5'
     },
     {
-      src: 'https://i.imgur.com/qKMmkwU.png',
-      alt: '동의서 대행'
-    }
+      src: 'https://i.imgur.com/E6gAWQS.png',
+      alt: '입주민동의서 6'
+    },
+    // {
+    //   src: 'https://i.imgur.com/mqneVd9.png',
+    //   alt: '입주민동의서 7'
+    // },
+    // {
+    //   src: 'https://i.imgur.com/2drBEQK.png',
+    //   alt: '입주민동의서 8'
+    // },
   ];
 
   const procedures = [
@@ -351,7 +359,156 @@ export default function ResidentConsentPage() {
         </div>
       </section>
 
-      {/* Section 5: Behind the Scenes Gallery */}
+      {/* Section 5: Pricing Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
+              가격 안내
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600">
+              투명하고 합리적인 가격으로 제공해드립니다
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="max-w-5xl mx-auto"
+          >
+            {/* Pricing Table */}
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden mb-8">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-gradient-to-r from-blue-600 to-purple-600">
+                      <th className="px-4 sm:px-6 py-5 sm:py-7 text-left text-sm sm:text-base md:text-lg font-bold text-white">
+                        입주민동의서<br />
+                        <span className="text-xs sm:text-sm font-normal opacity-90">동의율 50%이하</span>
+                      </th>
+                      <th className="px-4 sm:px-6 py-5 sm:py-7 text-center text-sm sm:text-base md:text-lg font-bold text-white">
+                        금액
+                      </th>
+                      <th className="px-4 sm:px-6 py-5 sm:py-7 text-center text-sm sm:text-base md:text-lg font-bold text-white bg-gradient-to-r from-orange-500 to-red-500">
+                        이벤트가 🎉
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {[
+                      { range: '38세대 이하', price: '100,000원', event: '80,000원' },
+                      { range: '78세대 이하', price: '110,000원', event: '90,000원' },
+                      { range: '118세대 이하', price: '130,000원', event: '110,000원' },
+                      { range: '158세대 이하', price: '160,000원', event: '140,000원' },
+                      { range: '198세대 이하', price: '200,000원', event: '180,000원' },
+                      { range: '238세대 이하', price: '240,000원', event: '220,000원' },
+                      { range: '278세대 이하', price: '280,000원', event: '260,000원' },
+                    ].map((item, index) => (
+                      <motion.tr
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        className="hover:bg-blue-50 transition-colors duration-200"
+                      >
+                        <td className="px-4 sm:px-6 py-5 sm:py-6 text-sm sm:text-base md:text-lg font-semibold text-gray-900">
+                          {item.range}
+                        </td>
+                        <td className="px-4 sm:px-6 py-5 sm:py-6 text-center text-sm sm:text-base md:text-lg text-gray-700 line-through opacity-60">
+                          {item.price}
+                        </td>
+                        <td className="px-4 sm:px-6 py-5 sm:py-6 text-center text-base sm:text-lg md:text-xl font-bold text-orange-600">
+                          {item.event}
+                        </td>
+                      </motion.tr>
+                    ))}
+                    <motion.tr
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.7 }}
+                      className="bg-gradient-to-r from-blue-50 to-purple-50"
+                    >
+                      <td className="px-4 sm:px-6 py-5 sm:py-6 text-sm sm:text-base md:text-lg font-semibold text-gray-900">
+                        그외
+                      </td>
+                      <td colSpan={2} className="px-4 sm:px-6 py-5 sm:py-6 text-center text-sm sm:text-base md:text-lg font-bold text-blue-600">
+                        고객 센터 별도 문의
+                      </td>
+                    </motion.tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Important Notices */}
+            <div className="space-y-4 sm:space-y-6">
+              {/* VAT Notice */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                className="bg-white rounded-xl p-6 sm:p-8 shadow-lg text-center"
+              >
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-800 font-bold">
+                  ℹ️ VAT(부가세) 별도
+                </p>
+              </motion.div>
+
+              {/* Cancellation Policy */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.9 }}
+                className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 sm:p-8 shadow-lg text-center"
+              >
+                <div className="space-y-3 sm:space-y-4">
+                  <p className="text-lg sm:text-xl md:text-2xl text-red-500 font-bold">
+                    ⚠️ 현장 방문 후 취소 시 출장비 55,000원이 발생됩니다.
+                  </p>
+                  <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold">
+                    ✅ 현장 방문 전 취소 시 100% 환불해드립니다.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Additional Info */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 1.0 }}
+                className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 sm:p-8 shadow-lg text-center"
+              >
+                <div className="space-y-3 sm:space-y-4">
+                  <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold">
+                    📌 해당 상품은 50% 기준 상품입니다.
+                  </p>
+                  <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold">
+                    💬 구체적인 금액은 카카오톡 또는 고객센터로 연락 부탁드립니다.
+                  </p>
+                  <p className="text-lg sm:text-xl md:text-2xl text-red-500 font-semibold">
+                    ⚡ 당일 급건의 경우 추가 비용 발생될 수 있습니다.
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Section 6: Behind the Scenes Gallery */}
       <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -369,8 +526,8 @@ export default function ResidentConsentPage() {
             </p>
           </motion.div>
 
-          {/* Masonry Grid Gallery */}
-          <Masonry columns={3} gutter="16px">
+          {/* Consistent Grid Gallery */}
+          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6">
             {galleryImages.map((image, index) => (
               <motion.div
                 key={index}
@@ -380,12 +537,12 @@ export default function ResidentConsentPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
                 onClick={() => openImageModal(index)}
-                className="relative group cursor-pointer overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="relative group cursor-pointer overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 aspect-[3/4]"
               >
                 <ImageWithFallback
                   src={image.src}
                   alt={image.alt}
-                  className="w-full h-auto"
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
@@ -400,11 +557,13 @@ export default function ResidentConsentPage() {
                 </div>
               </motion.div>
             ))}
-          </Masonry>
+          </div>
         </div>
       </section>
 
-      {/* Section 6: CTA Section */}
+      
+
+      {/* Section 7: CTA Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-blue-500 to-cyan-500 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00em0wLTEwYzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
         

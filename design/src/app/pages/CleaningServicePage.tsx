@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Masonry from 'react-responsive-masonry';
+import Swal from 'sweetalert2';
 import { 
   FileText, 
   CheckCircle, 
@@ -20,6 +21,18 @@ import FloatingButtons from '@/app/components/FloatingButtons';
 export default function CleaningServicePage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    Swal.fire({
+      title: '서비스 준비 중',
+      html: '보다 나은 서비스 제공을 위해 현재 준비 중입니다.<br />빠른 시일 내에 더욱 안정된 모습으로 찾아뵙겠습니다.',
+      icon: 'info',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#3b82f6',
+      backdrop: true,
+      allowOutsideClick: true
+    });
+  }, []);
 
   const galleryImages = [
     {
@@ -46,10 +59,10 @@ export default function CleaningServicePage() {
       src: 'https://i.imgur.com/OMhWtQB.png',
       alt: '입주 청소 사례 6'
     },
-    {
-      src: 'https://i.imgur.com/YNzRsoh.png',
-      alt: '입주 청소 사례 7'
-    }
+    // {
+    //   src: 'https://i.imgur.com/YNzRsoh.png',
+    //   alt: '입주 청소 사례 7'
+    // }
   ];
 
   const procedures = [
@@ -343,8 +356,111 @@ export default function CleaningServicePage() {
           </div>
         </div>
       </section>
+      
+      {/* Section 5: Pricing Table */}
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
+              가격 안내
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600">
+              고객님의 상황에 맞는 합리적인 가격을 제공합니다
+            </p>
+          </motion.div>
 
-      {/* Section 5: Cleaning Gallery */}
+          {/* Pricing Table */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="bg-white rounded-3xl shadow-2xl overflow-hidden mb-8 sm:mb-12"
+          >
+            {/* Table Header */}
+            <div className="bg-gradient-to-r from-blue-500 to-cyan-500 px-6 sm:px-8 py-6 sm:py-8">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white text-center">
+                종합 청소 가격표
+              </h3>
+            </div>
+
+            {/* Table Content */}
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-gray-50 border-b-2 border-gray-200">
+                    <th className="px-4 sm:px-6 py-4 sm:py-6 text-left text-sm sm:text-base md:text-lg font-bold text-gray-900">
+                      서비스
+                    </th>
+                    <th className="px-4 sm:px-6 py-4 sm:py-6 text-center text-sm sm:text-base md:text-lg font-bold text-gray-900">
+                      금액
+                    </th>
+                    <th className="px-4 sm:px-6 py-4 sm:py-6 text-center text-sm sm:text-base md:text-lg font-bold text-orange-600">
+                      이벤트가
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  <tr className="hover:bg-blue-50/50 transition-colors">
+                    <td className="px-4 sm:px-6 py-4 sm:py-6 text-sm sm:text-base md:text-lg font-semibold text-gray-900">
+                      종합청소
+                    </td>
+                    <td className="px-4 sm:px-6 py-4 sm:py-6 text-center">
+                      <span className="text-sm sm:text-base md:text-lg text-gray-500 line-through">평당 12,000원</span>
+                    </td>
+                    <td className="px-4 sm:px-6 py-4 sm:py-6 text-center">
+                      <span className="text-base sm:text-lg md:text-xl font-bold text-orange-600">평당 10,000원</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </motion.div>
+
+          {/* Callout Sections */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {/* VAT Notice */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 sm:p-8 rounded-2xl text-center"
+            >
+              <p className="text-xl sm:text-2xl font-bold text-blue-900 mb-2">
+                💰 부가세 별도
+              </p>
+              <p className="text-base sm:text-lg text-gray-700">
+                VAT(부가세) 별도
+              </p>
+            </motion.div>
+
+            {/* Contact Notice */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 sm:p-8 rounded-2xl text-center"
+            >
+              <p className="text-xl sm:text-2xl font-bold text-purple-900 mb-2">
+                📞 가격 상담
+              </p>
+              <p className="text-base sm:text-lg text-gray-700">
+                구체적인 가격 상담은<br />카카오톡 또는 고객센터로<br />연락 부탁드립니다.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 6: Cleaning Gallery */}
       <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -362,8 +478,8 @@ export default function CleaningServicePage() {
             </p>
           </motion.div>
 
-          {/* Masonry Grid Gallery */}
-          <Masonry columns={3} gutter="16px">
+          {/* Consistent Grid Gallery */}
+          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6">
             {galleryImages.map((image, index) => (
               <motion.div
                 key={index}
@@ -373,12 +489,12 @@ export default function CleaningServicePage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
                 onClick={() => openImageModal(index)}
-                className="relative group cursor-pointer overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="relative group cursor-pointer overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 aspect-[3/4]"
               >
                 <ImageWithFallback
                   src={image.src}
                   alt={image.alt}
-                  className="w-full h-auto"
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
@@ -393,11 +509,12 @@ export default function CleaningServicePage() {
                 </div>
               </motion.div>
             ))}
-          </Masonry>
+          </div>
         </div>
       </section>
 
-      {/* Section 6: CTA Section */}
+
+      {/* Section 7: CTA Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-blue-500 to-cyan-500 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00em0wLTEwYzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
         

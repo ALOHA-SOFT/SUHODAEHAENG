@@ -58,10 +58,6 @@ export default function ActPermitPage() {
       src: 'https://i.imgur.com/DF8mVxc.png',
       alt: '행위허가서 9'
     },
-    {
-      src: 'https://i.imgur.com/r73JGZg.png',
-      alt: '행위허가서 10'
-    }
   ];
 
   const procedures = [
@@ -223,7 +219,7 @@ export default function ActPermitPage() {
               </h2>
               <div className="space-y-3 sm:space-y-4 text-base sm:text-lg text-gray-700 leading-relaxed">
                 <p>
-                  아파트 내 <span className="font-bold text-blue-600">구조 변경, 발코니 확장, 샷시 교체</span> 등의 공사는 반드시 행위허가를 받아야 합니다.
+                  아파트 내 <span className="font-bold text-blue-600">아파트 내 구조 변경 공사는</span> 반드시 행위허가를 받아야 합니다.
                 </p>
                 <p>
                   관리사무소와의 협의, 서류 준비, 제출 등 <span className="font-bold text-blue-600">복잡한 절차</span>가 필요합니다.
@@ -350,7 +346,127 @@ export default function ActPermitPage() {
         </div>
       </section>
 
-      {/* Section 5: Document Gallery */}
+      {/* Section 5: Pricing Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
+              가격 안내
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600">
+              투명하고 합리적인 가격으로 제공해드립니다
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="max-w-5xl mx-auto"
+          >
+            {/* Pricing Table */}
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden mb-8">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-gradient-to-r from-blue-600 to-purple-600">
+                      <th className="px-4 sm:px-6 py-5 sm:py-7 text-left text-sm sm:text-base md:text-lg font-bold text-white">
+                        행위허가+사용검사<br />
+                        <span className="text-xs sm:text-sm font-normal opacity-90">행위허가</span>
+                      </th>
+                      <th className="px-4 sm:px-6 py-5 sm:py-7 text-center text-sm sm:text-base md:text-lg font-bold text-white">
+                        금액
+                      </th>
+                      <th className="px-4 sm:px-6 py-5 sm:py-7 text-center text-sm sm:text-base md:text-lg font-bold text-white bg-gradient-to-r from-orange-500 to-red-500">
+                        이벤트가 🎉
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {[
+                      { range: '주상복합', price: '700,000원', event: '500,000원' },
+                      { range: '아파트', price: '500,000원', event: '300,000원' },
+                    ].map((item, index) => (
+                      <motion.tr
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        className="hover:bg-blue-50 transition-colors duration-200"
+                      >
+                        <td className="px-4 sm:px-6 py-5 sm:py-6 text-sm sm:text-base md:text-lg font-semibold text-gray-900">
+                          {item.range}
+                        </td>
+                        <td className="px-4 sm:px-6 py-5 sm:py-6 text-center text-sm sm:text-base md:text-lg text-gray-700 line-through opacity-60">
+                          {item.price}
+                        </td>
+                        <td className="px-4 sm:px-6 py-5 sm:py-6 text-center text-base sm:text-lg md:text-xl font-bold text-orange-600">
+                          {item.event}
+                        </td>
+                      </motion.tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Important Notices */}
+            <div className="space-y-4 sm:space-y-6">
+              {/* VAT Notice */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="bg-white rounded-xl p-6 sm:p-8 shadow-lg text-center"
+              >
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-800 font-bold">
+                  ℹ️ VAT(부가세) 별도
+                </p>
+              </motion.div>
+
+              {/* Cancellation Policy */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 sm:p-8 shadow-lg text-center"
+              >
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-800 font-bold">
+                  ⚠️ 행위허가는 접수 후 즉시 행정 절차가 진행되는 서비스로,<br />
+                </p>
+                <p className="text-lg sm:text-xl md:text-2xl text-red-500 font-bold">
+                  도면 작업이 시작된 이후에는 취소가 불가하오니 이 점 양해 부탁드립니다.
+                </p>
+              </motion.div>
+
+              {/* Additional Info */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 sm:p-8 shadow-lg text-center"
+              >
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold">
+                  💬 구체적인 가격 상담은 카카오톡 또는 고객센터로 연락부탁드립니다.
+                </p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Section 6: Document Gallery */}
       <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -403,7 +519,7 @@ export default function ActPermitPage() {
         </div>
       </section>
 
-      {/* Section 6: CTA Section */}
+      {/* Section 7: CTA Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-blue-500 to-cyan-500 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00em0wLTEwYzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
         
