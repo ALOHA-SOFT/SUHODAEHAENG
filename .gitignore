@@ -38,3 +38,6 @@ dist/
 build/
 .env
 .env.local
+
+# ./gradle
+.gradle/
