@@ -5,3 +5,12 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+/* Popup Swiper 페이지네이션 */
+.popup-swiper .swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+}
+.popup-swiper .swiper-pagination-bullet-active {
+  background: #fff;
+}

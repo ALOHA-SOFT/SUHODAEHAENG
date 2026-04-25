@@ -134,5 +134,46 @@ CREATE TABLE `inquiries` (
 	PRIMARY KEY (`no`)
 ) COMMENT='문의사항';
 
+
+DROP TABLE IF EXISTS `popups`;
+
+CREATE TABLE `popups` (
+	`no` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'PK',
+	`id` VARCHAR(64) NOT NULL UNIQUE COMMENT 'UK',
+	`type` VARCHAR(100) NULL DEFAULT '메인' COMMENT '타입',
+	`name` VARCHAR(100) NULL COMMENT '이름',
+	`url` TEXT NULL COMMENT '이미지경로',
+	`link` TEXT NULL COMMENT '링크',
+	`seq` INT NULL DEFAULT 0 COMMENT '순서',
+	`content` TEXT NULL COMMENT '내용',
+	`started_at` TIMESTAMP NULL COMMENT '시작일',
+	`ended_at` TIMESTAMP NULL COMMENT '종료일',
+	`is_show` TINYiNT(1) NULL DEFAULT 1 COMMENT '공개여부',
+	`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일자',
+	`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일자',
+	PRIMARY KEY (`no`)
+);
+
+DROP TABLE IF EXISTS `media`;
+
+CREATE TABLE `media` (
+	`no` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'PK',
+	`id` VARCHAR(64) NOT NULL UNIQUE COMMENT 'UK',
+	`parent_id` VARCHAR(64) NOT NULL COMMENT '부모 UK',
+	`is_main` TINYiNT(1) NULL COMMENT '메인미디어',
+	`is_thumb` TINYiNT(1) NULL COMMENT '썸네일',
+	`thumb_seq` INT NULL COMMENT '썸네일순서',
+	`type` ENUM('이미지','동영상','임베드') NULL COMMENT "타입 ('이미지','동영상','임베드')",
+	`content` TEXT NULL COMMENT '컨텐츠( URL, img, video, iframe )',
+	`path` TEXT NULL COMMENT '파일경로',
+	`name` TEXT NULL COMMENT '파일명',
+	`origin_name` TEXT NULL COMMENT '원본파일명',
+	`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일자',
+	`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일자',
+	PRIMARY KEY (`no`)
+);
+
+
+
 SET FOREIGN_KEY_CHECKS = 1;
 

@@ -398,9 +398,9 @@ export default function ElevatorProtectionPage() {
                   <tbody className="divide-y divide-gray-200">
                     {[
                       { range: '올 보양', price: '160,000원', event: '120,000원' },
-                      { range: '준 보양', price: '110,000원', event: '90,000원' },
-                      { range: '하프 보양', price: '90,000원', event: '70,000원' },
-                      { range: '아파트 보양재 설치', price: '90,000원', event: '70,000원' },
+                      { range: '준 보양', price: '120,000원', event: '100,000원' },
+                      { range: '하프 보양', price: '100,000원', event: '80,000원' },
+                      { range: '아파트 보양재 설치', price: '100,000원', event: '80,000원' },
                       { range: '커버링(비닐보양)', price: '50,000원', event: '40,000원' },
                       { range: '잠 보양', price: '20,000원', event: '15,000원' },
                       { range: '실내,벽,동선 보양', price: '장당 6,000원', event: '장당 5,000원' },
