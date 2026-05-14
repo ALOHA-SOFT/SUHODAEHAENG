@@ -67,7 +67,7 @@ export default function ServiceCards() {
           <h2 className="text-3xl sm:text-4xl md:text-6xl mb-4 font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
             서비스 안내
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600">수호대행의 전문 서비스를 만나보세요</p>
+          <p className="text-base sm:text-lg md:text-xl text-gray-600">수호파트너스의 전문 서비스를 만나보세요</p>
         </motion.div>
 
         <motion.div 

@@ -60,7 +60,7 @@ export default function Features() {
           <h2 className="text-3xl sm:text-4xl md:text-6xl mb-4 font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
             차별화된 서비스
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600">수호대행만의 특별한 장점</p>
+          <p className="text-base sm:text-lg md:text-xl text-gray-600">수호파트너스만의 특별한 장점</p>
         </motion.div>
 
         <motion.div 

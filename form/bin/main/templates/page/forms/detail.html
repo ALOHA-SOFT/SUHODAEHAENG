@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>설문 상세정보 작성 - 수호대행</title>
+  <title>설문 상세정보 작성 - 수호파트너스</title>
   <!-- Flatpickr CSS for multi-date selection -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <style>
@@ -610,8 +610,13 @@
           </div>
           
           <div class="form-group" id="elevatorFloorsGroup" style="display: none;">
-            <label class="form-label">시공 층수</label>
-            <input type="text" class="form-control" name="elevatorFloors" placeholder="시공할 층수를 입력해주세요">
+            <label class="form-label">자재 진입로 / (시공 층수)</label>
+            <input type="text" class="form-control" name="elevatorFloors" placeholder="예: 지하1층 / 10층(시공 층수)">
+            <p style="font-size: 12px; color: #6c757d; margin-top: 5px;">
+              <strong>(도움말)</strong><br>
+              - 시공 안하시는 경우: (예: 지하1층, 1층)<br>
+              - 시공 하시는 경우: (예: 지하1층 / 10층(시공 층수))
+            </p>
           </div>
         </div>
 
@@ -773,7 +778,7 @@
       <!-- 버튼 -->
       <div class="btn-container">
         <button type="button" class="btn btn-secondary" onclick="history.back()">이전</button>
-        <button type="button" class="btn btn-primary" onclick="submitForm()">접수하기</button>
+        <button type="button" class="btn btn-primary" onclick="submitForm()">다음 단계</button>
       </div>
     </form>
   </div>
@@ -1013,10 +1018,10 @@
           
           // 성공 알림 (SweetAlert2 사용)
           $alert({
-            title: '등록 완료',
-            text: '성공적으로 등록되었습니다.',
-            icon: 'success',
-            confirmButtonText: '완료 페이지로'
+            title: '다음 단계',
+            text: '다음 화면에서 완료하기 버튼을 눌르시고, 카카오채널에 신청하신 분 성함을 카톡 메시지로 보내주셔야 최종 등록이 완료됩니다.',
+            icon: 'info',
+            confirmButtonText: '다음 단계'
           }).then(() => {
             // 완료 페이지로 이동
             location.href = '/forms/complete';

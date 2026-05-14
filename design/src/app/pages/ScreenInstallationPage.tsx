@@ -217,7 +217,7 @@ export default function ScreenInstallationPage() {
                   특히 아이가 있는 가정이나 <span className="font-bold text-blue-600">1층 세대</span>에는 더욱 필수적입니다.
                 </p>
                 <p className="font-bold text-gray-900">
-                  수호대행이 품질 좋은 방충망을 합리적인 가격에 설치해드립니다!
+                  수호파트너스가 품질 좋은 방충망을 합리적인 가격에 설치해드립니다!
                 </p>
               </div>
             </motion.div>
@@ -456,7 +456,7 @@ export default function ScreenInstallationPage() {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
-              수호대행의 숨겨진 땀들
+              수호파트너스의 숨겨진 땀들
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600">
               고객님을 위해 완벽하게 시공한 방충망 사례들입니다

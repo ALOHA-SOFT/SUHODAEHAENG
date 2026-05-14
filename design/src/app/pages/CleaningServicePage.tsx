@@ -233,7 +233,7 @@ export default function CleaningServicePage() {
                   입주 전 <span className="font-bold text-blue-600">전문 청소</span>로 쾌적한 환경을 만들어 건강한 생활을 시작하세요.
                 </p>
                 <p className="font-bold text-gray-900">
-                  수호대행의 전문 청소팀이 구석구석 완벽하게 청소해드립니다!
+                  수호파트너스의 전문 청소팀이 구석구석 완벽하게 청소해드립니다!
                 </p>
               </div>
             </motion.div>
@@ -471,7 +471,7 @@ export default function CleaningServicePage() {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
-              수호대행의 숨겨진 땀들
+              수호파트너스의 숨겨진 땀들
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600">
               고객님을 위해 완벽하게 청소한 입주 청소 사례들입니다

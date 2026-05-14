@@ -69,7 +69,7 @@ export default function ServicesPage() {
               className="inline-block mb-6"
             >
               <div className="px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full text-sm sm:text-base font-semibold shadow-xl">
-                수호대행의 모든 서비스
+                수호파트너스의 모든 서비스
               </div>
             </motion.div>
             

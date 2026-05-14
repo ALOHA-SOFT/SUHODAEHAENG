@@ -101,7 +101,7 @@ export default function NoticePage() {
               공지사항
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-              수호대행의 새로운 소식과 중요한 안내사항을 확인하세요
+              수호파트너스의 새로운 소식과 중요한 안내사항을 확인하세요
             </p>
           </motion.div>
         </div>

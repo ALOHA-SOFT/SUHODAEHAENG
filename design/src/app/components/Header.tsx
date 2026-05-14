@@ -52,8 +52,8 @@ export default function Header() {
             >
               <a href="#">
                 <img 
-                  src="https://cdn.imweb.me/thumbnail/20251220/4f39b08ce75f8.png" 
-                  alt="수호대행 로고" 
+                  src="/logo.png" 
+                  alt="수호파트너스 로고" 
                   className="h-12 w-auto"
                 />
               </a>
@@ -165,8 +165,8 @@ export default function Header() {
               {/* Close Button */}
               <div className="flex items-center justify-between p-6 border-b border-gray-200">
                 <img 
-                  src="https://cdn.imweb.me/thumbnail/20251220/4f39b08ce75f8.png" 
-                  alt="수호대행 로고" 
+                  src="/logo.png" 
+                  alt="수호파트너스 로고" 
                   className="h-10 w-auto"
                 />
                 <button

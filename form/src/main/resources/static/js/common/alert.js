@@ -1,5 +1,5 @@
 
-// 💎 수호대행 설문 시스템 알림 공통 함수
+// 💎 수호파트너스 설문 시스템 알림 공통 함수
 
 /**
  * 기본 알림창
@@ -22,7 +22,7 @@ function $alert(title, text, icon, confirmButtonText = '확인') {
         icon: icon,
         confirmButtonText: confirmButtonText,
         customClass: {
-            popup: '수호대행-alert'
+            popup: '수호파트너스-alert'
         }
     });
 }
@@ -48,7 +48,7 @@ function $alert_(title, text, icon, confirmButtonText = '확인') {
         icon: icon,
         confirmButtonText: confirmButtonText,
         customClass: {
-            popup: '수호대행-alert'
+            popup: '수호파트너스-alert'
         }
     });
 }
@@ -74,7 +74,7 @@ function $confirm(title, text, icon, confirmButtonText = '확인', cancelButtonT
         confirmButtonText: confirmButtonText,
         cancelButtonText: cancelButtonText,
         customClass: {
-            popup: '수호대행-confirm'
+            popup: '수호파트너스-confirm'
         }
     });
 }
@@ -96,7 +96,7 @@ function $confirmDeny(title, text, icon, confirmButtonText = '확인', denyButto
         denyButtonText: denyButtonText,
         cancelButtonText: cancelButtonText,
         customClass: {
-            popup: '수호대행-confirm-deny'
+            popup: '수호파트너스-confirm-deny'
         }
     });
 }
@@ -116,7 +116,7 @@ function $confirmHTML(title, html, icon, confirmButtonText = '확인', cancelBut
         cancelButtonText: cancelButtonText,
         animation: true,
         customClass: {
-            popup: '수호대행-confirm-html'
+            popup: '수호파트너스-confirm-html'
         }
     });
 }
@@ -138,7 +138,7 @@ function $confirmDenyHTML(title, html, icon, confirmButtonText = '확인', denyB
         denyButtonText: denyButtonText,
         cancelButtonText: cancelButtonText,
         customClass: {
-            popup: '수호대행-confirm-deny'
+            popup: '수호파트너스-confirm-deny'
         }
     });
 }
@@ -163,7 +163,7 @@ async function $toast(obj = {}) {
         showConfirmButton: obj.showConfirmButton ?? false,
         timerProgressBar: obj.timerProgressBar ?? true,
         customClass: {
-            popup: '수호대행-toast'
+            popup: '수호파트너스-toast'
         },
         didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
@@ -176,7 +176,7 @@ async function $toast(obj = {}) {
         title: obj.title ?? "success",
     }).then((result) => {
         if (result.dismiss === Swal.DismissReason.timer) {
-            console.log('수호대행 Toast closed by timer');
+            console.log('수호파트너스 Toast closed by timer');
         }
     });
 }
@@ -192,7 +192,7 @@ function $toast_(obj = {}) {
         showConfirmButton: obj.showConfirmButton ?? false,
         timerProgressBar: obj.timerProgressBar ?? true,
         customClass: {
-            popup: '수호대행-toast'
+            popup: '수호파트너스-toast'
         },
         didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
@@ -206,7 +206,7 @@ function $toast_(obj = {}) {
     });
 }
 
-// 💎 수호대행 전용 알림 함수들
+// 💎 수호파트너스 전용 알림 함수들
 
 /**
  * 설문 제출 성공 알림
@@ -290,7 +290,7 @@ function showLoading(message = '처리 중입니다...') {
             Swal.showLoading();
         },
         customClass: {
-            popup: '수호대행-loading'
+            popup: '수호파트너스-loading'
         }
     });
 }

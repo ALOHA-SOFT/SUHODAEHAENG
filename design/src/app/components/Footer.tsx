@@ -18,8 +18,8 @@ export default function Footer() {
             className="lg:col-span-1"
           >
             <img 
-              src="https://cdn.imweb.me/thumbnail/20251220/4f39b08ce75f8.png" 
-              alt="수호대행 로고" 
+              src="/footer-logo.png" 
+              alt="수호파트너스 로고" 
               className="h-10 sm:h-12 mb-4 sm:mb-6 brightness-0 invert"
             />
             <p className="text-gray-400 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
@@ -34,7 +34,7 @@ export default function Footer() {
               </div>
               <div className="flex items-start text-gray-400 hover:text-white transition-colors group">
                 <Clock className="w-5 h-5 mr-3 flex-shrink-0 mt-0.5 text-blue-400 group-hover:scale-110 transition-transform" />
-                <span className="text-sm sm:text-base">영업시간: 07:00 - 19:00</span>
+                <span className="text-sm sm:text-base">영업시간: 07:00 - 20:00</span>
               </div>
             </div>
 
@@ -52,28 +52,32 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="lg:col-span-2"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10">
               {/* Address */}
               <div>
                 <h3 className="text-lg sm:text-xl mb-4 sm:mb-6 font-bold text-white">
                   주소
                 </h3>
+                <div className="mb-2">
+                  <span>전국 서비스를 운영하며, 일부 시공은 지역 및 현장 여건에 따라 제한될 수 있습니다.</span>
+                </div>
                 <div className="flex items-start text-gray-400 hover:text-white transition-colors group">
                   <MapPin className="w-5 h-5 mr-3 flex-shrink-0 mt-0.5 text-blue-400 group-hover:scale-110 transition-transform" />
                   <span className="leading-relaxed text-sm sm:text-base">
-                    경기도 용인시 수지구<br />
-                    풍덕천로139번길 10-6<br />
-                    (풍덕천동)
+                    충남 천안시 동남구<br />
+                    풍세로 694 201 J19호<br />
                   </span>
                 </div>
+                
               </div>
 
-              {/* Business Info */}
+              {/* 사업자 정보 */}
               <div>
                 <h3 className="text-lg sm:text-xl mb-4 sm:mb-6 font-bold text-white">
                   사업자 정보
                 </h3>
-                <div className="space-y-3 text-gray-400">
+                <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
+                  <div className="space-y-3 text-gray-400 mt-5">
                   <div className="flex items-start hover:text-white transition-colors group">
                     <FileText className="w-5 h-5 mr-3 flex-shrink-0 mt-0.5 text-blue-400 group-hover:scale-110 transition-transform" />
                     <div className="leading-relaxed space-y-1 text-sm sm:text-base">
@@ -83,6 +87,7 @@ export default function Footer() {
                     </div>
                   </div>
                 </div>
+                </p>
               </div>
             </div>
           </motion.div>
@@ -97,7 +102,7 @@ export default function Footer() {
           className="border-t border-gray-700/50 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center"
         >
           <p className="text-gray-400 text-sm sm:text-base">
-            &copy; 2024 <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400 font-bold">수호대행</span>. All rights reserved.
+            &copy; 2024 <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400 font-bold">수호파트너스</span>. All rights reserved.
           </p>
         </motion.div>
       </div>

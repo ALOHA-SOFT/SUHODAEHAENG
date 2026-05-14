@@ -127,7 +127,7 @@ export default function InquiryPage() {
               </div>
               <h3 className="font-bold text-gray-900 mb-2">전화 문의</h3>
               <p className="text-blue-600 font-bold text-lg">070-8057-6208</p>
-              <p className="text-sm text-gray-500 mt-1">평일 07:00-19:00</p>
+              <p className="text-sm text-gray-500 mt-1">평일 07:00-20:00</p>
             </motion.div>
 
             <motion.div

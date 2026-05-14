@@ -53,7 +53,7 @@ export default function QuickApply() {
           >
             <div>
               <h3 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 sm:mb-6 text-gray-900 leading-tight">
-                "수호대행만의"
+                "수호파트너스만의"
                 <br />
                 빠른 바로 신청 서비스!
               </h3>

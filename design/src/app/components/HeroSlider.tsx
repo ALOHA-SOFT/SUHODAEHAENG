@@ -83,11 +83,11 @@ export default function HeroSlider() {
               className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-tight"
             >
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800">
-                고객만족 만족도 우수
+                빠르고 정확한 
               </span>
               <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600">
-                빠르고 정확한 수호대행
+                수호파트너스
               </span>
             </motion.h1>
 
@@ -98,7 +98,7 @@ export default function HeroSlider() {
               className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed"
             >
               발빠른 서비스 당일 긴급 출동 OK<br />
-              인테리어 시작과 끝을 수호대행에 맡겨보세요
+              인테리어 시작과 끝을 수호파트너스에 맡겨보세요
             </motion.p>
 
             <motion.div

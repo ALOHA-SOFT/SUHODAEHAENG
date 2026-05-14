@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>설문 수정 - 수호대행</title>
+  <title>설문 수정 - 수호파트너스</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/confirmDate/confirmDate.css">
   <style>
@@ -373,9 +373,14 @@
               <option value="A" th:selected="*{elevatorProtection == 'A'}">관리사무소 조건대로 진행해주세요</option>
             </select>
           </div>
-          <div class="form-group">
-            <label class="form-label">시공 층수</label>
-            <input type="text" class="form-control" id="elevatorFloors" th:value="*{elevatorFloors}">
+          <div class="form-group" id="elevatorFloorsGroup" style="display: none;">
+            <label class="form-label">자재 진입로 / (시공 층수)</label>
+            <input type="text" class="form-control" name="elevatorFloors" placeholder="예: 지하1층 / 10층(시공 층수)">
+            <p style="font-size: 12px; color: #6c757d; margin-top: 5px;">
+              <strong>(도움말)</strong><br>
+              - 시공 안하시는 경우: (예: 지하1층, 1층)<br>
+              - 시공 하시는 경우: (예: 지하1층 / 10층(시공 층수))
+            </p>
           </div>
         </div>
       </div>

@@ -5,13 +5,13 @@ import confetti from 'canvas-confetti';
 const prices = [
   { 
     title: '입주민 동의서', 
-    price: '80,000원~',
+    price: '90,000원~',
     image: 'https://i.imgur.com/ztYghLe.png',
     gradient: 'from-blue-500 to-purple-600'
   },
   { 
     title: '승강기 보양', 
-    price: '70,000원~',
+    price: '80,000원~',
     image: 'https://i.imgur.com/EfhRAS3.png',
     gradient: 'from-purple-500 to-pink-600'
   },
@@ -30,7 +30,7 @@ export default function SpecialPromotion() {
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
   const confettiTriggered = useRef(false);
 
-  const fullText = '수호대행은 국내최저가에 도전합니다!';
+  const fullText = '수호파트너스는 국내최저가에 도전합니다!';
 
   // 타이핑 이펙트
   useEffect(() => {

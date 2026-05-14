@@ -230,7 +230,7 @@ export default function ElevatorProtectionPage() {
                   긁힘, 찍힘, 오염 등으로 인한 피해를 막기 위해 <span className="font-bold text-blue-600">전문 보양 작업</span>이 필수입니다.
                 </p>
                 <p className="font-bold text-gray-900">
-                  수호대행은 체계적인 보양 시스템으로 공간을 완벽하게 보호합니다!
+                  수호파트너스는 체계적인 보양 시스템으로 공간을 완벽하게 보호합니다!
                 </p>
               </div>
             </motion.div>
@@ -398,12 +398,12 @@ export default function ElevatorProtectionPage() {
                   <tbody className="divide-y divide-gray-200">
                     {[
                       { range: '올 보양', price: '160,000원', event: '120,000원' },
-                      { range: '준 보양', price: '110,000원', event: '90,000원' },
-                      { range: '하프 보양', price: '90,000원', event: '70,000원' },
-                      { range: '아파트 보양재 설치', price: '90,000원', event: '70,000원' },
+                      { range: '준 보양', price: '120,000원', event: '100,000원' },
+                      { range: '하프 보양', price: '100,000원', event: '80,000원' },
+                      { range: '아파트 보양재 설치', price: '100,000원', event: '80,000원' },
                       { range: '커버링(비닐보양)', price: '50,000원', event: '40,000원' },
                       { range: '잠 보양', price: '20,000원', event: '15,000원' },
-                      { range: '실내,벽,동선 보양', price: '장당 6,000원', event: '장당 5,000원' },
+                      { range: '실내,벽,동선 보양', price: '장당 7,000원', event: '장당 6,000원' },
                       { range: '보양 철거\n(출장비 별도)', price: '장당 2,000원', event: '장당 2,000원' },
                     ].map((item, index) => (
                       <motion.tr
@@ -516,7 +516,7 @@ export default function ElevatorProtectionPage() {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
-              수호대행의 숨겨진 땀들
+              수호파트너스의 숨겨진 땀들
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600">
               고객님을 위해 현장에서 최선을 다하는 우리의 모습입니다

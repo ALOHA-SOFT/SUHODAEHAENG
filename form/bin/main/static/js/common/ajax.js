@@ -1,6 +1,6 @@
-// 💎 수호대행 설문 시스템 AJAX 공통 함수
+// 💎 수호파트너스 설문 시스템 AJAX 공통 함수
 async function $ajax(obj) {
-    console.log('수호대행 AJAX Call:', {
+    console.log('수호파트너스 AJAX Call:', {
         url: obj.url,
         type: obj.type,
         data: obj.data
@@ -32,10 +32,10 @@ async function $ajax(obj) {
             timeout: 30000, // 30초 타임아웃
         });
         
-        console.log('수호대행 AJAX Success:', response);
+        console.log('수호파트너스 AJAX Success:', response);
         return response;
     } catch (error) {
-        console.error('수호대행 AJAX Error:', error);
+        console.error('수호파트너스 AJAX Error:', error);
         
         // 에러 타입별 처리
         if (error.status === 400) {

@@ -225,7 +225,7 @@ export default function ActPermitPage() {
                   관리사무소와의 협의, 서류 준비, 제출 등 <span className="font-bold text-blue-600">복잡한 절차</span>가 필요합니다.
                 </p>
                 <p className="font-bold text-gray-900">
-                  수호대행이 전문적으로 처리하여 빠르고 정확하게 완료해드립니다!
+                  수호파트너스가 전문적으로 처리하여 빠르고 정확하게 완료해드립니다!
                 </p>
               </div>
             </motion.div>
@@ -477,7 +477,7 @@ export default function ActPermitPage() {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
-              수호대행의 숨겨진 땀들
+              수호파트너스의 숨겨진 땀들
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600">
               고객님을 위해 완벽하게 처리한 행위허가 서류들입니다

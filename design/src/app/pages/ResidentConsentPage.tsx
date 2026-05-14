@@ -173,7 +173,7 @@ export default function ResidentConsentPage() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed"
               >
-                번거로운 입주민 동의서 받기, 수호대행이 빠르고 정확하게 처리해드립니다.<br className="hidden sm:block" />
+                번거로운 입주민 동의서 받기, 수호파트너스가 빠르고 정확하게 처리해드립니다.<br className="hidden sm:block" />
                 직장인도, 바쁜 분들도 걱정 없이 맡겨주세요!
               </motion.p>
               
@@ -232,12 +232,12 @@ export default function ResidentConsentPage() {
                   동별 대표자의 서명과 입주민 <span className="font-bold text-blue-600">과반수 이상</span>의 동의가 필요합니다.
                 </p>
                 <p>
-                  수호대행이 <span className="font-bold text-blue-600">체계적인 프로세스</span>로 빠르고 정확하게 처리해드립니다.
+                  수호파트너스가 <span className="font-bold text-blue-600">체계적인 프로세스</span>로 빠르고 정확하게 처리해드립니다.
                 </p>
                 <div className="bg-blue-50 p-4 sm:p-6 rounded-lg">
                   <p className="font-bold text-blue-900">
                     ✅ 복잡한 행정 절차!<br />
-                    <span className="font-normal text-sm sm:text-base">수호대행이 간편하게 해결해드립니다.</span>
+                    <span className="font-normal text-sm sm:text-base">수호파트너스가 간편하게 해결해드립니다.</span>
                   </p>
                 </div>
               </div>
@@ -404,7 +404,7 @@ export default function ResidentConsentPage() {
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {[
-                      { range: '38세대 이하', price: '100,000원', event: '80,000원' },
+                      // { range: '38세대 이하', price: '100,000원', event: '80,000원' },
                       { range: '78세대 이하', price: '110,000원', event: '90,000원' },
                       { range: '118세대 이하', price: '130,000원', event: '110,000원' },
                       { range: '158세대 이하', price: '160,000원', event: '140,000원' },
@@ -493,7 +493,7 @@ export default function ResidentConsentPage() {
               >
                 <div className="space-y-3 sm:space-y-4">
                   <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold">
-                    📌 해당 상품은 50% 기준 상품입니다.
+                    📌 해당 상품은 50% 기준 상품입니다. (예: 78세대 이하 50%기준 vat 포함 99,000원)
                   </p>
                   <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold">
                     💬 구체적인 금액은 카카오톡 또는 고객센터로 연락 부탁드립니다.
@@ -519,7 +519,7 @@ export default function ResidentConsentPage() {
             className="text-center mb-12 sm:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
-              수호대행의 숨겨진 땀들
+              수호파트너스의 숨겨진 땀들
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600">
               고객님을 위해 현장에서 최선을 다하는 우리의 모습입니다
@@ -578,7 +578,7 @@ export default function ResidentConsentPage() {
               지금 바로 신청해보세요!
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8 sm:mb-10 leading-relaxed">
-              복잡한 절차는 수호대행이 대신 처리해드립니다.<br className="hidden sm:block" />
+              복잡한 절차는 수호파트너스가 대신 처리해드립니다.<br className="hidden sm:block" />
               편하게 인테리어 공사를 시작하세요!
             </p>
             

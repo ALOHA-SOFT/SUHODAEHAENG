@@ -1,5 +1,5 @@
 /**
- * 수호대행 - Main JavaScript
+ * 수호파트너스 - Main JavaScript
  * 페이지 공통 기능 및 유틸리티
  */
 

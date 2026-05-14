@@ -27,7 +27,7 @@ export default function ReviewsPage() {
       service: '입주민 동의서',
       rating: 5,
       date: '2026-01-25',
-      content: '입주민 동의서를 받는 일이 생각보다 번거로웠는데, 수호대행에 맡기니 정말 편했습니다. 빠르고 정확하게 처리해주셔서 감사합니다!',
+      content: '입주민 동의서를 받는 일이 생각보다 번거로웠는데, 수호파트너스에 맡기니 정말 편했습니다. 빠르고 정확하게 처리해주셔서 감사합니다!',
       likes: 24,
       location: '용인시 수지구'
     },
@@ -196,7 +196,7 @@ export default function ReviewsPage() {
               고객 리뷰
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-              수호대행을 이용하신 고객님들의 생생한 후기를 확인하세요
+              수호파트너스을 이용하신 고객님들의 생생한 후기를 확인하세요
             </p>
           </motion.div>
         </div>
