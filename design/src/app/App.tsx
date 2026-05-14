@@ -9,6 +9,7 @@ import QuickApply from '@/app/components/QuickApply';
 import SiteMap from '@/app/components/SiteMap';
 import Footer from '@/app/components/Footer';
 import FloatingButtons from '@/app/components/FloatingButtons';
+import PopupModal from '@/app/components/PopupModal';
 import ResidentConsentPage from '@/app/pages/ResidentConsentPage';
 import ElevatorProtectionPage from '@/app/pages/ElevatorProtectionPage';
 import ActPermitPage from '@/app/pages/ActPermitPage';
@@ -115,6 +116,7 @@ export default function App() {
       <SiteMap />
       <Footer />
       <FloatingButtons />
+      <PopupModal />
     </div>
   );
 }
