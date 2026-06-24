@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>Daum Postcode Resolver</title>
+  </head>
+  <body>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+      window.waitForDaum = () =>
+        new Promise((resolve, reject) => {
+          const started = Date.now();
+
+          (function check() {
+            if (window.daum && window.daum.Postcode) {
+              resolve();
+              return;
+            }
+
+            if (Date.now() - started > 15000) {
+              reject(new Error("daum.Postcode load timeout"));
+              return;
+            }
+
+            setTimeout(check, 100);
+          })();
+        });
+
+      window.resolveBuildingName = (address, timeoutMs = 15000) =>
+        new Promise((resolve) => {
+          let settled = false;
+
+          const finish = (result) => {
+            if (settled) return;
+            settled = true;
+            resolve(result);
+          };
+
+          const timer = setTimeout(() => {
+            finish({
+              ok: false,
+              reason: "timeout",
+              buildingName: "",
+            });
+          }, timeoutMs);
+
+          try {
+            new daum.Postcode({
+              oncomplete: (data) => {
+                clearTimeout(timer);
+                finish({
+                  ok: true,
+                  reason: "completed",
+                  buildingName: data.buildingName || "",
+                });
+              },
+              onclose: () => {
+                clearTimeout(timer);
+                finish({
+                  ok: false,
+                  reason: "closed",
+                  buildingName: "",
+                });
+              },
+            }).open({
+              q: address,
+              autoClose: true,
+            });
+          } catch (e) {
+            clearTimeout(timer);
+            finish({
+              ok: false,
+              reason: "error",
+              error: String(e),
+              buildingName: "",
+            });
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,4 +1,4 @@
--- Active: 1768221355775@@suhodaehaeng.com@3306@suhodaehaeng
+-- Active: 1781005331341@@127.0.0.1@3306@suhodaehaeng
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- USE `alohaforms`;
@@ -58,6 +58,7 @@ CREATE TABLE `forms` (
 	`noise_date` TEXT COMMENT '소음 발생일 (YYYY-MM-DD, 여러날짜 콤마구분)',
 	`address` VARCHAR(255) NOT NULL COMMENT '주소',
 	`detail_address` VARCHAR(255) NOT NULL COMMENT '상세주소 (101동 101호)',
+	`building` VARCHAR(255) NOT NULL COMMENT '건물명',
 	`name` VARCHAR(100) NOT NULL COMMENT '신청인명',
 	`tel` VARCHAR(20) NOT NULL COMMENT '신청인 전화번호',
 	`biz_name` VARCHAR(255) COMMENT '업체명 (신청인이 업체일 경우)',

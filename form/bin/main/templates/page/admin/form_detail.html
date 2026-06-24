@@ -385,6 +385,10 @@
               <div class="detail-label">주소</div>
               <div class="detail-value" th:text="${forms.address}">서울시 강남구 테헤란로 123</div>
             </div>
+            <div class="detail-item" th:if="${forms.building != null and forms.building != ''}">
+              <div class="detail-label">건물명</div>
+              <div class="detail-value" th:text="${forms.building}">OO아파트</div>
+            </div>
             <div class="detail-item">
               <div class="detail-label">상세주소</div>
               <div class="detail-value" th:text="${forms.detailAddress}">101동 101호</div>
@@ -487,8 +491,8 @@
               <div class="detail-value" th:text="${forms.elevatorProtection == 'Y' ? '예' : (forms.elevatorProtection == 'A' ? '관리사무소 조건대로 진행해주세요' : '아니오')}">예</div>
             </div>
             <div class="detail-item" th:if="${forms.elevatorFloors != null and forms.elevatorFloors != ''}">
-              <div class="detail-label">시공 층수</div>
-              <div class="detail-value" th:text="${forms.elevatorFloors}">15층</div>
+              <div class="detail-label">자재 진입로</div>
+              <div class="detail-value" th:text="${forms.elevatorFloors}">지상1층</div>
             </div>
             <div class="detail-item" th:if="${forms.entrancePassword != null and forms.entrancePassword != ''}">
               <div class="detail-label">현관 비밀번호</div>

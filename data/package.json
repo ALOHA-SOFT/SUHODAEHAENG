@@ -1,0 +1,14 @@
+{
+  "name": "suhodaehaeng-data-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "export:forms": "node export_forms_to_json.mjs",
+    "gen:sql": "node generate_building_update_sql.mjs"
+  },
+  "dependencies": {
+    "mysql2": "^3.14.1",
+    "playwright": "^1.54.2"
+  }
+}

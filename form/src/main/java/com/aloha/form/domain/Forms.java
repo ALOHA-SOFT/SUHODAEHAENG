@@ -36,6 +36,7 @@ public class Forms extends Base {
     private String noiseDate;           // 소음 발생일 (YYYY-MM-DD, 여러날짜 콤마구분)
     private String address;             // 주소
     private String detailAddress;       // 상세주소 (101동 101호)
+    private String building;            // 건물명
     private String name;                // 신청인명
     private String tel;                 // 신청인 전화번호
     private String request;             // 요청사항

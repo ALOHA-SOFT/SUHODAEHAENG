@@ -11,7 +11,7 @@ const prices = [
   },
   { 
     title: '승강기 보양', 
-    price: '70,000원~',
+    price: '80,000원~',
     image: 'https://i.imgur.com/EfhRAS3.png',
     gradient: 'from-purple-500 to-pink-600'
   },

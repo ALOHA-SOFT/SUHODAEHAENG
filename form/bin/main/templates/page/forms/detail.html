@@ -329,6 +329,34 @@
       background-color: white;
     }
 
+    .btn-floor-quick {
+      padding: 6px 14px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 2px solid #007bff;
+      border-radius: 20px;
+      background: white;
+      color: #007bff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-floor-quick:hover {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn-floor-quick.active {
+      background: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
+
+    .btn-floor-quick.active:hover {
+      background: #0056b3;
+      border-color: #0056b3;
+    }
+
     .service-notice {
       background: white;
       padding: 15px 20px;
@@ -400,6 +428,11 @@
           </div>
         </div>
         
+        <div class="form-group">
+          <label class="form-label required">건물명</label>
+          <input type="text" class="form-control" name="building" placeholder="ex) OO아파트" required>
+        </div>
+
         <div class="form-group">
           <label class="form-label required">상세주소</label>
           <input type="text" class="form-control" name="detailAddress" placeholder="예) 101동 101호" required>
@@ -578,10 +611,6 @@
             </div>
           </div>
           
-          <div class="form-group">
-            <label class="form-label">필요한 보양 설명</label>
-            <textarea class="form-control textarea-control" rows="5" name="protectionDescription" placeholder="필요한 보양에 대한 상세 설명을 입력해주세요"></textarea>
-          </div>
         </div>
 
         <!-- 승강기 외부 보양 -->
@@ -589,7 +618,7 @@
           <h3 class="section-title">승강기 외부 보양</h3>
           
           <div class="form-group">
-            <label class="form-label">승강기 외부 보양여부(잠보양/동선보양 필요여부)</label>
+            <label class="form-label">승강기 동선 보양여부(잠보양/동선보양 필요여부)</label>
             <div class="radio-group">
               <div class="radio-item">
                 <input type="radio" id="elevator_protection_y" name="elevatorProtection" value="Y">
@@ -608,8 +637,13 @@
               (추가금액 발생되며 필요하신 경우만 시공 층수 작성해 주시면 되십니다.)
             </p>
           </div>
+
+          <div class="form-group">
+            <label class="form-label">필요한 보양 설명</label>
+            <textarea class="form-control textarea-control" rows="5" name="protectionDescription" placeholder="필요한 보양에 대한 상세 설명을 입력해주세요"></textarea>
+          </div>
           
-          <div class="form-group" id="elevatorFloorsGroup" style="display: none;">
+          <!-- <div class="form-group" id="elevatorFloorsGroup" style="display: none;">
             <label class="form-label">자재 진입로 / (시공 층수)</label>
             <input type="text" class="form-control" name="elevatorFloors" placeholder="예: 지하1층 / 10층(시공 층수)">
             <p style="font-size: 12px; color: #6c757d; margin-top: 5px;">
@@ -617,8 +651,42 @@
               - 시공 안하시는 경우: (예: 지하1층, 1층)<br>
               - 시공 하시는 경우: (예: 지하1층 / 10층(시공 층수))
             </p>
-          </div>
+          </div> -->
         </div>
+
+        <!-- 자재진입로 -->
+        <div class="form-section">
+          <h3 class="section-title">자재진입로</h3>
+          <div class="form-group">
+            <label class="form-label required">자재 진입로</label>
+            <div class="service-options">
+              <div class="service-option">
+                <input type="radio" id="elevatorAccess_ground" name="elevatorAccessType" value="지상1층" required>
+                <label for="elevatorAccess_ground">지상1층</label>
+              </div>
+              <div class="service-option">
+                <input type="radio" id="elevatorAccess_underground" name="elevatorAccessType" value="지하">
+                <label for="elevatorAccess_underground">지하</label>
+              </div>
+            </div>
+          </div>
+          <!-- 지하 선택 시 층수 입력칸 -->
+          <div class="form-group" id="elevatorUndergroundFloorsGroup" style="display: none;">
+            <label class="form-label">지하 층수 입력</label>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+              <button type="button" class="btn-floor-quick" onclick="addUndergroundFloor('지하1층', this)">지하1층</button>
+              <button type="button" class="btn-floor-quick" onclick="addUndergroundFloor('지하2층', this)">지하2층</button>
+              <button type="button" class="btn-floor-quick" onclick="addUndergroundFloor('지하3층', this)">지하3층</button>
+              <button type="button" class="btn-floor-quick" onclick="addUndergroundFloor('지하4층', this)">지하4층</button>
+              <button type="button" class="btn-floor-quick" onclick="addUndergroundFloor('지하5층', this)">지하5층</button>
+            </div>
+            <input type="text" class="form-control" id="elevatorUndergroundFloorsInput" placeholder="예: 지하1층, 지하2층">
+          </div>
+          <!-- 실제 서버 전송 필드 -->
+          <input type="hidden" name="elevatorFloors" id="elevatorFloorsHidden">
+
+        </div>
+
 
         <!-- 현관 정보 -->
         <div class="form-section">
@@ -912,25 +980,53 @@
         });
       });
       
-      // 승강기 외부 보양여부에 따른 시공 층수 입력란 토글
-      const elevatorProtectionInputs = document.querySelectorAll('input[name="elevatorProtection"]');
-      elevatorProtectionInputs.forEach(input => {
+      // 자재 진입로 라디오 버튼 선택에 따른 지하 층수 입력란 토글
+      const elevatorAccessInputs = document.querySelectorAll('input[name="elevatorAccessType"]');
+      const elevatorUndergroundFloorsGroup = document.getElementById('elevatorUndergroundFloorsGroup');
+      const elevatorUndergroundFloorsInput = document.getElementById('elevatorUndergroundFloorsInput');
+      const elevatorFloorsHidden = document.getElementById('elevatorFloorsHidden');
+
+      elevatorAccessInputs.forEach(input => {
         input.addEventListener('change', function() {
-          const elevatorFloorsGroup = document.getElementById('elevatorFloorsGroup');
-          const elevatorFloorsInput = document.querySelector('input[name="elevatorFloors"]');
-          
-          if (this.value === 'Y') {
-            // 예 또는 관리사무소 조건대로 선택 시 - 시공 층수 입력란 표시
-            elevatorFloorsGroup.style.display = 'block';
-            console.log('✅ 승강기 외부 보양 필요 - 시공 층수 입력란 표시');
+          if (this.value === '지하') {
+            elevatorUndergroundFloorsGroup.style.display = 'block';
+            elevatorFloorsHidden.value = '지하';
           } else {
-            // 아니오 또는 관리사무소 조건대로 선택 시 - 시공 층수 입력란 숨김 및 값 초기화
-            elevatorFloorsGroup.style.display = 'none';
-            elevatorFloorsInput.value = '';
-            console.log('❌ 승강기 외부 보양 불필요 - 시공 층수 입력란 숨김');
+            elevatorUndergroundFloorsGroup.style.display = 'none';
+            // 입력값 및 버튼 active 상태 초기화
+            elevatorUndergroundFloorsInput.value = '';
+            document.querySelectorAll('.btn-floor-quick').forEach(btn => btn.classList.remove('active'));
+            elevatorFloorsHidden.value = this.value;
           }
         });
       });
+
+      // 지하 층수 입력 시 hidden 필드 실시간 업데이트
+      elevatorUndergroundFloorsInput && elevatorUndergroundFloorsInput.addEventListener('input', function() {
+        const floorDetail = this.value.trim();
+        elevatorFloorsHidden.value = floorDetail ? '지하 - ' + floorDetail : '지하';
+      });
+
+      // 승강기 외부 보양여부에 따른 시공 층수 입력란 토글
+      // TODO: 예 선택시 자재 진입로 시공 층수 입력칸 제거 ➡ 향후 아래 주석 코드 삭제
+      // const elevatorProtectionInputs = document.querySelectorAll('input[name="elevatorProtection"]');
+      // elevatorProtectionInputs.forEach(input => {
+      //   input.addEventListener('change', function() {
+      //     const elevatorFloorsGroup = document.getElementById('elevatorFloorsGroup');
+      //     const elevatorFloorsInput = document.querySelector('input[name="elevatorFloors"]');
+          
+      //     if (this.value === 'Y') {
+      //       // 예 또는 관리사무소 조건대로 선택 시 - 시공 층수 입력란 표시
+      //       elevatorFloorsGroup.style.display = 'block';
+      //       console.log('✅ 승강기 외부 보양 필요 - 시공 층수 입력란 표시');
+      //     } else {
+      //       // 아니오 또는 관리사무소 조건대로 선택 시 - 시공 층수 입력란 숨김 및 값 초기화
+      //       elevatorFloorsGroup.style.display = 'none';
+      //       elevatorFloorsInput.value = '';
+      //       console.log('❌ 승강기 외부 보양 불필요 - 시공 층수 입력란 숨김');
+      //     }
+      //   });
+      // });
       
       // 기존 허가 여부에 따른 허가 정보 입력란 토글
       const existingPermitInputs = document.querySelectorAll('input[name="existingPermit"]');
@@ -973,11 +1069,43 @@
       });
     });
     
+    // 지하 층수 빠른 입력
+    function addUndergroundFloor(floor, btn) {
+      const input = document.getElementById('elevatorUndergroundFloorsInput');
+      const current = input.value.trim();
+      const floors = current ? current.split(',').map(f => f.trim()) : [];
+
+      if (btn.classList.contains('active')) {
+        // 이미 선택된 경우 → 제거 + active 해제
+        const updated = floors.filter(f => f !== floor);
+        input.value = updated.join(', ');
+        btn.classList.remove('active');
+      } else {
+        // 중복 아닌 경우만 추가
+        if (!floors.includes(floor)) {
+          floors.push(floor);
+          input.value = floors.join(', ');
+        }
+        btn.classList.add('active');
+      }
+
+      // hidden 필드 동기화
+      const hidden = document.getElementById('elevatorFloorsHidden');
+      if (hidden) {
+        const val = input.value.trim();
+        hidden.value = val ? '지하 - ' + val : '지하';
+      }
+      input.dispatchEvent(new Event('input'));
+    }
+
     // 주소 검색 팝업
     function openAddressSearch() {
       new daum.Postcode({
         oncomplete: function(data) {
+          // 주소
           document.querySelector('input[name="address"]').value = data.address;
+          // 건물명
+          document.querySelector('input[name="building"]').value = data.buildingName || '';
         }
       }).open();
     }

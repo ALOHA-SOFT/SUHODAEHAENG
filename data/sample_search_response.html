@@ -1,0 +1,118 @@
+<!doctype html>
+<!--[if lte IE 6]><html lang="ko" class="ie_low ie_hate"><![endif]-->
+<!--[if IE 7]><html lang="ko" class="ie_low"><![endif]-->
+<!--[if IE 8]><html lang="ko" class="ie_medium"><![endif]-->
+<!--[if gte IE 9]><!--><html lang="ko"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+        <link href="//t1.kakaocdn.net/postcode/resource/images/favicon.ico" rel="shortcut icon">
+        
+    <title>Kakao Postcode Service</title>
+                <link rel="stylesheet" href="//t1.kakaocdn.net/postcode/cssjs/service/1774206966779/service.v2.min.css"/>
+
+        </head>
+<body>
+
+
+
+
+
+
+
+
+         
+
+
+
+         
+    
+
+        
+
+<div style="" class="daum_popup" data-mode="transmit" data-intsh="false" data-ctx="" data-plrgno="" data-plrgtimer="" data-msi="" data-whas="" data-submitmode="on">
+        <div class="popup_post_type2">                 <div class="popup_head">
+            <h1 class="screen_out">우편번호 검색</h1>
+            <form action="" id="searchForm" class="form_search" target="_self" method="GET">
+    <fieldset class="fld_inside">
+        <legend class="screen_out">우편번호 검색 입력폼</legend>
+        <div class="post_search">
+            <label for="region_name" class="screen_out">검색할 도로명/지번주소를 입력, 예시) 판교역로 166, 분당 주공, 백현동 532</label>
+            <div class="wrap_tf_keyword">
+                <input type="text" id="region_name" title="주소 검색" class="tf_keyword" name="region_name" value="" autocomplete="off" clearable="false">
+            </div>
+            <input type="hidden" name="cq" id="cQuery" value=""/>
+            <input type="hidden" name="cpage" id="cPage" value=""/>
+            <input type="hidden" name="origin" value="https://example.com"/>
+            <input type="hidden" name="isp" id="isP" value=""/>             <input type="hidden" name="isgr" id="isGR" value=""/>             <input type="hidden" name="isgj" id="isGJ" value=""/>             <input type="hidden" name="ongr" id="onGR" value="N"/>             <input type="hidden" name="ongj" id="onGJ" value="N"/>             <input type="hidden" name="regionid" id="regionId" value=""/>
+            <input type="hidden" name="regionname" id="regionName" value=""/>
+            <input type="hidden" name="roadcode" id="roadCode" value=""/>
+            <input type="hidden" name="roadname" id="roadName" value=""/>
+            <input type="hidden" name="inc" value=""/>             <input type="hidden" name="inch" value=""/>             <input type="hidden" name="inct" value=""/>             <input type="hidden" name="incf" value=""/>             <input type="hidden" name="banner" value=""/>             <input type="hidden" name="ubl" value=""/>             <input type="hidden" name="indaum" value=""/>             <input type="hidden" name="vt" value=""/>             <input type="hidden" name="amr" value=""/>             <input type="hidden" name="amj" value=""/>             <input type="hidden" name="ani" value=""/>             <input type="hidden" name="mode" value="transmit"/>             <input type="hidden" name="sd" value=""/>             <input type="hidden" name="fi" value=""/>             <input type="hidden" name="fc" value=""/>             <input type="hidden" name="hmb" value=""/>             <input type="hidden" name="heb" value=""/>             <input type="hidden" name="asea" value=""/>             <input type="hidden" name="smh" value=""/>             <input type="hidden" name="zo" value=""/>             <input type="hidden" name="theme" value=""/>
+            <input type="hidden" name="bit" value=""/>
+            <input type="hidden" name="sit" value=""/>
+            <input type="hidden" name="sgit" value=""/>
+            <input type="hidden" name="sbit" value=""/>
+            <input type="hidden" name="pit" value=""/>
+            <input type="hidden" name="mit" value=""/>
+            <input type="hidden" name="lcit" value=""/>
+            <input type="hidden" name="plrg" value=""/>             <input type="hidden" name="plrgt" value=""/>             <input type="hidden" name="us" value=""/>             <input type="hidden" name="msi" value=""/>             <input type="hidden" name="ahs" value=""/>             <input type="hidden" name="whas" value=""/>             <input type="hidden" name="zn" value="Y"/>
+            <input type="hidden" name="sm" value=""/>             <input type="hidden" name="CWinWidth" id="constWindowWidth" value=""/>
+            <input type="hidden" name="sptype" id="spType" value=""/>             <input type="hidden" name="sporgq" id="spOrgQuery" value=""/>             <input type="hidden" name="fullpath" id="fullPath" value=""/>
+            <input type="hidden" name="a51" id="a51" value="" />             <button type="button" class="btn_clear"><span class="img_post">취소</span></button>
+            <button type="button" class="btn_search"><span class="img_post">검색</span></button>
+            <span class="placeholder"></span>         </div>
+    </fieldset>
+</form>
+<div id="postCodeSuggestLayer" class="suggest_search"></div>
+            
+
+        </div>
+        <div class="popup_body" id="focusContent"  tabindex="-1">
+                                    
+ <div class="info_body">
+    <h2 class="tit_tip">tip</h2>
+    <p class="desc_tip">아래와 같은 조합으로 검색을 하시면 더욱 정확한 결과가 검색됩니다.</p>
+    <p class="desc_tip">도로명 + 건물번호</p>
+    <span class="txt_example">예) 판교역로 166,&nbsp;&nbsp;제주 첨단로 242</span>
+    <p class="desc_tip2">지역명(동/리) + 번지</p>
+    <span class="txt_example">예) 백현동 532,&nbsp;&nbsp;제주 영평동 2181</span>
+    <p class="desc_tip2">지역명(동/리) + 건물명(아파트명)</p>
+    <span class="txt_example">예) 분당 주공,&nbsp;&nbsp;연수동 주공3차</span>
+    <p class="desc_tip2">사서함명 + 번호</p>
+    <span class="txt_example">예) 분당우체국사서함 1~100</span>
+</div>
+
+
+
+
+                         
+                                </div>
+    </div>
+</div>
+<div class="popup_foot">     <span class="inner_footer">
+    <span class="txt_by">Powered by </span><strong class="img_post tit_kakao">kakao</strong>
+    <span class="txt_bar"></span>
+        <a href="//postcode.map.kakao.com/guide" class="link_infomation" target="_blank" title="새창열림">우편번호 서비스 안내</a>
+    </span></div>
+<script type="text/javascript" src="//t1.kakaocdn.net/postcode/cssjs/lib/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="//t1.kakaocdn.net/tiara/js/v1/tiara.min.js"></script>
+
+        <script type="text/javascript" src="//t1.kakaocdn.net/postcode/cssjs/service/1774206966779/service.v2.min.js"></script>
+    
+
+ <script type="text/javascript">
+            $(function(){
+        var url = '//postcode.map.kakao.com/guide';
+        postcodeV2.setEnvironmentVariables('false', 'PROD');
+        postcodeV2.viewInit(url);
+    });
+</script>
+</body>
+</html>
+
+
+
+
+
