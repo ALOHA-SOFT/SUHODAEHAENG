@@ -409,6 +409,17 @@
             <textarea class="form-control" id="request" th:text="*{request}"></textarea>
           </div>
         </div>
+
+        <div class="form-row full-width">
+          <div class="form-group">
+            <label class="form-label">서류 처리 방법</label>
+            <select class="form-control" id="docHandling">
+              <option value="" th:selected="*{docHandling == null or docHandling == ''}">-- 미응답 --</option>
+              <option value="관리사무소 제출" th:selected="*{docHandling == '관리사무소 제출'}">① 관리사무소 제출해 주세요.</option>
+              <option value="소화전·우편함 보관" th:selected="*{docHandling == '소화전·우편함 보관'}">② 해당 호수 앞 소화전 또는 우편함 보관</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       <!-- 저장 버튼 -->
@@ -482,7 +493,8 @@
         elevatorProtection: document.getElementById('elevatorProtection')?.value || 'N',
         elevatorFloors: document.getElementById('elevatorFloors')?.value || '',
         content: document.getElementById('content').value,
-        request: document.getElementById('request').value
+        request: document.getElementById('request').value,
+        docHandling: document.getElementById('docHandling').value
       };
       
       // ajax.js 공통 함수 사용

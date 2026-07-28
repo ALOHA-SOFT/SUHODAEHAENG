@@ -40,6 +40,7 @@ public class Forms extends Base {
     private String name;                // 신청인명
     private String tel;                 // 신청인 전화번호
     private String request;             // 요청사항
+    private String docHandling;         // 서류 처리 방법 (관리사무소 제출 / 소화전·우편함 보관)
     /* =============== 공통 양식 =============== */
     
     /* =============== (1) 입주민동의서 개별양식 =============== */

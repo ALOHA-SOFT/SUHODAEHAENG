@@ -80,6 +80,7 @@ CREATE TABLE `forms` (
 	`construction_scope` VARCHAR(255) COMMENT '공사범위 (다중선택: 확장, 비내력벽 철거및신설)',
 	`construction_scope_description` TEXT COMMENT '공사범위 상세 설명',
 	`request` TEXT COMMENT '요청 사항',
+	`doc_handling` TEXT COMMENT '서류 처리 방법 (관리사무소 제출 / 소화전·우편함 보관)',
 	`status` VARCHAR(20) NOT NULL DEFAULT '접수' COMMENT '신청서 상태 (접수, 검토중, 승인, 반려, 완료)',
 	`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '작성 일시',
 	`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정 일시',

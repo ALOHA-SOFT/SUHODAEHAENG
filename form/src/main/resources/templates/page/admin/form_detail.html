@@ -535,6 +535,14 @@
             <div class="detail-value" th:text="${forms.request}">기타 요청사항 내용</div>
           </div>
         </div>
+
+        <!-- 서류 처리 방법 -->
+        <div class="detail-section" th:if="${forms.docHandling != null and forms.docHandling != ''}">
+          <h3 class="section-title">📄 서류 처리 방법</h3>
+          <div class="detail-item full-width">
+            <div class="detail-value" th:text="${forms.docHandling}">관리사무소 제출</div>
+          </div>
+        </div>
       </div>
       
       <!-- 사이드바 -->
